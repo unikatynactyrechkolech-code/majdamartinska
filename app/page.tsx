@@ -1,0 +1,208 @@
+import Image from 'next/image';
+import Link from 'next/link';
+import { HorizontalScroll } from '@/components/HorizontalScroll';
+
+const hScrollItems = [
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/3f875228-71be-40bf-96d2-b419364599a1/1/1/_FFF5983.jpg?fjkss=exp=2088681035~hmac=2e9c039a5620e3d43d3fe64b3f7daef7015cc8ae1b4d717a0fea903df01196c7', alt: 'Rodinné focení', caption: 'Rodinné' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/0bbb0044-6aac-4da5-8043-4c09d06b8164/1/1/192.jpg?fjkss=exp=2088920790~hmac=77261ddf4add0008600b2e0b4dacb93e5a710de8a3ec6ff85a0d2ada0c8b3165', alt: 'Svatby', caption: 'Svatby' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/77117316-7f64-4db7-8b23-d32496550df9/1/1/_FFF7059.jpg?fjkss=exp=2088927709~hmac=d73e6ebc3df068b24965421c829df9026c667decd48f2b207774d18a99d1bcd5', alt: 'Newborn', caption: 'Newborn' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,1600,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2088920600~hmac=7012a75d6187677fa811f9a01dbd2f217af3a83b2a2bfbd3378d20da1d9f46d8', alt: 'Portréty', caption: 'Portréty' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c', alt: 'Těhotenské focení', caption: 'Těhotenské' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864', alt: 'Rodinné focení', caption: 'Rodina' },
+];
+
+export default function HomePage() {
+  return (
+    <>
+      {/* HERO */}
+      <section className="hero" id="hero">
+        <div className="hero-bg">
+          <Image
+            src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1200,800,1600,800/0-0-0/283bbdbb-fafa-42f3-9c5d-ee1044b1dfc2/1/1/_FFF8973-SharpenAI-Focus.jpg?fjkss=exp=2088681035~hmac=56bc05a3fd90f6fdd7220cfbd6907096d70ae4eda0d333aa86dd01aecffe9d4c"
+            alt="Majda Martinská fotografie"
+            fill
+            priority
+            sizes="50vw"
+            style={{ objectFit: 'cover' }}
+          />
+        </div>
+        <div className="hero-content">
+          <p className="hero-label">RODINNÉ · SVATEBNÍ · NEWBORN FOCENÍ</p>
+          <h1 className="hero-title">
+            <span className="hero-line">Vaše</span>
+            <span className="hero-line"><em>příběhy</em></span>
+            <span className="hero-line">zachycené navždy</span>
+          </h1>
+          <Link href="/kontakt" className="btn btn-primary hero-btn">Mám zájem</Link>
+        </div>
+      </section>
+
+      {/* PROMISE */}
+      <section className="section promise" data-animate>
+        <div className="container">
+          <p className="section-label">SLIBUJI VÁM</p>
+          <h2 className="section-title-big">Že focení bude <br /><em>přirozené &amp; v pohodě</em></h2>
+          <div className="promise-grid">
+            <div className="promise-text">
+              <p>Hledáte fotografku a zároveň pohodářku? Chcete si focení užít a neprotrpět? Jste na správném místě. Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi při focení záleží.</p>
+              <Link href="/kontakt" className="btn btn-outline">Napište mi →</Link>
+            </div>
+            <div className="promise-img">
+              <Image
+                src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/287,0,1287,1000,580,580,1/0-0-0/abd0b8bc-40a7-4cba-a769-cbc568d41c13/1/2/_FFF5931.jpg?fjkss=exp=2088681039~hmac=22be9649398a9ea56ec377944dcd6bd02254347ecc8e43027ed7075709fe618c"
+                alt="Rodinné focení"
+                width={580}
+                height={725}
+                quality={80}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ width: '100%', height: 'auto', aspectRatio: '4/5', objectFit: 'cover' }}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* HORIZONTAL SCROLL */}
+      <section className="section gallery-horizontal" data-animate>
+        <div className="container">
+          <p className="section-label">PORTFOLIO</p>
+        </div>
+        <HorizontalScroll items={hScrollItems} />
+      </section>
+
+      {/* SERVICES */}
+      <section className="section services" data-animate>
+        <div className="container">
+          <p className="section-label">MOJE SLUŽBY</p>
+          <h2 className="section-title">Moje <em>práce</em></h2>
+          <div className="services-grid">
+            <Link href="/portfolio#rodinna" className="service-card">
+              <div className="service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="service-info">
+                <span className="service-name">Rodinné a portrétní</span>
+                <span className="service-cta">ZOBRAZIT →</span>
+              </div>
+            </Link>
+            <Link href="/portfolio#newborn" className="service-card">
+              <div className="service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="service-info">
+                <span className="service-name">Newborn — miminka</span>
+                <span className="service-cta">ZOBRAZIT →</span>
+              </div>
+            </Link>
+            <Link href="/portfolio#svatby" className="service-card">
+              <div className="service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <div className="service-info">
+                <span className="service-name">Svatby</span>
+                <span className="service-cta">ZOBRAZIT →</span>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ABOUT PREVIEW */}
+      <section className="section about-preview" data-animate>
+        <div className="container">
+          <div className="about-preview-grid">
+            <div className="about-preview-img">
+              <Image
+                src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,999,999,1520,1520,1/0-0-0/c11ca67d-b1da-42ba-b398-a4483cfafa6e/1/2/mandarinkab.jpg?fjkss=exp=2088927692~hmac=4057268ac7beb84ef3e15484149ef0a30d91712645ea49bc32d3aca6b40f9f7d"
+                alt="Majda Martinská"
+                width={760}
+                height={760}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                style={{ width: '100%', height: 'auto', aspectRatio: '1', objectFit: 'cover', borderRadius: '2px' }}
+              />
+            </div>
+            <div className="about-preview-content">
+              <p className="section-label">KDO STOJÍ ZA OBJEKTIVEM?</p>
+              <h2 className="section-title">Ahoj,<br />jsem <em>Majda</em></h2>
+              <p>Focení mě lákalo od dětství. Mám ráda humor a to se objevuje i v mých fotografiích. Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi záleží. Taky jsem dost upovídaná, takže kdo se bojí trapného ticha, nebude :)</p>
+              <div className="about-preview-btns">
+                <Link href="/o-mne" className="btn btn-outline">Více o mně</Link>
+                <Link href="/kontakt" className="btn btn-text">Kontakt</Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* MORE SERVICES */}
+      <section className="section more-services" data-animate>
+        <div className="container">
+          <div className="more-services-grid">
+            <Link href="/sluzby#psi" className="more-service-item">
+              <div className="more-service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/91,0,1091,1000,580,580,1/0-0-0/df099d74-dc42-4b6c-b83e-fb2200b54189/1/2/_FFF6743.jpg?fjkss=exp=2088926255~hmac=69a228dbb31ba452684c67584e88c7e9291798244e448bc468b9c8071a5c924a" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <h3>Psí kamarádi</h3>
+              <p>Máš doma mazlíka? Chceš ho mít na fotkách? Tož to tady jsi správně.</p>
+              <span className="more-service-cta">INFORMACE →</span>
+            </Link>
+            <Link href="/sluzby#tehotenske" className="more-service-item">
+              <div className="more-service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c" alt="Těhotenské focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <h3>Těhotenské focení</h3>
+              <p>Krásné období, které si zaslouží zachytit na fotografiích.</p>
+              <span className="more-service-cta">INFORMACE →</span>
+            </Link>
+            <Link href="/sluzby#portret" className="more-service-item">
+              <div className="more-service-img">
+                <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/269,0,1269,1000,580,580,1/0-0-0/03b7bbe1-7c1f-4167-adab-849497e1d2e2/1/2/_FFF0819.jpg?fjkss=exp=2088681039~hmac=b5673dbf2b60511a55402901e21d21c70b0de494fa1a65298258688c498e2a6e" alt="Portrétní focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              </div>
+              <h3>Portréty</h3>
+              <p>Profesionální portrétní fotografie pro vaši prezentaci i osobní účely.</p>
+              <span className="more-service-cta">INFORMACE →</span>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* TESTIMONIALS */}
+      <section className="section testimonials" data-animate>
+        <div className="container">
+          <p className="section-label">MILÁ SLOVA</p>
+          <div className="testimonial-card">
+            <blockquote>
+              <p>„Spolupracovat s Majdou byla naprostá paráda. S naším 14denním synem zacházela více než mateřsky. Fotografie jsou plné něhy, lásky a profesionality."</p>
+            </blockquote>
+            <div className="testimonial-author">
+              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/341,0,1341,999,760,760,1/0-0-0/465305c9-f66c-4175-b352-2218472c9b79/1/2/_FFF7991-SharpenAI-Softness.jpg?fjkss=exp=2088927693~hmac=e5651265ed7944c54ef2104fff6f891c739eeae40455d82b8168c81c91edacf0" alt="Bára M." width={56} height={56} style={{ borderRadius: '50%', objectFit: 'cover' }} />
+              <div>
+                <strong>Bára M.</strong>
+                <span>Newborn focení</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* STUDIO */}
+      <section className="section studio" data-animate>
+        <div className="container">
+          <p className="section-label">ATELIÉR</p>
+          <h2 className="section-title">Ateliér <em>Praha Suchdol</em></h2>
+          <p className="studio-desc">Disponuji velkým a dobře vybaveným ateliérem v klidné části Praha — Suchdol.</p>
+          <a href="https://www.youtube.com/watch?v=NSrVtQRirpE" target="_blank" rel="noopener noreferrer" className="btn btn-outline">Nahlédněte pod pokličku →</a>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="section cta" data-animate>
+        <div className="container">
+          <p className="section-label">JSME NA PODOBNÉ VLNĚ?</p>
+          <h2 className="section-title-big">Pojďme <em>do toho</em></h2>
+          <Link href="/kontakt" className="btn btn-primary">Kontakt</Link>
+        </div>
+      </section>
+    </>
+  );
+}
