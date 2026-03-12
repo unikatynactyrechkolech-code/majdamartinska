@@ -307,6 +307,155 @@ ul {
     overflow: visible;
 }
 
+/* ========================================
+   HERO INTERACTIVE CAMERA
+   ======================================== */
+
+.hero-camera-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    min-height: 500px;
+    cursor: pointer;
+    perspective: 800px;
+    overflow: hidden;
+}
+
+.hero-camera-flash {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95);
+    opacity: 0;
+    transition: opacity 0.15s ease;
+    z-index: 10;
+    pointer-events: none;
+    border-radius: 4px;
+}
+
+.hero-camera {
+    position: relative;
+    transition: transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    animation: cameraFloat 6s ease-in-out infinite;
+}
+
+.hero-camera-svg {
+    width: clamp(180px, 22vw, 280px);
+    height: auto;
+    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15))
+            drop-shadow(0 8px 20px rgba(0, 0, 0, 0.08));
+}
+
+.hero-camera-lens-group {
+    transition: transform 0.15s ease-out;
+    transform-origin: center;
+}
+
+.hero-camera-container:hover .hero-camera-lens-group {
+    animation: lensPulse 2s ease-in-out infinite;
+}
+
+.hero-camera-shutter-btn {
+    transition: all 0.2s ease;
+    transform-origin: center;
+}
+
+.hero-camera-container:hover .hero-camera-shutter-btn {
+    fill: #c9a057;
+}
+
+.hero-camera-shutter.snap line {
+    animation: shutterSnap 0.4s ease-out;
+}
+
+.hero-camera-hint {
+    position: absolute;
+    bottom: -2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-body);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    white-space: nowrap;
+}
+
+.hero-camera-container:hover .hero-camera-hint {
+    opacity: 1;
+}
+
+/* Floating particles */
+.hero-camera-particles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.particle {
+    position: absolute;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.15;
+}
+
+.particle.p1 {
+    width: 6px; height: 6px;
+    top: 20%; left: 15%;
+    animation: particleFloat 8s ease-in-out infinite;
+}
+
+.particle.p2 {
+    width: 4px; height: 4px;
+    top: 60%; right: 20%;
+    animation: particleFloat 10s ease-in-out infinite 1s;
+}
+
+.particle.p3 {
+    width: 8px; height: 8px;
+    bottom: 25%; left: 30%;
+    animation: particleFloat 7s ease-in-out infinite 2s;
+}
+
+.particle.p4 {
+    width: 3px; height: 3px;
+    top: 35%; right: 10%;
+    animation: particleFloat 9s ease-in-out infinite 0.5s;
+}
+
+.particle.p5 {
+    width: 5px; height: 5px;
+    bottom: 40%; right: 35%;
+    animation: particleFloat 11s ease-in-out infinite 3s;
+}
+
+@keyframes cameraFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+}
+
+@keyframes lensPulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.85; }
+}
+
+@keyframes shutterSnap {
+    0% { stroke-width: 0.8; opacity: 1; }
+    30% { stroke-width: 3; opacity: 0.5; }
+    100% { stroke-width: 0.8; opacity: 1; }
+}
+
+@keyframes particleFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+    25% { transform: translate(15px, -20px) scale(1.2); opacity: 0.25; }
+    50% { transform: translate(-10px, -35px) scale(0.8); opacity: 0.1; }
+    75% { transform: translate(20px, -15px) scale(1.1); opacity: 0.2; }
+}
+
 .hero-label {
     font-family: var(--font-body);
     font-size: 0.65rem;
@@ -1530,8 +1679,13 @@ ul {
         min-height: auto;
     }
 
-    .hero-bg {
-        min-height: 50vh;
+    .hero-camera-container {
+        min-height: 300px;
+        order: -1;
+    }
+
+    .hero-camera-svg {
+        width: 160px;
     }
 
     .hero-content {
