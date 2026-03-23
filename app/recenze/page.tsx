@@ -1,6 +1,9 @@
+'use client';
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
+import { EditableText } from '@/components/EditableText';
 
 const reviews = [
   {
@@ -72,6 +75,7 @@ export default function RecenzePage() {
         title="Recenze"
         subtitle="Co říkají moji klienti"
         image="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/287,0,1287,1000,580,580,1/0-0-0/abd0b8bc-40a7-4cba-a769-cbc568d41c13/1/2/_FFF5931.jpg?fjkss=exp=2088681039~hmac=22be9649398a9ea56ec377944dcd6bd02254347ecc8e43027ed7075709fe618c"
+        sectionPrefix="recenze.hero"
       />
 
       <section className="section" data-animate>
@@ -80,7 +84,9 @@ export default function RecenzePage() {
             {reviews.map((review, idx) => (
               <div className="review-card" key={idx}>
                 <div className="review-stars">★★★★★</div>
-                <p className="review-text">„{review.text}"</p>
+                <p className="review-text">
+                  <EditableText sectionId={`recenze.review${idx + 1}.text`} defaultValue={`\u201E${review.text}\u201C`} as="span" multiline />
+                </p>
                 <div className="review-author">
                   <Image
                     src={review.img}
@@ -91,8 +97,8 @@ export default function RecenzePage() {
                     style={{ borderRadius: '50%', objectFit: 'cover', width: '48px', height: '48px', minWidth: '48px', minHeight: '48px', flexShrink: 0 }}
                   />
                   <div>
-                    <strong>{review.name}</strong>
-                    <span>{review.type}</span>
+                    <EditableText sectionId={`recenze.review${idx + 1}.name`} defaultValue={review.name} as="strong" />
+                    <EditableText sectionId={`recenze.review${idx + 1}.type`} defaultValue={review.type} as="span" />
                   </div>
                 </div>
               </div>
@@ -104,9 +110,13 @@ export default function RecenzePage() {
       {/* CTA */}
       <section className="section cta" data-animate>
         <div className="container">
-          <p className="section-label">CHCETE BÝT DALŠÍ?</p>
-          <h2 className="section-title-big">Pojďme <em>do toho</em></h2>
-          <Link href="/kontakt" className="btn btn-primary">Napište mi</Link>
+          <EditableText sectionId="recenze.cta.label" defaultValue="CHCETE BÝT DALŠÍ?" as="p" className="section-label" />
+          <h2 className="section-title-big">
+            <EditableText sectionId="recenze.cta.title" defaultValue="Pojďme <em>do toho</em>" as="span" />
+          </h2>
+          <Link href="/kontakt" className="btn btn-primary">
+            <EditableText sectionId="recenze.cta.btn" defaultValue="Napište mi" as="span" />
+          </Link>
         </div>
       </section>
     </>

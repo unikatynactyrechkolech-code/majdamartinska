@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
+import { EditableText } from '@/components/EditableText';
 
 interface PortfolioImage {
   src: string;
@@ -11,13 +12,13 @@ interface PortfolioImage {
 }
 
 const filters = [
-  { key: 'all', label: 'Vše' },
-  { key: 'rodinna', label: 'Rodinné' },
-  { key: 'newborn', label: 'Newborn' },
-  { key: 'tehotenske', label: 'Těhotenské' },
-  { key: 'portret', label: 'Portréty' },
-  { key: 'svatby', label: 'Svatby' },
-  { key: 'psi', label: 'Pejsci' },
+  { key: 'all', sectionId: 'portfolio.filter.all', label: 'Vše' },
+  { key: 'rodinna', sectionId: 'portfolio.filter.rodinna', label: 'Rodinné' },
+  { key: 'newborn', sectionId: 'portfolio.filter.newborn', label: 'Newborn' },
+  { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
+  { key: 'portret', sectionId: 'portfolio.filter.portret', label: 'Portréty' },
+  { key: 'svatby', sectionId: 'portfolio.filter.svatby', label: 'Svatby' },
+  { key: 'psi', sectionId: 'portfolio.filter.psi', label: 'Pejsci' },
 ];
 
 export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
@@ -38,7 +39,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
             className={active === f.key ? 'active' : ''}
             onClick={() => handleFilter(f.key)}
           >
-            {f.label}
+            <EditableText sectionId={f.sectionId} defaultValue={f.label} as="span" />
           </button>
         ))}
       </div>

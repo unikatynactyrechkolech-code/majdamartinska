@@ -3,14 +3,15 @@
 import { useEffect, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
+import { EditableText } from '@/components/EditableText';
 
 const navItems = [
-  { href: '/', label: 'Úvod' },
-  { href: '/portfolio', label: 'Portfolio' },
-  { href: '/sluzby', label: 'Služby' },
-  { href: '/o-mne', label: 'Kdo jsem' },
-  { href: '/recenze', label: 'Recenze' },
-  { href: '/kontakt', label: 'Kontakt' },
+  { href: '/', sectionId: 'nav.item.uvod', label: 'Úvod' },
+  { href: '/portfolio', sectionId: 'nav.item.portfolio', label: 'Portfolio' },
+  { href: '/sluzby', sectionId: 'nav.item.sluzby', label: 'Služby' },
+  { href: '/o-mne', sectionId: 'nav.item.omne', label: 'Kdo jsem' },
+  { href: '/recenze', sectionId: 'nav.item.recenze', label: 'Recenze' },
+  { href: '/kontakt', sectionId: 'nav.item.kontakt', label: 'Kontakt' },
 ];
 
 export function Navigation() {
@@ -41,7 +42,9 @@ export function Navigation() {
   return (
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`} id="nav">
       <Link href="/" className="nav-logo">
-        MAJDA MARTINSKÁ <span>FOTOGRAFKA</span>
+        <EditableText sectionId="nav.logo.name" defaultValue="MAJDA MARTINSKÁ" as="span" />
+        {' '}
+        <EditableText sectionId="nav.logo.subtitle" defaultValue="FOTOGRAFKA" as="span" />
       </Link>
       <button
         className={`nav-toggle ${menuOpen ? 'active' : ''}`}
@@ -61,7 +64,7 @@ export function Navigation() {
                 document.body.style.overflow = '';
               }}
             >
-              {item.label}
+              <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
             </Link>
           </li>
         ))}

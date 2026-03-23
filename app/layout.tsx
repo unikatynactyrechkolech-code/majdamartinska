@@ -6,6 +6,8 @@ import { Footer } from '@/components/Footer';
 import { PageTransition } from '@/components/PageTransition';
 import { LoadingScreen } from '@/components/LoadingScreen';
 import { ScrollAnimations } from '@/components/ScrollAnimations';
+import { AdminProvider } from '@/contexts/AdminContext';
+import { AdminToolbar } from '@/components/AdminToolbar';
 
 export const metadata: Metadata = {
   title: 'Majda Martinská — Fotografka',
@@ -27,12 +29,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         />
       </head>
       <body>
-        <LoadingScreen />
-        <PageTransition />
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
-        <ScrollAnimations />
+        <AdminProvider>
+          <LoadingScreen />
+          <PageTransition />
+          <AdminToolbar />
+          <Navigation />
+          <main>{children}</main>
+          <Footer />
+          <ScrollAnimations />
+        </AdminProvider>
       </body>
     </html>
   );

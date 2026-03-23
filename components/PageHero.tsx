@@ -1,12 +1,17 @@
+'use client';
+
 import Image from 'next/image';
+import { EditableText } from '@/components/EditableText';
 
 export interface PageHeroProps {
   title: string;
   subtitle?: string;
   image: string;
+  /** sectionId prefix, e.g. "portfolio.hero" → will create "portfolio.hero.title" and "portfolio.hero.subtitle" */
+  sectionPrefix?: string;
 }
 
-export function PageHero({ title, subtitle, image }: PageHeroProps) {
+export function PageHero({ title, subtitle, image, sectionPrefix }: PageHeroProps) {
   return (
     <section className="page-hero">
       <div className="page-hero-bg">
@@ -21,8 +26,15 @@ export function PageHero({ title, subtitle, image }: PageHeroProps) {
       </div>
       <div className="hero-overlay" />
       <div className="page-hero-content">
-        {subtitle && <p className="section-label">{subtitle}</p>}
-        <h1>{title}</h1>
+        {subtitle && (
+          sectionPrefix
+            ? <EditableText sectionId={`${sectionPrefix}.subtitle`} defaultValue={subtitle} as="p" className="section-label" />
+            : <p className="section-label">{subtitle}</p>
+        )}
+        {sectionPrefix
+          ? <EditableText sectionId={`${sectionPrefix}.title`} defaultValue={title} as="h1" />
+          : <h1>{title}</h1>
+        }
       </div>
     </section>
   );
