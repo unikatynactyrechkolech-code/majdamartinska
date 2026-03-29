@@ -315,3 +315,41 @@ INSERT INTO page_content (project_id, section_id, draft_text, published_text) VA
 ('majdamartinska', 'form.option.jine', 'Jiné', 'Jiné'),
 ('majdamartinska', 'form.btn.submit', 'Odeslat poptávku', 'Odeslat poptávku')
 ON CONFLICT (project_id, section_id) DO NOTHING;
+
+
+-- =============================================
+-- TABULKA PRO OBRÁZKY (Cloudinary)
+-- =============================================
+
+CREATE TABLE IF NOT EXISTS page_images (
+  id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+  project_id TEXT NOT NULL DEFAULT 'default',
+  section_id TEXT NOT NULL,
+  image_url TEXT NOT NULL,
+  cloudinary_public_id TEXT NOT NULL,
+  width INT,
+  height INT,
+  alt_text TEXT DEFAULT '',
+  created_at TIMESTAMPTZ DEFAULT now(),
+  updated_at TIMESTAMPTZ DEFAULT now(),
+  UNIQUE(project_id, section_id)
+);
+
+ALTER TABLE page_images ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Allow public read images" ON page_images;
+DROP POLICY IF EXISTS "Allow public insert images" ON page_images;
+DROP POLICY IF EXISTS "Allow public update images" ON page_images;
+DROP POLICY IF EXISTS "Allow public delete images" ON page_images;
+
+CREATE POLICY "Allow public read images"
+  ON page_images FOR SELECT TO anon USING (true);
+
+CREATE POLICY "Allow public insert images"
+  ON page_images FOR INSERT TO anon WITH CHECK (true);
+
+CREATE POLICY "Allow public update images"
+  ON page_images FOR UPDATE TO anon USING (true) WITH CHECK (true);
+
+CREATE POLICY "Allow public delete images"
+  ON page_images FOR DELETE TO anon USING (true);

@@ -8,7 +8,18 @@ const nextConfig = {
         hostname: 'format.creatorcdn.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        pathname: '/**',
+      },
     ],
+  },
+  // Allow larger payloads for image uploads via Server Actions
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '12mb',
+    },
   },
 };
 
