@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import Image from 'next/image';
+import { EditableImage } from '@/components/EditableImage';
 import { EditableText } from '@/components/EditableText';
 
 interface PortfolioImage {
@@ -9,6 +9,8 @@ interface PortfolioImage {
   alt: string;
   category: string;
   id?: string;
+  /** sectionId for editable image */
+  sectionId?: string;
 }
 
 const filters = [
@@ -46,7 +48,8 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
       <div className="portfolio-masonry">
         {filtered.map((img, i) => (
           <div className="portfolio-item" key={`${img.category}-${i}`} id={img.id}>
-            <Image
+            <EditableImage
+              sectionId={img.sectionId || `portfolio.img.${i}`}
               src={img.src}
               alt={img.alt}
               width={600}

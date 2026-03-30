@@ -1,12 +1,14 @@
 'use client';
 
 import { useRef, useEffect, useCallback } from 'react';
-import Image from 'next/image';
+import { EditableImage } from '@/components/EditableImage';
 
 interface HScrollItem {
   src: string;
   alt: string;
   caption: string;
+  /** sectionId for editable image, e.g. "home.hscroll.1" */
+  sectionId?: string;
 }
 
 export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
@@ -86,7 +88,8 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
       <div className="h-scroll-track">
         {items.map((item, i) => (
           <div className="h-scroll-item" key={i}>
-            <Image
+            <EditableImage
+              sectionId={item.sectionId || `hscroll.${i}`}
               src={item.src}
               alt={item.alt}
               width={500}

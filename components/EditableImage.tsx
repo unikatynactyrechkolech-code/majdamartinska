@@ -8,6 +8,8 @@ import { useCallback, useState, useEffect } from 'react';
 interface EditableImageProps extends Omit<ImageProps, 'onClick'> {
   /** Unique identifier for this image, e.g. "home.promise.img" */
   sectionId: string;
+  /** Optional: hide the overlay text (useful for small images like avatars) */
+  overlayCompact?: boolean;
 }
 
 export function EditableImage({
@@ -16,6 +18,8 @@ export function EditableImage({
   style,
   src: defaultSrc,
   alt: defaultAlt,
+  overlayCompact = false,
+  fill,
   ...props
 }: EditableImageProps) {
   const { isAdmin } = useAdmin();
@@ -46,8 +50,10 @@ export function EditableImage({
 
   const currentSrc = dbImageUrl || defaultSrc;
 
-  const handleClick = useCallback(() => {
+  const handleClick = useCallback((e: React.MouseEvent) => {
     if (!isAdmin) return;
+    e.preventDefault();
+    e.stopPropagation();
     setIsModalOpen(true);
   }, [isAdmin]);
 
@@ -55,11 +61,18 @@ export function EditableImage({
     setIsModalOpen(false);
   }, []);
 
+  // For fill images, we need the wrapper to also be position:relative
+  const wrapperStyle: React.CSSProperties = {
+    position: 'relative',
+    cursor: isAdmin ? 'pointer' : undefined,
+    ...(fill ? { width: '100%', height: '100%' } : {}),
+  };
+
   return (
     <>
       <div
         className={`${isAdmin ? 'cms-editable-image' : ''}`}
-        style={{ position: 'relative', cursor: isAdmin ? 'pointer' : undefined }}
+        style={wrapperStyle}
         onClick={handleClick}
       >
         <Image
@@ -67,14 +80,17 @@ export function EditableImage({
           style={style}
           src={currentSrc}
           alt={defaultAlt}
+          fill={fill}
           {...props}
         />
         {isAdmin && (
-          <div className="cms-image-overlay">
+          <div className={`cms-image-overlay ${overlayCompact ? 'cms-image-overlay-compact' : ''}`}>
             <span className="cms-image-overlay-icon">📷</span>
-            <span className="cms-image-overlay-text">
-              {dbImageUrl ? 'Klikněte pro změnu / smazání' : 'Klikněte pro nahrání'}
-            </span>
+            {!overlayCompact && (
+              <span className="cms-image-overlay-text">
+                {dbImageUrl ? 'Změnit / smazat' : 'Nahrát obrázek'}
+              </span>
+            )}
           </div>
         )}
       </div>

@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import Image from 'next/image';
+import { EditableImage } from '@/components/EditableImage';
 import { EditableText } from '@/components/EditableText';
 
 export function Footer() {
@@ -10,12 +10,14 @@ export function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <Image
+            <EditableImage
+              sectionId="footer.avatar"
               src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,200,200,400,398/0-0-0/7b20a2a3-defe-43c3-a04c-8a0dacb2ed8f/1/1/c.jpg?fjkss=exp=2088926256~hmac=c8c376d33858128bf7c2487d345e67b07975b861b20d8756135df2891a693e38"
               alt="Majda Martinská"
               width={60}
               height={60}
               className="footer-avatar"
+              overlayCompact
             />
             <h3><EditableText sectionId="footer.brand.name" defaultValue="Majda Martinská" as="span" /></h3>
             <p><EditableText sectionId="footer.brand.subtitle" defaultValue="Fotografka — Praha Suchdol" as="span" /></p>

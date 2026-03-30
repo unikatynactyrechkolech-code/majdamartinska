@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
+import { EditableImage } from '@/components/EditableImage';
 
 const reviews = [
   {
@@ -88,13 +88,15 @@ export default function RecenzePage() {
                   <EditableText sectionId={`recenze.review${idx + 1}.text`} defaultValue={`\u201E${review.text}\u201C`} as="span" multiline />
                 </p>
                 <div className="review-author">
-                  <Image
+                  <EditableImage
+                    sectionId={`recenze.review${idx + 1}.img`}
                     src={review.img}
                     alt={review.name}
                     width={48}
                     height={48}
                     sizes="48px"
                     style={{ borderRadius: '50%', objectFit: 'cover', width: '48px', height: '48px', minWidth: '48px', minHeight: '48px', flexShrink: 0 }}
+                    overlayCompact
                   />
                   <div>
                     <EditableText sectionId={`recenze.review${idx + 1}.name`} defaultValue={review.name} as="strong" />

@@ -2310,6 +2310,16 @@ ul {
     letter-spacing: 0.06em;
 }
 
+/* Compact overlay for small images (avatars etc.) */
+.cms-image-overlay-compact {
+    border-radius: 50%;
+}
+
+.cms-image-overlay-compact .cms-image-overlay-icon {
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
 /* Admin toggle button (always visible bottom-right) */
 .cms-admin-toggle {
     position: fixed;

@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
+import { EditableImage } from '@/components/EditableImage';
 
 export default function SluzbyPage() {
   return (
@@ -20,7 +20,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.rodinna.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">01</p>
@@ -48,7 +48,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.newborn.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">02</p>
@@ -76,7 +76,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.svatby.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">03</p>
@@ -104,7 +104,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/91,0,1091,1000,580,580,1/0-0-0/df099d74-dc42-4b6c-b83e-fb2200b54189/1/2/_FFF6743.jpg?fjkss=exp=2088926255~hmac=69a228dbb31ba452684c67584e88c7e9291798244e448bc468b9c8071a5c924a" alt="Focení psů" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.psi.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/91,0,1091,1000,580,580,1/0-0-0/df099d74-dc42-4b6c-b83e-fb2200b54189/1/2/_FFF6743.jpg?fjkss=exp=2088926255~hmac=69a228dbb31ba452684c67584e88c7e9291798244e448bc468b9c8071a5c924a" alt="Focení psů" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">04</p>
@@ -132,7 +132,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c" alt="Těhotenské focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.tehotenske.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c" alt="Těhotenské focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">05</p>
@@ -160,7 +160,7 @@ export default function SluzbyPage() {
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
-              <Image src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/269,0,1269,1000,580,580,1/0-0-0/03b7bbe1-7c1f-4167-adab-849497e1d2e2/1/2/_FFF0819.jpg?fjkss=exp=2088681039~hmac=b5673dbf2b60511a55402901e21d21c70b0de494fa1a65298258688c498e2a6e" alt="Portrétní focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
+              <EditableImage sectionId="sluzby.portret.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/269,0,1269,1000,580,580,1/0-0-0/03b7bbe1-7c1f-4167-adab-849497e1d2e2/1/2/_FFF0819.jpg?fjkss=exp=2088681039~hmac=b5673dbf2b60511a55402901e21d21c70b0de494fa1a65298258688c498e2a6e" alt="Portrétní focení" width={700} height={875} sizes="(max-width: 768px) 100vw, 50vw" style={{ width: '100%', height: 'auto', objectFit: 'cover' }} />
             </div>
             <div className="service-detail-content">
               <p className="section-label">06</p>

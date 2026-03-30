@@ -1,6 +1,7 @@
 'use server';
 
 import { v2 as cloudinary } from 'cloudinary';
+import { revalidatePath } from 'next/cache';
 
 // ============================================================
 // UNIVERZÁLNÍ SERVER ACTIONS PRO SPRÁVU OBRÁZKŮ
@@ -200,6 +201,9 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
       }
     }
 
+    // Revalidate all pages so they pick up the new image
+    revalidatePath('/', 'layout');
+
     return { success: true, imageUrl, publicId, width, height };
   } catch (err) {
     console.error('uploadImage error:', err);
@@ -317,6 +321,9 @@ export async function deleteImage(params: {
         }
       }
     }
+
+    // Revalidate all pages so they pick up the removed image
+    revalidatePath('/', 'layout');
 
     return { success: true };
   } catch (err) {

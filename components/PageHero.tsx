@@ -1,6 +1,6 @@
 'use client';
 
-import Image from 'next/image';
+import { EditableImage } from '@/components/EditableImage';
 import { EditableText } from '@/components/EditableText';
 
 export interface PageHeroProps {
@@ -15,7 +15,8 @@ export function PageHero({ title, subtitle, image, sectionPrefix }: PageHeroProp
   return (
     <section className="page-hero">
       <div className="page-hero-bg">
-        <Image
+        <EditableImage
+          sectionId={sectionPrefix ? `${sectionPrefix}.img` : 'page.hero.img'}
           src={image}
           alt={title}
           fill

@@ -1,9 +1,9 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
+import { EditableImage } from '@/components/EditableImage';
 
 export default function OMnePage() {
   return (
@@ -20,7 +20,8 @@ export default function OMnePage() {
         <div className="container">
           <div className="about-grid">
             <div className="about-img">
-              <Image
+              <EditableImage
+                sectionId="omne.intro.img"
                 src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,999,999,1520,1520,1/0-0-0/c11ca67d-b1da-42ba-b398-a4483cfafa6e/1/2/mandarinkab.jpg?fjkss=exp=2088927692~hmac=4057268ac7beb84ef3e15484149ef0a30d91712645ea49bc32d3aca6b40f9f7d"
                 alt="Majda Martinská"
                 width={760}
