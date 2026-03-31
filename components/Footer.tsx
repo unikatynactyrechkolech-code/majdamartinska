@@ -1,8 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { EditableImage } from '@/components/EditableImage';
+import Image from 'next/image';
 import { EditableText } from '@/components/EditableText';
+
+const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
 export function Footer() {
   return (
@@ -10,15 +12,15 @@ export function Footer() {
       <div className="container">
         <div className="footer-grid">
           <div className="footer-brand">
-            <EditableImage
-              sectionId="footer.avatar"
-              src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,200,200,400,398/0-0-0/7b20a2a3-defe-43c3-a04c-8a0dacb2ed8f/1/1/c.jpg?fjkss=exp=2088926256~hmac=c8c376d33858128bf7c2487d345e67b07975b861b20d8756135df2891a693e38"
-              alt="Majda Martinská"
-              width={60}
-              height={60}
-              className="footer-avatar"
-              overlayCompact
-            />
+            <div className="footer-avatar">
+              <Image
+                src={LOGO_URL}
+                alt="Majda Martinská"
+                width={60}
+                height={60}
+                style={{ objectFit: 'contain', borderRadius: '50%' }}
+              />
+            </div>
             <h3><EditableText sectionId="footer.brand.name" defaultValue="Majda Martinská" as="span" /></h3>
             <p><EditableText sectionId="footer.brand.subtitle" defaultValue="Fotografka — Praha Suchdol" as="span" /></p>
             <div className="footer-social">

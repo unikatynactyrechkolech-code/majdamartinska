@@ -2,6 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+
+const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
 export function LoadingScreen() {
   const [hidden, setHidden] = useState(false);
@@ -30,14 +33,16 @@ export function LoadingScreen() {
   return (
     <div className={`loader ${hidden ? 'hidden' : ''}`}>
       <div className="loader-inner">
-        <div className="loader-logo">
-          {'MAJDA'.split('').map((letter, i) => (
-            <span key={i} className="loader-letter" style={{ '--i': i } as React.CSSProperties}>
-              {letter}
-            </span>
-          ))}
+        <div className="loader-logo-img">
+          <Image
+            src={LOGO_URL}
+            alt="Majda Martinská"
+            width={180}
+            height={180}
+            priority
+            style={{ objectFit: 'contain' }}
+          />
         </div>
-        <div className="loader-sub">MARTINSKÁ</div>
         <div className="loader-bar">
           <div className="loader-bar-fill" />
         </div>

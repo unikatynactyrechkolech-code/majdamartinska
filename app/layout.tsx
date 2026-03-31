@@ -8,6 +8,7 @@ import { LoadingScreen } from '@/components/LoadingScreen';
 import { ScrollAnimations } from '@/components/ScrollAnimations';
 import { AdminProvider } from '@/contexts/AdminContext';
 import { AdminToolbar } from '@/components/AdminToolbar';
+import { CookieConsent } from '@/components/CookieConsent';
 
 export const metadata: Metadata = {
   title: 'Majda Martinská — Fotografka',
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <Footer />
           <ScrollAnimations />
+          <CookieConsent />
         </AdminProvider>
       </body>
     </html>

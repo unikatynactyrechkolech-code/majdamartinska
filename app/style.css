@@ -16,7 +16,7 @@
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
     --container: 1320px;
-    --nav-height: 80px;
+    --nav-height: 48px;
 }
 
 *, *::before, *::after {
@@ -172,7 +172,7 @@ ul {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 clamp(1.5rem, 4vw, 3rem);
+    padding: 0 clamp(1rem, 3vw, 2rem);
     z-index: 1000;
     background: #fff;
     box-shadow: 0 1px 0 var(--color-border);
@@ -184,37 +184,55 @@ ul {
 }
 
 .nav-logo {
-    font-family: var(--font-heading);
-    font-size: 1.05rem;
-    font-weight: 600;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
+    display: flex;
+    align-items: center;
+    height: 100%;
 }
 
-.nav-logo span {
-    display: block;
+.nav-logo img {
+    height: 32px;
+    width: auto;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.lang-switch {
     font-family: var(--font-body);
-    font-size: 0.55rem;
-    font-weight: 400;
-    letter-spacing: 0.35em;
-    color: var(--color-text-muted);
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin-top: 2px;
+    color: var(--color-text-muted);
+    background: none;
+    border: 1px solid var(--color-border);
+    border-radius: 100px;
+    padding: 0.25rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.lang-switch:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
 }
 
 .nav-menu {
     display: flex;
-    gap: 2.5rem;
+    gap: 2rem;
 }
 
 .nav-menu a {
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(26,26,26,0.55);
     position: relative;
-    padding: 0.25rem 0;
+    padding: 0.2rem 0;
 }
 
 .nav-menu a::after {
@@ -308,152 +326,81 @@ ul {
 }
 
 /* ========================================
-   HERO INTERACTIVE CAMERA
+   HERO IMAGE SLIDESHOW
    ======================================== */
 
-.hero-camera-container {
+.hero-slideshow {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 100%;
     min-height: 500px;
-    cursor: pointer;
-    perspective: 800px;
     overflow: hidden;
 }
 
-.hero-camera-flash {
+.hero-slide {
     position: absolute;
     inset: 0;
-    background: rgba(255, 255, 255, 0.95);
     opacity: 0;
-    transition: opacity 0.15s ease;
-    z-index: 10;
-    pointer-events: none;
-    border-radius: 4px;
+    transition: opacity 0.8s ease-in-out;
+    will-change: opacity;
 }
 
-.hero-camera {
-    position: relative;
-    transition: transform 0.1s ease-out;
-    transform-style: preserve-3d;
-    animation: cameraFloat 6s ease-in-out infinite;
+.hero-slide.active {
+    opacity: 1;
+    z-index: 1;
 }
 
-.hero-camera-svg {
-    width: clamp(180px, 22vw, 280px);
-    height: auto;
-    filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.15))
-            drop-shadow(0 8px 20px rgba(0, 0, 0, 0.08));
+.hero-slide.fading-out {
+    opacity: 0;
+    z-index: 1;
 }
 
-.hero-camera-lens-group {
-    transition: transform 0.15s ease-out;
-    transform-origin: center;
+.hero-slide.fading-in {
+    opacity: 1;
+    z-index: 2;
 }
 
-.hero-camera-container:hover .hero-camera-lens-group {
-    animation: lensPulse 2s ease-in-out infinite;
-}
-
-.hero-camera-shutter-btn {
-    transition: all 0.2s ease;
-    transform-origin: center;
-}
-
-.hero-camera-container:hover .hero-camera-shutter-btn {
-    fill: #c9a057;
-}
-
-.hero-camera-shutter.snap line {
-    animation: shutterSnap 0.4s ease-out;
-}
-
-.hero-camera-hint {
+.hero-slideshow-overlay {
     position: absolute;
-    bottom: -2.5rem;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    background: linear-gradient(
+        to right,
+        rgba(var(--color-bg-rgb, 255, 255, 255), 0.08) 0%,
+        transparent 30%,
+        transparent 100%
+    );
+}
+
+.hero-slideshow-dots {
+    position: absolute;
+    bottom: 1.5rem;
     left: 50%;
     transform: translateX(-50%);
-    font-family: var(--font-body);
-    font-size: 0.7rem;
-    color: var(--color-text-muted);
-    letter-spacing: 0.1em;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-    white-space: nowrap;
+    z-index: 4;
+    display: flex;
+    gap: 0.5rem;
 }
 
-.hero-camera-container:hover .hero-camera-hint {
-    opacity: 1;
-}
-
-/* Floating particles */
-.hero-camera-particles {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    overflow: hidden;
-}
-
-.particle {
-    position: absolute;
+.hero-dot {
+    width: 8px;
+    height: 8px;
     border-radius: 50%;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.hero-dot:hover {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.hero-dot.active {
     background: var(--color-accent);
-    opacity: 0.15;
-}
-
-.particle.p1 {
-    width: 6px; height: 6px;
-    top: 20%; left: 15%;
-    animation: particleFloat 8s ease-in-out infinite;
-}
-
-.particle.p2 {
-    width: 4px; height: 4px;
-    top: 60%; right: 20%;
-    animation: particleFloat 10s ease-in-out infinite 1s;
-}
-
-.particle.p3 {
-    width: 8px; height: 8px;
-    bottom: 25%; left: 30%;
-    animation: particleFloat 7s ease-in-out infinite 2s;
-}
-
-.particle.p4 {
-    width: 3px; height: 3px;
-    top: 35%; right: 10%;
-    animation: particleFloat 9s ease-in-out infinite 0.5s;
-}
-
-.particle.p5 {
-    width: 5px; height: 5px;
-    bottom: 40%; right: 35%;
-    animation: particleFloat 11s ease-in-out infinite 3s;
-}
-
-@keyframes cameraFloat {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
-}
-
-@keyframes lensPulse {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.85; }
-}
-
-@keyframes shutterSnap {
-    0% { stroke-width: 0.8; opacity: 1; }
-    30% { stroke-width: 3; opacity: 0.5; }
-    100% { stroke-width: 0.8; opacity: 1; }
-}
-
-@keyframes particleFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
-    25% { transform: translate(15px, -20px) scale(1.2); opacity: 0.25; }
-    50% { transform: translate(-10px, -35px) scale(0.8); opacity: 0.1; }
-    75% { transform: translate(20px, -15px) scale(1.1); opacity: 0.2; }
+    border-color: var(--color-accent);
+    transform: scale(1.2);
 }
 
 .hero-label {
@@ -520,6 +467,32 @@ ul {
 
 .section {
     padding: clamp(5rem, 10vw, 10rem) 0;
+}
+
+/* Alternating brown/white section backgrounds */
+.section-brown {
+    background: #f5efe7;
+}
+
+.section-brown .section-label {
+    color: var(--color-accent-hover);
+}
+
+.section-brown .section-title,
+.section-brown .section-title-big,
+.section-brown h2,
+.section-brown h3 {
+    color: var(--color-text);
+}
+
+.section-brown .btn-outline {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+}
+
+.section-brown .btn-outline:hover {
+    background: var(--color-accent);
+    color: #fff;
 }
 
 [data-animate] {
@@ -1591,36 +1564,21 @@ ul {
     text-align: center;
 }
 
-.page-transition-logo {
+.page-transition-logo-img {
     display: flex;
-    gap: 0.1em;
     justify-content: center;
-}
-
-.page-transition-letter {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    font-weight: 600;
-    color: var(--color-text);
-    display: inline-block;
     opacity: 0;
-    transform: translateY(20px);
-    animation: ptLetterIn 0.4s var(--ease-out) forwards;
+    transform: scale(0.85);
+    animation: ptLogoIn 0.5s var(--ease-out) forwards;
 }
 
-.page-transition-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
-    letter-spacing: 0.5em;
-    color: var(--color-text-muted);
-    margin-top: 0.5rem;
-    opacity: 0;
-    animation: fadeIn 0.5s ease forwards;
-    animation-delay: 0.3s;
+.page-transition-logo-img img {
+    width: clamp(80px, 20vw, 120px);
+    height: auto;
 }
 
-@keyframes ptLetterIn {
-    to { opacity: 1; transform: translateY(0); }
+@keyframes ptLogoIn {
+    to { opacity: 1; transform: scale(1); }
 }
 
 /* ========================================
@@ -1649,6 +1607,17 @@ ul {
     /* NAV */
     .nav-toggle {
         display: flex;
+    }
+
+    .nav-right {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .lang-switch {
+        font-size: 0.6rem;
+        padding: 0.2rem 0.5rem;
     }
 
     .nav-menu {
@@ -1682,7 +1651,7 @@ ul {
         padding-top: var(--nav-height);
     }
 
-    /* Text first, camera second on mobile */
+    /* Text first, slideshow second on mobile */
     .hero-content {
         order: 1;
         text-align: center;
@@ -1693,18 +1662,18 @@ ul {
         align-items: center;
     }
 
-    .hero-camera-container {
+    .hero-slideshow {
         order: 2;
-        min-height: 240px;
+        min-height: 280px;
     }
 
-    .hero-camera-svg {
-        width: 130px;
+    .hero-slideshow-dots {
+        bottom: 1rem;
     }
 
-    .hero-camera-hint {
-        font-size: 0.6rem;
-        bottom: -1.5rem;
+    .hero-dot {
+        width: 6px;
+        height: 6px;
     }
 
     .hero-label {
@@ -3135,4 +3104,135 @@ body:has(.cms-toolbar) .page-hero {
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+/* ========================================
+   COOKIE CONSENT BANNER
+   ======================================== */
+
+.cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    padding: 0 1rem 1.5rem;
+    animation: cookieSlideUp 0.5s var(--ease-out) forwards;
+}
+
+.cookie-banner.closing {
+    animation: cookieSlideDown 0.4s ease-in forwards;
+}
+
+.cookie-banner-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 16px;
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    box-shadow:
+        0 -4px 30px rgba(0, 0, 0, 0.06),
+        0 2px 12px rgba(0, 0, 0, 0.04);
+}
+
+.cookie-banner-icon {
+    font-size: 2rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.cookie-banner-text {
+    flex: 1;
+    min-width: 0;
+}
+
+.cookie-banner-text h4 {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text);
+    margin: 0 0 0.35rem;
+}
+
+.cookie-banner-text p {
+    font-family: var(--font-body);
+    font-size: 0.78rem;
+    line-height: 1.55;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.cookie-banner-actions {
+    display: flex;
+    gap: 0.6rem;
+    flex-shrink: 0;
+}
+
+.cookie-btn-accept {
+    padding: 0.6rem 1.4rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 100px !important;
+    white-space: nowrap;
+}
+
+.cookie-btn-decline {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.78rem !important;
+    border-radius: 100px !important;
+    white-space: nowrap;
+    background: transparent !important;
+    color: var(--color-text-muted) !important;
+    border-color: rgba(0, 0, 0, 0.12) !important;
+}
+
+.cookie-btn-decline:hover {
+    color: var(--color-text) !important;
+    border-color: rgba(0, 0, 0, 0.25) !important;
+}
+
+@keyframes cookieSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes cookieSlideDown {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+}
+
+/* Cookie banner mobile */
+@media (max-width: 640px) {
+    .cookie-banner-inner {
+        flex-direction: column;
+        text-align: center;
+        padding: 1.25rem 1.5rem;
+        gap: 1rem;
+    }
+
+    .cookie-banner-icon {
+        font-size: 1.6rem;
+    }
+
+    .cookie-banner-actions {
+        width: 100%;
+        justify-content: center;
+    }
 }

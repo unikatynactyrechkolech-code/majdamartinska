@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { HorizontalScroll } from '@/components/HorizontalScroll';
-import { HeroCamera } from '@/components/HeroCamera';
+import { HeroSlideshow } from '@/components/HeroSlideshow';
 import { EditableText } from '@/components/EditableText';
 import { EditableImage } from '@/components/EditableImage';
 
@@ -36,11 +36,11 @@ export default function HomePage() {
             <EditableText sectionId="home.hero.btn" defaultValue="Mám zájem" as="span" />
           </Link>
         </div>
-        <HeroCamera />
+        <HeroSlideshow />
       </section>
 
       {/* PROMISE */}
-      <section className="section promise" data-animate>
+      <section className="section promise section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="home.promise.label" defaultValue="SLIBUJI VÁM" as="p" className="section-label" />
           <h2 className="section-title-big">
@@ -83,7 +83,7 @@ export default function HomePage() {
       </section>
 
       {/* SERVICES */}
-      <section className="section services" data-animate>
+      <section className="section services section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="home.services.label" defaultValue="MOJE SLUŽBY" as="p" className="section-label" />
           <h2 className="section-title">
@@ -161,7 +161,7 @@ export default function HomePage() {
       </section>
 
       {/* MORE SERVICES */}
-      <section className="section more-services" data-animate>
+      <section className="section more-services section-brown" data-animate>
         <div className="container">
           <div className="more-services-grid">
             <Link href="/sluzby#psi" className="more-service-item">
@@ -217,7 +217,7 @@ export default function HomePage() {
       </section>
 
       {/* STUDIO */}
-      <section className="section studio" data-animate>
+      <section className="section studio section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="home.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">

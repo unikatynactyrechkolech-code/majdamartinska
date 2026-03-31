@@ -26,33 +26,22 @@
     text-align: center;
 }
 
-.loader-logo {
+.loader-logo-img {
     display: flex;
-    gap: 0.15em;
     justify-content: center;
+    opacity: 0;
+    transform: scale(0.8);
+    animation: logoReveal 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.3s;
 }
 
-.loader-letter {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(3rem, 8vw, 6rem);
-    font-weight: 600;
-    color: #1a1a1a;
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(40px);
-    animation: letterReveal 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    animation-delay: calc(var(--i) * 0.1s + 0.3s);
+.loader-logo-img img {
+    width: clamp(120px, 30vw, 180px);
+    height: auto;
 }
 
-.loader-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
-    letter-spacing: 0.5em;
-    color: rgba(26,26,26,0.45);
-    margin-top: 0.75rem;
-    opacity: 0;
-    animation: fadeIn 0.8s ease forwards;
-    animation-delay: 1s;
+@keyframes logoReveal {
+    to { opacity: 1; transform: scale(1); }
 }
 
 .loader-bar {
