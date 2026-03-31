@@ -14,6 +14,11 @@ interface DraftEntry {
   dirty: boolean;
 }
 
+interface ImageEntry {
+  url: string;
+  publicId: string;
+}
+
 interface AdminContextType {
   isAdmin: boolean;
   isLoginOpen: boolean;
@@ -28,6 +33,10 @@ interface AdminContextType {
   isPublishing: boolean;
   initContent: (sectionId: string, value: string) => void;
   dbLoaded: boolean;
+  /** All image URLs loaded from DB, keyed by sectionId */
+  images: Record<string, ImageEntry>;
+  /** Update a single image in context (after upload/delete) */
+  setImage: (sectionId: string, entry: ImageEntry | null) => void;
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
@@ -47,22 +56,29 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [drafts, setDrafts] = useState<Record<string, DraftEntry>>({});
   const [isPublishing, setIsPublishing] = useState(false);
   const [dbLoaded, setDbLoaded] = useState(false);
+  const [images, setImages] = useState<Record<string, ImageEntry>>({});
 
-  // Load all published content from Supabase on mount
+  // Load all published content + images from Supabase on mount (single batch)
   useEffect(() => {
     let cancelled = false;
 
     async function loadFromDB() {
       try {
-        const { getAllContent } = await import('@/app/actions/content');
-        const content = await getAllContent();
+        const [{ getAllContent }, { getAllImages }] = await Promise.all([
+          import('@/app/actions/content'),
+          import('@/app/actions/images'),
+        ]);
+
+        const [content, imagesData] = await Promise.all([
+          getAllContent(),
+          getAllImages(),
+        ]);
 
         if (cancelled) return;
 
         setDrafts((prev) => {
           const next = { ...prev };
           for (const [sectionId, data] of Object.entries(content)) {
-            // Use published_text if available, otherwise draft_text
             const dbValue = data.published ?? data.draft;
             if (dbValue !== null && !next[sectionId]?.dirty) {
               next[sectionId] = { value: dbValue, dirty: false };
@@ -71,15 +87,36 @@ export function AdminProvider({ children }: { children: ReactNode }) {
           return next;
         });
 
+        // Load all images into context
+        const imgMap: Record<string, ImageEntry> = {};
+        for (const [sectionId, record] of Object.entries(imagesData)) {
+          imgMap[sectionId] = {
+            url: record.image_url,
+            publicId: record.cloudinary_public_id,
+          };
+        }
+        setImages(imgMap);
+
         setDbLoaded(true);
       } catch (err) {
         console.error('Failed to load content from DB:', err);
-        setDbLoaded(true); // Mark loaded even on error, so defaults are used
+        setDbLoaded(true);
       }
     }
 
     loadFromDB();
     return () => { cancelled = true; };
+  }, []);
+
+  const setImage = useCallback((sectionId: string, entry: ImageEntry | null) => {
+    setImages((prev) => {
+      if (entry === null) {
+        const next = { ...prev };
+        delete next[sectionId];
+        return next;
+      }
+      return { ...prev, [sectionId]: entry };
+    });
   }, []);
 
   // Persist admin session in sessionStorage
@@ -200,6 +237,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         isPublishing,
         initContent,
         dbLoaded,
+        images,
+        setImage,
       }}
     >
       {children}

@@ -4,7 +4,7 @@ import Image, { type ImageProps } from 'next/image';
 import { createPortal } from 'react-dom';
 import { useAdmin } from '@/contexts/AdminContext';
 import { ImageUploader } from '@/components/ImageUploader';
-import { useCallback, useState, useEffect } from 'react';
+import { useCallback, useState } from 'react';
 
 interface EditableImageProps extends Omit<ImageProps, 'onClick'> {
   /** Unique identifier for this image, e.g. "home.promise.img" */
@@ -23,35 +23,14 @@ export function EditableImage({
   fill,
   ...props
 }: EditableImageProps) {
-  const { isAdmin } = useAdmin();
+  const { isAdmin, images, setImage } = useAdmin();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
-  // Load existing image from DB on mount
-  const [dbImageUrl, setDbImageUrl] = useState<string | null>(null);
-  const [dbPublicId, setDbPublicId] = useState<string | null>(null);
-
-  // Load existing image from DB on mount
-  useEffect(() => {
-    let cancelled = false;
-    async function loadImage() {
-      try {
-        const { getImage } = await import('@/app/actions/images');
-        const record = await getImage(sectionId);
-        if (!cancelled && record) {
-          setDbImageUrl(record.image_url);
-          setDbPublicId(record.cloudinary_public_id);
-        }
-      } catch (err) {
-        console.error('Failed to load image:', err);
-      }
-    }
-    loadImage();
-    return () => { cancelled = true; };
-  }, [sectionId]);
-
-  const currentSrc = dbImageUrl || defaultSrc;
+  // Read image from context (loaded in bulk by AdminContext — no individual fetch)
+  const entry = images[sectionId];
+  const currentSrc = entry?.url || defaultSrc;
+  const currentPublicId = entry?.publicId || null;
 
   const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     if (!isAdmin) return;
@@ -92,7 +71,7 @@ export function EditableImage({
             <span className="cms-image-overlay-icon">📷</span>
             {!overlayCompact && (
               <span className="cms-image-overlay-text">
-                {dbImageUrl ? '2× klik pro změnu' : '2× klik pro nahrání'}
+                {entry ? '2× klik pro změnu' : '2× klik pro nahrání'}
               </span>
             )}
           </div>
@@ -112,16 +91,14 @@ export function EditableImage({
 
             <ImageUploader
               sectionId={sectionId}
-              currentUrl={dbImageUrl}
-              cloudinaryPublicId={dbPublicId}
+              currentUrl={entry?.url || null}
+              cloudinaryPublicId={currentPublicId}
               onUploadComplete={(data) => {
-                setDbImageUrl(data.imageUrl);
-                setDbPublicId(data.publicId);
+                setImage(sectionId, { url: data.imageUrl, publicId: data.publicId });
                 setUploadSuccess(true);
               }}
               onDeleteComplete={() => {
-                setDbImageUrl(null);
-                setDbPublicId(null);
+                setImage(sectionId, null);
                 setUploadSuccess(false);
               }}
               compact
