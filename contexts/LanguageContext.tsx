@@ -37,7 +37,6 @@ const translations: Record<string, string> = {
   'Celé portfolio': 'Full portfolio',
   'Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Neváhej mi napsat!':
     'Hi there! Looking for a photographer? And a fun one? Want to enjoy the shoot without stress? Don\'t hesitate to reach out!',
-  'Mám zájem': 'I\'m interested',
 
   // ── PROMISE ──
   'SLIBUJI VÁM': 'I PROMISE YOU',

@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service1.name" defaultValue="Rodinné a portrétní" as="span" className="service-name" />
@@ -108,7 +108,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#newborn" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service2.name" defaultValue="Newborn — miminka" as="span" className="service-name" />
@@ -117,7 +117,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#svatby" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service3.name" defaultValue="Svatby" as="span" className="service-name" />
@@ -138,9 +138,9 @@ export default function HomePage() {
                 src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,999,999,1520,1520,1/0-0-0/c11ca67d-b1da-42ba-b398-a4483cfafa6e/1/2/mandarinkab.jpg?fjkss=exp=2088927692~hmac=4057268ac7beb84ef3e15484149ef0a30d91712645ea49bc32d3aca6b40f9f7d"
                 alt="Majda Martinská"
                 width={760}
-                height={760}
+                height={950}
                 sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ width: '100%', height: 'auto', aspectRatio: '1', objectFit: 'cover', borderRadius: '2px' }}
+                style={{ width: '100%', height: 'auto', aspectRatio: '4/5', objectFit: 'cover', borderRadius: '2px' }}
               />
             </div>
             <div className="about-preview-content">

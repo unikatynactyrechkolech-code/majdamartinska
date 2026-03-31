@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useCallback, useMemo, useRef } from 'react';
+import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { EditableText } from '@/components/EditableText';
 import { ImageUploader } from '@/components/ImageUploader';
@@ -124,25 +124,97 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   const loadMore = () => setVisibleCount(prev => prev + IMAGES_PER_PAGE);
 
   // — Lightbox —
+  const [zoomed, setZoomed] = useState(false);
+  const [panPos, setPanPos] = useState({ x: 0, y: 0 });
+  const panStart = useRef<{ x: number; y: number; px: number; py: number } | null>(null);
+  const lightboxImgRef = useRef<HTMLImageElement | null>(null);
+
   const openLightbox = (idx: number) => {
     setLightbox(idx);
+    setZoomed(false);
+    setPanPos({ x: 0, y: 0 });
     document.body.style.overflow = 'hidden';
   };
 
   const closeLightbox = () => {
     setLightbox(null);
+    setZoomed(false);
+    setPanPos({ x: 0, y: 0 });
     document.body.style.overflow = '';
   };
 
   const prevImage = () => {
+    setZoomed(false);
+    setPanPos({ x: 0, y: 0 });
     if (lightbox !== null && lightbox > 0) setLightbox(lightbox - 1);
     else if (lightbox === 0) setLightbox(filtered.length - 1);
   };
 
   const nextImage = () => {
+    setZoomed(false);
+    setPanPos({ x: 0, y: 0 });
     if (lightbox !== null && lightbox < filtered.length - 1) setLightbox(lightbox + 1);
     else if (lightbox === filtered.length - 1) setLightbox(0);
   };
+
+  const toggleZoom = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (zoomed) {
+      setZoomed(false);
+      setPanPos({ x: 0, y: 0 });
+    } else {
+      setZoomed(true);
+      setPanPos({ x: 0, y: 0 });
+    }
+  };
+
+  // Panning when zoomed
+  const handlePanStart = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!zoomed) return;
+    e.preventDefault();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    panStart.current = { x: clientX, y: clientY, px: panPos.x, py: panPos.y };
+  };
+
+  const handlePanMove = (e: React.MouseEvent | React.TouchEvent) => {
+    if (!zoomed || !panStart.current) return;
+    e.preventDefault();
+    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX;
+    const clientY = 'touches' in e ? e.touches[0].clientY : e.clientY;
+    const dx = clientX - panStart.current.x;
+    const dy = clientY - panStart.current.y;
+    setPanPos({ x: panStart.current.px + dx, y: panStart.current.py + dy });
+  };
+
+  const handlePanEnd = () => {
+    panStart.current = null;
+  };
+
+  // Scroll to zoom
+  const handleWheel = useCallback((e: React.WheelEvent) => {
+    e.stopPropagation();
+    if (e.deltaY < 0 && !zoomed) {
+      setZoomed(true);
+      setPanPos({ x: 0, y: 0 });
+    } else if (e.deltaY > 0 && zoomed) {
+      setZoomed(false);
+      setPanPos({ x: 0, y: 0 });
+    }
+  }, [zoomed]);
+
+  // Keyboard: Escape to close, arrows to navigate
+  useEffect(() => {
+    if (lightbox === null) return;
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowLeft') prevImage();
+      else if (e.key === 'ArrowRight') nextImage();
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => window.removeEventListener('keydown', handleKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lightbox, filtered.length]);
 
   // — Admin: edit/delete on double-click —
   const handleItemClick = (idx: number, e: React.MouseEvent) => {
@@ -299,11 +371,30 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
             onClick={(e) => { e.stopPropagation(); prevImage(); }}
             aria-label="Předchozí"
           >&#8249;</button>
-          <div className="lightbox-img-wrap" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="lightbox-img-wrap"
+            onClick={(e) => e.stopPropagation()}
+            onWheel={handleWheel}
+            onMouseDown={handlePanStart}
+            onMouseMove={handlePanMove}
+            onMouseUp={handlePanEnd}
+            onMouseLeave={handlePanEnd}
+            onTouchStart={handlePanStart}
+            onTouchMove={handlePanMove}
+            onTouchEnd={handlePanEnd}
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
+              ref={lightboxImgRef}
               src={filtered[lightbox].src}
               alt={filtered[lightbox].alt}
+              className={zoomed ? 'zoomed' : ''}
+              style={zoomed ? {
+                transform: `scale(2.5) translate(${panPos.x / 2.5}px, ${panPos.y / 2.5}px)`,
+                cursor: 'grab',
+              } : undefined}
+              onClick={toggleZoom}
+              draggable={false}
             />
           </div>
           <button

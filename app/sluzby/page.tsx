@@ -36,7 +36,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.rodinna.cena" defaultValue="od 3 900 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.rodinna.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.rodinna.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
@@ -64,7 +64,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.newborn.cena" defaultValue="od 4 900 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.newborn.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.newborn.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.svatby.cena" defaultValue="od 15 000 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.svatby.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.svatby.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
@@ -120,7 +120,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.psi.cena" defaultValue="od 3 500 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.psi.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.psi.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
@@ -148,7 +148,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.tehotenske.cena" defaultValue="od 3 500 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.tehotenske.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.tehotenske.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
@@ -176,7 +176,7 @@ export default function SluzbyPage() {
                 <EditableText sectionId="sluzby.portret.cena" defaultValue="od 2 900 Kč" as="span" className="price" />
               </div>
               <Link href="/kontakt" className="btn btn-primary">
-                <EditableText sectionId="sluzby.portret.btn" defaultValue="Mám zájem" as="span" />
+                <EditableText sectionId="sluzby.portret.btn" defaultValue="Chci fotky" as="span" />
               </Link>
             </div>
           </div>
