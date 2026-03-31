@@ -4,20 +4,14 @@ import { v2 as cloudinary } from 'cloudinary';
 import { revalidatePath } from 'next/cache';
 
 // ============================================================
-// UNIVERZÁLNÍ SERVER ACTIONS PRO SPRÁVU OBRÁZKŮ
-// Cloudinary (fyzické úložiště) + Supabase (metadata)
+// SERVER ACTIONS PRO SPRÁVU OBRÁZKŮ
+// Cloudinary (fyzické úložiště) + Supabase page_content (metadata)
 //
-// Podporuje dynamický zápis do libovolné tabulky:
-//   table_name  – do které Supabase tabulky zapsat
-//   row_id      – ID řádku (hodnota pro sloupec "id")
-//   column_name – název sloupce, kam se uloží image_url
-//
-// Původní page_images tabulka funguje dál jako fallback
-// pro starší EditableImage komponentu (section_id režim).
+// Obrázky se ukládají do sloupce "image_url" v tabulce page_content,
+// identifikované přes section_id (stejně jako texty).
+// Cloudinary public_id se parsuje z URL — nepotřebujeme extra sloupec.
 // ============================================================
 
-// ---------- CLOUDINARY FOLDER ----------
-// Veškeré obrázky se ukládají do této složky
 const CLOUDINARY_FOLDER = 'majda_martinska';
 
 // ---------- helpers ----------
@@ -52,13 +46,19 @@ function configureCloudinary() {
   });
 }
 
-// Whitelist tabulek, do kterých je povoleno zapisovat (bezpečnost)
-const ALLOWED_TABLES = ['page_images', 'page_content'];
-
-function validateTableName(name: string): boolean {
-  // Povolíme pouze whitelistované tabulky
-  // Přidej sem další, pokud budeš potřebovat
-  return ALLOWED_TABLES.includes(name);
+/**
+ * Extrahuje Cloudinary public_id z URL.
+ * Př: "https://res.cloudinary.com/xxx/image/upload/v123/majda_martinska/abc.jpg"
+ *  → "majda_martinska/abc"
+ */
+function extractPublicIdFromUrl(url: string): string | null {
+  try {
+    const match = url.match(/\/upload\/(?:v\d+\/)?(.+)\.\w+$/);
+    if (match) return match[1];
+    return null;
+  } catch {
+    return null;
+  }
 }
 
 // ---------- types ----------
@@ -85,38 +85,20 @@ export interface ImageRecord {
 }
 
 // ============================================================
-// UNIVERZÁLNÍ UPLOAD
+// UPLOAD — nahraje do Cloudinary, uloží URL do page_content
 // ============================================================
 
-/**
- * Upload obrázku do Cloudinary → uložení URL do Supabase.
- *
- * FormData musí obsahovat:
- *   file         – soubor (File)
- *   table_name   – název tabulky v Supabase (default: "page_images")
- *   row_id       – ID řádku (pro page_images = section_id, pro jiné = numeric id)
- *   column_name  – sloupec pro URL (default: "image_url")
- *
- * Pro zpětnou kompatibilitu podporuje i starý formát:
- *   sectionId    – section_id pro page_images tabulku
- */
 export async function uploadImage(formData: FormData): Promise<UploadResult> {
   try {
     const file = formData.get('file') as File | null;
-
-    // Nový univerzální formát
-    const tableName = (formData.get('table_name') as string) || 'page_images';
-    const rowId = (formData.get('row_id') as string) || (formData.get('sectionId') as string);
-    const columnName = (formData.get('column_name') as string) || 'image_url';
+    const sectionId = (formData.get('sectionId') as string) ||
+                      (formData.get('row_id') as string);
 
     if (!file) {
       return { success: false, error: 'Chybí soubor.' };
     }
-    if (!rowId) {
-      return { success: false, error: 'Chybí row_id (identifikátor záznamu).' };
-    }
-    if (!validateTableName(tableName)) {
-      return { success: false, error: `Tabulka "${tableName}" není povolena.` };
+    if (!sectionId) {
+      return { success: false, error: 'Chybí sectionId.' };
     }
 
     // Validace typu souboru
@@ -143,7 +125,7 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
     const base64 = buffer.toString('base64');
     const dataUri = `data:${file.type};base64,${base64}`;
 
-    // Upload do Cloudinary — vždy do složky "majda_martinska"
+    // Upload do Cloudinary
     const uploadResult = await cloudinary.uploader.upload(dataUri, {
       folder: CLOUDINARY_FOLDER,
       resource_type: 'image',
@@ -154,54 +136,35 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
     const width = uploadResult.width;
     const height = uploadResult.height;
 
-    // Uložení do Supabase
+    // Uložení URL do page_content tabulky
     if (isSupabaseConfigured()) {
       const { createClient } = await import('@/lib/supabase/server');
       const supabase = await createClient();
+      const projectId = getProjectId();
 
-      if (tableName === 'page_images') {
-        // Speciální logika pro page_images (section_id režim)
-        const projectId = getProjectId();
-        const { error: dbError } = await supabase.from('page_images').upsert(
-          {
-            project_id: projectId,
-            section_id: rowId,
-            image_url: imageUrl,
-            cloudinary_public_id: publicId,
-            width,
-            height,
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: 'project_id,section_id' }
-        );
+      const { error: dbError } = await supabase.from('page_content').upsert(
+        {
+          project_id: projectId,
+          section_id: sectionId,
+          image_url: imageUrl,
+          updated_at: new Date().toISOString(),
+        },
+        { onConflict: 'project_id,section_id' }
+      );
 
-        if (dbError) {
-          console.error('Supabase save error (page_images):', dbError);
-          return {
-            success: true,
-            imageUrl, publicId, width, height,
-            error: `Nahrán do Cloudinary, ale DB selhalo: ${dbError.message}`,
-          };
-        }
-      } else {
-        // Univerzální zápis do libovolné tabulky
-        const { error: dbError } = await supabase
-          .from(tableName)
-          .update({ [columnName]: imageUrl })
-          .eq('id', rowId);
-
-        if (dbError) {
-          console.error(`Supabase save error (${tableName}):`, dbError);
-          return {
-            success: true,
-            imageUrl, publicId, width, height,
-            error: `Nahrán do Cloudinary, ale DB selhalo: ${dbError.message}`,
-          };
-        }
+      if (dbError) {
+        console.error('Supabase save error:', dbError);
+        return {
+          success: true,
+          imageUrl, publicId, width, height,
+          error: `Nahrán do Cloudinary, ale DB selhalo: ${dbError.message}`,
+        };
       }
+    } else {
+      console.warn('Supabase není nakonfigurováno — obrázek uložen pouze v Cloudinary.');
     }
 
-    // Revalidate all pages so they pick up the new image
+    // Revalidate all pages
     revalidatePath('/', 'layout');
 
     return { success: true, imageUrl, publicId, width, height };
@@ -215,70 +178,33 @@ export async function uploadImage(formData: FormData): Promise<UploadResult> {
 }
 
 // ============================================================
-// UNIVERZÁLNÍ DELETE
+// DELETE — smaže z Cloudinary + vyčistí image_url v page_content
 // ============================================================
 
-/**
- * Smazání obrázku z Cloudinary + vyčištění záznamu v Supabase.
- *
- * Parametry:
- *   cloudinaryPublicId – public_id obrázku v Cloudinary (povinné pro fyzické smazání)
- *   table_name         – tabulka v Supabase
- *   row_id             – ID řádku
- *   column_name        – sloupec s URL (nastaví se na null)
- *
- * Pro zpětnou kompatibilitu: pokud se předá jen sectionId,
- * smaže z page_images + Cloudinary.
- */
-export async function deleteImage(params: {
-  cloudinaryPublicId?: string;
-  tableName?: string;
-  rowId: string;
-  columnName?: string;
-} | string): Promise<DeleteResult> {
+export async function deleteImage(sectionId: string): Promise<DeleteResult> {
   try {
-    // Zpětná kompatibilita — starý formát: deleteImage("section.id")
-    let cloudinaryPublicId: string | undefined;
-    let tableName: string;
-    let rowId: string;
-    let columnName: string;
-
-    if (typeof params === 'string') {
-      // Starý formát — section_id
-      tableName = 'page_images';
-      rowId = params;
-      columnName = 'image_url';
-    } else {
-      cloudinaryPublicId = params.cloudinaryPublicId;
-      tableName = params.tableName || 'page_images';
-      rowId = params.rowId;
-      columnName = params.columnName || 'image_url';
-    }
-
-    if (!rowId) {
-      return { success: false, error: 'Chybí rowId.' };
-    }
-    if (!validateTableName(tableName)) {
-      return { success: false, error: `Tabulka "${tableName}" není povolena.` };
+    if (!sectionId) {
+      return { success: false, error: 'Chybí sectionId.' };
     }
 
     const projectId = getProjectId();
+    let cloudinaryPublicId: string | null = null;
 
-    // 1) Najít cloudinary_public_id pokud nebyl předán
-    if (!cloudinaryPublicId && isSupabaseConfigured()) {
+    // 1) Najít URL v DB, parsovat public_id
+    if (isSupabaseConfigured()) {
       const { createClient } = await import('@/lib/supabase/server');
       const supabase = await createClient();
 
-      if (tableName === 'page_images') {
-        const { data } = await supabase
-          .from('page_images')
-          .select('cloudinary_public_id')
-          .eq('project_id', projectId)
-          .eq('section_id', rowId)
-          .single();
-        cloudinaryPublicId = data?.cloudinary_public_id ?? undefined;
+      const { data } = await supabase
+        .from('page_content')
+        .select('image_url')
+        .eq('project_id', projectId)
+        .eq('section_id', sectionId)
+        .single();
+
+      if (data?.image_url) {
+        cloudinaryPublicId = extractPublicIdFromUrl(data.image_url);
       }
-      // Pro ostatní tabulky potřebujeme public_id z props
     }
 
     // 2) Smazat z Cloudinary
@@ -287,44 +213,31 @@ export async function deleteImage(params: {
       const destroyResult = await cloudinary.uploader.destroy(cloudinaryPublicId);
       if (destroyResult.result !== 'ok' && destroyResult.result !== 'not found') {
         console.error('Cloudinary destroy failed:', destroyResult);
-        return { success: false, error: 'Smazání z Cloudinary selhalo.' };
+        // Pokračujeme — aspoň smažeme z DB
       }
     }
 
-    // 3) Smazat/vyčistit záznam v Supabase
+    // 3) Vyčistit image_url v page_content
     if (isSupabaseConfigured()) {
       const { createClient } = await import('@/lib/supabase/server');
       const supabase = await createClient();
 
-      if (tableName === 'page_images') {
-        // Pro page_images smažeme celý řádek
-        const { error: deleteError } = await supabase
-          .from('page_images')
-          .delete()
-          .eq('project_id', projectId)
-          .eq('section_id', rowId);
+      const { error: updateError } = await supabase
+        .from('page_content')
+        .update({
+          image_url: null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('project_id', projectId)
+        .eq('section_id', sectionId);
 
-        if (deleteError) {
-          console.error('Supabase delete error:', deleteError);
-          return { success: false, error: `DB smazání selhalo: ${deleteError.message}` };
-        }
-      } else {
-        // Pro ostatní tabulky nastavíme sloupec na null
-        const { error: updateError } = await supabase
-          .from(tableName)
-          .update({ [columnName]: null })
-          .eq('id', rowId);
-
-        if (updateError) {
-          console.error('Supabase update error:', updateError);
-          return { success: false, error: `DB update selhalo: ${updateError.message}` };
-        }
+      if (updateError) {
+        console.error('Supabase update error:', updateError);
+        return { success: false, error: `DB update selhalo: ${updateError.message}` };
       }
     }
 
-    // Revalidate all pages so they pick up the removed image
     revalidatePath('/', 'layout');
-
     return { success: true };
   } catch (err) {
     console.error('deleteImage error:', err);
@@ -336,7 +249,7 @@ export async function deleteImage(params: {
 }
 
 // ============================================================
-// READ – čtení obrázků z page_images (pro EditableImage)
+// READ — čtení obrázku z page_content
 // ============================================================
 
 export async function getImage(sectionId: string): Promise<ImageRecord | null> {
@@ -348,14 +261,22 @@ export async function getImage(sectionId: string): Promise<ImageRecord | null> {
     const supabase = await createClient();
 
     const { data, error } = await supabase
-      .from('page_images')
-      .select('image_url, cloudinary_public_id, width, height')
+      .from('page_content')
+      .select('image_url')
       .eq('project_id', projectId)
       .eq('section_id', sectionId)
       .single();
 
-    if (error || !data) return null;
-    return data as ImageRecord;
+    if (error || !data || !data.image_url) return null;
+
+    const publicId = extractPublicIdFromUrl(data.image_url);
+
+    return {
+      image_url: data.image_url,
+      cloudinary_public_id: publicId || '',
+      width: null,
+      height: null,
+    };
   } catch {
     return null;
   }
@@ -370,20 +291,24 @@ export async function getAllImages(): Promise<Record<string, ImageRecord>> {
     const supabase = await createClient();
 
     const { data, error } = await supabase
-      .from('page_images')
-      .select('section_id, image_url, cloudinary_public_id, width, height')
-      .eq('project_id', projectId);
+      .from('page_content')
+      .select('section_id, image_url')
+      .eq('project_id', projectId)
+      .not('image_url', 'is', null);
 
     if (error || !data) return {};
 
     const result: Record<string, ImageRecord> = {};
     for (const row of data) {
-      result[row.section_id] = {
-        image_url: row.image_url,
-        cloudinary_public_id: row.cloudinary_public_id,
-        width: row.width,
-        height: row.height,
-      };
+      if (row.image_url) {
+        const publicId = extractPublicIdFromUrl(row.image_url);
+        result[row.section_id] = {
+          image_url: row.image_url,
+          cloudinary_public_id: publicId || '',
+          width: null,
+          height: null,
+        };
+      }
     }
     return result;
   } catch {

@@ -4,35 +4,16 @@ import { useCallback, useState, useRef } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 
 // ============================================================
-// UNIVERZÁLNÍ IMAGE UPLOADER
+// IMAGE UPLOADER
+// Upload obrázků do Cloudinary + uložení URL do page_content
 //
 // Použití:
-//
-// 1) Pro page_images tabulku (section_id režim – zpětně kompatibilní):
-//    <ImageUploader sectionId="home.hero.img" currentUrl={url} />
-//
-// 2) Pro libovolnou tabulku (univerzální režim):
-//    <ImageUploader
-//      tableName="reviews"
-//      rowId="42"
-//      columnName="avatar_url"
-//      currentUrl={url}
-//    />
-//
-// Props:
-//   currentUrl       – aktuální URL obrázku (pokud existuje)
-//   cloudinaryPublicId – public_id pro mazání z Cloudinary
-//   onUploadComplete – callback po úspěšném uploadu ({imageUrl, publicId})
-//   onDeleteComplete – callback po úspěšném smazání
-//   sectionId        – shorthand pro page_images tabulku
-//   tableName        – cílová tabulka v Supabase
-//   rowId            – ID řádku
-//   columnName       – název sloupce pro URL
-//   label            – popisek zobrazený v modalu
-//   compact          – kompaktní režim (menší UI)
+//   <ImageUploader sectionId="home.hero.img" currentUrl={url} />
 // ============================================================
 
 interface ImageUploaderProps {
+  /** section_id v tabulce page_content */
+  sectionId: string;
   /** Aktuální URL obrázku (pokud existuje) */
   currentUrl?: string | null;
   /** Cloudinary public_id aktuálního obrázku (pro mazání) */
@@ -41,19 +22,6 @@ interface ImageUploaderProps {
   onUploadComplete?: (data: { imageUrl: string; publicId: string; width: number; height: number }) => void;
   /** Callback po úspěšném smazání */
   onDeleteComplete?: () => void;
-
-  // --- page_images režim (shorthand) ---
-  /** section_id pro page_images tabulku */
-  sectionId?: string;
-
-  // --- univerzální režim ---
-  /** Název tabulky v Supabase */
-  tableName?: string;
-  /** ID řádku v tabulce */
-  rowId?: string;
-  /** Název sloupce kam se uloží URL */
-  columnName?: string;
-
   /** Popisek v modalu */
   label?: string;
   /** Kompaktní režim */
@@ -61,14 +29,11 @@ interface ImageUploaderProps {
 }
 
 export function ImageUploader({
+  sectionId,
   currentUrl,
   cloudinaryPublicId,
   onUploadComplete,
   onDeleteComplete,
-  sectionId,
-  tableName,
-  rowId,
-  columnName,
   label,
   compact = false,
 }: ImageUploaderProps) {
@@ -78,11 +43,6 @@ export function ImageUploader({
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
-  // Resolve target params
-  const resolvedTable = tableName || 'page_images';
-  const resolvedRowId = rowId || sectionId || '';
-  const resolvedColumn = columnName || 'image_url';
 
   if (!isAdmin) return null;
 
@@ -95,14 +55,7 @@ export function ImageUploader({
     try {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('table_name', resolvedTable);
-      formData.append('row_id', resolvedRowId);
-      formData.append('column_name', resolvedColumn);
-
-      // Zpětná kompatibilita
-      if (sectionId) {
-        formData.append('sectionId', sectionId);
-      }
+      formData.append('sectionId', sectionId);
 
       const { uploadImage } = await import('@/app/actions/images');
       const result = await uploadImage(formData);
@@ -169,7 +122,7 @@ export function ImageUploader({
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [resolvedTable, resolvedRowId, resolvedColumn, sectionId]
+    [sectionId]
   );
 
   // ---- Delete ----
@@ -183,25 +136,10 @@ export function ImageUploader({
 
     try {
       const { deleteImage } = await import('@/app/actions/images');
-
-      if (resolvedTable === 'page_images' && sectionId) {
-        // Zpětná kompatibilita — starý string formát
-        const result = await deleteImage(sectionId);
-        if (!result.success) {
-          setError(result.error || 'Mazání selhalo.');
-          return;
-        }
-      } else {
-        const result = await deleteImage({
-          cloudinaryPublicId: cloudinaryPublicId || undefined,
-          tableName: resolvedTable,
-          rowId: resolvedRowId,
-          columnName: resolvedColumn,
-        });
-        if (!result.success) {
-          setError(result.error || 'Mazání selhalo.');
-          return;
-        }
+      const result = await deleteImage(sectionId);
+      if (!result.success) {
+        setError(result.error || 'Mazání selhalo.');
+        return;
       }
 
       setSuccessMsg('✅ Obrázek smazán.');
@@ -216,7 +154,7 @@ export function ImageUploader({
   };
 
   // ---- Render ----
-  const displayLabel = label || sectionId || `${resolvedTable}.${resolvedRowId}.${resolvedColumn}`;
+  const displayLabel = label || sectionId;
 
   return (
     <div className={`cms-uploader ${compact ? 'cms-uploader-compact' : ''}`}>
