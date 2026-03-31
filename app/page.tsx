@@ -40,6 +40,14 @@ export default function HomePage() {
               <EditableText sectionId="home.hero.btn2" defaultValue="Celé portfolio" as="span" />
             </Link>
           </div>
+          <div className="hero-intro">
+            <EditableText
+              sectionId="home.hero.intro"
+              defaultValue="Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Neváhej mi napsat!"
+              as="p"
+              multiline
+            />
+          </div>
         </div>
         <HeroSlideshow />
       </section>

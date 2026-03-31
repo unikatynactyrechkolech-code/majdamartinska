@@ -35,6 +35,8 @@ const translations: Record<string, string> = {
   'zachycené navždy': 'captured forever',
   'Chci fotky': 'I want photos',
   'Celé portfolio': 'Full portfolio',
+  'Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Neváhej mi napsat!':
+    'Hi there! Looking for a photographer? And a fun one? Want to enjoy the shoot without stress? Don\'t hesitate to reach out!',
   'Mám zájem': 'I\'m interested',
 
   // ── PROMISE ──
@@ -98,6 +100,7 @@ const translations: Record<string, string> = {
   'Newborn': 'Newborn',
   'Těhotenské': 'Maternity',
   'Pejsci': 'Dogs',
+  'Načíst další fotky': 'Load more photos',
 
   // ── SERVICES PAGE ──
   'Co pro vás mohu udělat': 'What I can do for you',
