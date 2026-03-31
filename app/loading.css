@@ -2,6 +2,21 @@
    LOADING SCREEN
    ======================================== */
 
+/* Hide page content behind loader until ready */
+body.is-loading > main,
+body.is-loading > nav,
+body.is-loading > footer {
+    opacity: 0 !important;
+    transition: none !important;
+}
+
+body.is-loaded > main,
+body.is-loaded > nav,
+body.is-loaded > footer {
+    opacity: 1;
+    transition: opacity 0.35s ease;
+}
+
 .loader {
     position: fixed;
     top: 0;

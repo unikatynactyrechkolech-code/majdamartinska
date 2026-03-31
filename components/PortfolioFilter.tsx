@@ -43,6 +43,9 @@ const categoryAltMap: Record<string, string> = {
   psi: 'Focení pejsků',
 };
 
+/** Tombstone value stored in DB image_url when a static image is deleted */
+const DELETED_MARKER = '__deleted__';
+
 export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   const { isAdmin, images: dbImages, setImage } = useAdmin();
   const [active, setActive] = useState('all');
@@ -51,8 +54,16 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   const [editModal, setEditModal] = useState<GalleryItem | null>(null);
   const [addModal, setAddModal] = useState<string | null>(null); // category for new image
   const [uploadSuccess, setUploadSuccess] = useState(false);
-  const [deletedSectionIds, setDeletedSectionIds] = useState<Set<string>>(new Set());
   const addSectionIdRef = useRef<string>('');
+
+  // Compute deleted set from dbImages (tombstones persisted in DB)
+  const deletedSectionIds = useMemo(() => {
+    const set = new Set<string>();
+    for (const [key, entry] of Object.entries(dbImages)) {
+      if (entry?.url === DELETED_MARKER) set.add(key);
+    }
+    return set;
+  }, [dbImages]);
 
   const handleFilter = useCallback((key: string) => {
     setActive(key);
@@ -168,14 +179,26 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
     if (!confirmed) return;
 
     try {
-      const { deleteImage } = await import('@/app/actions/images');
-      const result = await deleteImage(item.sectionId);
-      if (result.success) {
-        setImage(item.sectionId, null);
-        setDeletedSectionIds(prev => new Set(prev).add(item.sectionId));
-        setEditModal(null);
+      if (item.isDbOnly) {
+        // DB-only image: fully delete from Cloudinary + DB
+        const { deleteImage } = await import('@/app/actions/images');
+        const result = await deleteImage(item.sectionId);
+        if (result.success) {
+          setImage(item.sectionId, null);
+          setEditModal(null);
+        } else {
+          alert(result.error || 'Smazání selhalo.');
+        }
       } else {
-        alert(result.error || 'Smazání selhalo.');
+        // Static image: write tombstone to DB so it stays hidden after refresh
+        const { markImageDeleted } = await import('@/app/actions/images');
+        const result = await markImageDeleted(item.sectionId);
+        if (result.success) {
+          setImage(item.sectionId, { url: DELETED_MARKER, publicId: '' });
+          setEditModal(null);
+        } else {
+          alert(result.error || 'Smazání selhalo.');
+        }
       }
     } catch (err) {
       console.error('Delete error:', err);
@@ -326,8 +349,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
                 setEditModal(prev => prev ? { ...prev, src: data.imageUrl } : null);
               }}
               onDeleteComplete={() => {
-                setImage(editModal.sectionId, null);
-                setDeletedSectionIds(prev => new Set(prev).add(editModal.sectionId));
+                setImage(editModal.sectionId, { url: DELETED_MARKER, publicId: '' });
                 setEditModal(null);
               }}
               compact

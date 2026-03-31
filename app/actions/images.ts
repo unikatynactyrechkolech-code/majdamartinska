@@ -364,3 +364,48 @@ export async function getPortfolioImages(): Promise<PortfolioImageRecord[]> {
 export async function deletePortfolioImage(sectionId: string): Promise<DeleteResult> {
   return deleteImage(sectionId);
 }
+
+// ============================================================
+// MARK DELETED — write tombstone to DB for static portfolio images
+// so deletion persists across page refresh
+// ============================================================
+
+export async function markImageDeleted(sectionId: string): Promise<DeleteResult> {
+  try {
+    if (!sectionId) {
+      return { success: false, error: 'Chybí sectionId.' };
+    }
+
+    if (!isSupabaseConfigured()) {
+      return { success: false, error: 'Supabase není nakonfigurováno.' };
+    }
+
+    const projectId = getProjectId();
+    const { createClient } = await import('@/lib/supabase/server');
+    const supabase = await createClient();
+
+    const { error: dbError } = await supabase.from('page_content').upsert(
+      {
+        project_id: projectId,
+        section_id: sectionId,
+        image_url: '__deleted__',
+        updated_at: new Date().toISOString(),
+      },
+      { onConflict: 'project_id,section_id' }
+    );
+
+    if (dbError) {
+      console.error('markImageDeleted error:', dbError);
+      return { success: false, error: dbError.message };
+    }
+
+    revalidatePath('/', 'layout');
+    return { success: true };
+  } catch (err) {
+    console.error('markImageDeleted error:', err);
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : 'Neznámá chyba.',
+    };
+  }
+}
