@@ -26,6 +26,8 @@ const IMAGES_PER_PAGE = 24;
 
 const filters = [
   { key: 'all', sectionId: 'portfolio.filter.all', label: 'Vše' },
+  { key: 'fotokouzla', sectionId: 'portfolio.filter.fotokouzla', label: 'Fotokouzla' },
+  { key: 'barevne', sectionId: 'portfolio.filter.barevne', label: 'Barevné focení' },
   { key: 'rodinna', sectionId: 'portfolio.filter.rodinna', label: 'Rodinné' },
   { key: 'newborn', sectionId: 'portfolio.filter.newborn', label: 'Newborn' },
   { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
@@ -35,6 +37,8 @@ const filters = [
 ];
 
 const categoryAltMap: Record<string, string> = {
+  fotokouzla: 'Fotokouzla',
+  barevne: 'Barevné focení',
   rodinna: 'Rodinné focení',
   newborn: 'Newborn focení',
   tehotenske: 'Těhotenské focení',

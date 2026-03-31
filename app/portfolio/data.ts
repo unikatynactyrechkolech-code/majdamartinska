@@ -5,6 +5,10 @@ export interface PortfolioImage {
 }
 
 export const portfolioImages: PortfolioImage[] = [
+  // Fotokouzla (admin přidá fotky přes CMS)
+
+  // Barevné focení (admin přidá fotky přes CMS)
+
   // Rodinné (36 photos)
   { src: "https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/374cea7b-60cd-4811-9524-ee5d44975753/1/1/_FFF7820.jpg?fjkss=exp=2090606687~hmac=f4386541e9cb3db2cd8840df3360068e6ad9397a37da78c0d3a58372925b7c27", alt: "Rodinné focení", category: "rodinna" },
   { src: "https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/7c8c0694-7a66-476e-aace-4efc803d8330/1/1/_FFF6258.jpg?fjkss=exp=2090606687~hmac=f4386541e9cb3db2cd8840df3360068e6ad9397a37da78c0d3a58372925b7c27", alt: "Rodinné focení", category: "rodinna" },

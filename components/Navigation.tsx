@@ -15,6 +15,7 @@ const navItems = [
   { href: '/sluzby', sectionId: 'nav.item.sluzby', label: 'Služby', labelEn: 'Services' },
   { href: '/o-mne', sectionId: 'nav.item.omne', label: 'Kdo jsem', labelEn: 'About' },
   { href: '/recenze', sectionId: 'nav.item.recenze', label: 'Recenze', labelEn: 'Reviews' },
+  { href: '/blog', sectionId: 'nav.item.blog', label: 'Blog', labelEn: 'Blog' },
   { href: '/kontakt', sectionId: 'nav.item.kontakt', label: 'Kontakt', labelEn: 'Contact' },
 ];
 

@@ -40,6 +40,7 @@ export function Footer() {
               <li><Link href="/sluzby"><EditableText sectionId="footer.nav.sluzby" defaultValue="Služby" as="span" /></Link></li>
               <li><Link href="/o-mne"><EditableText sectionId="footer.nav.omne" defaultValue="Kdo jsem" as="span" /></Link></li>
               <li><Link href="/recenze"><EditableText sectionId="footer.nav.recenze" defaultValue="Recenze" as="span" /></Link></li>
+              <li><Link href="/blog"><EditableText sectionId="footer.nav.blog" defaultValue="Blog" as="span" /></Link></li>
               <li><Link href="/kontakt"><EditableText sectionId="footer.nav.kontakt" defaultValue="Kontakt" as="span" /></Link></li>
             </ul>
           </div>

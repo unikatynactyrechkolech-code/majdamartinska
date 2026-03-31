@@ -92,9 +92,18 @@ const translations: Record<string, string> = {
   'Kontaktujte mě': 'Contact me',
   'Napište mi': 'Write to me',
 
+  // ── BLOG PAGE ──
+  'Blog': 'Blog',
+  'Příběhy, tipy a zákulisí focení': 'Stories, tips and behind the scenes',
+  'Už brzy tu budou příspěvky': 'Posts coming soon',
+  'Pracuji na tom, aby tu pro vás brzy byly zajímavé články, tipy na focení a příběhy ze zákulisí. Sledujte mě na sociálních sítích, ať vám nic neuteče\u00a0📸':
+    'I\'m working on bringing you interesting articles, photography tips, and behind-the-scenes stories soon. Follow me on social media so you don\'t miss anything\u00a0📸',
+
   // ── PORTFOLIO PAGE ──
   'Výběr z mé práce': 'A selection of my work',
   'Vše': 'All',
+  'Fotokouzla': 'Photo magic',
+  'Barevné focení': 'Colour photography',
   'Rodinné': 'Family',
   'Newborn': 'Newborn',
   'Těhotenské': 'Maternity',
