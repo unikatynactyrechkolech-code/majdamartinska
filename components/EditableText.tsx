@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect, useCallback, useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 
 interface EditableTextProps {
@@ -29,6 +29,7 @@ export function EditableText({
   const { isAdmin, drafts, setDraft, initContent } = useAdmin();
   const elRef = useRef<HTMLElement>(null);
   const savingRef = useRef(false);
+  const [isEditing, setIsEditing] = useState(false);
 
   // Register this section so AdminContext knows about it
   useEffect(() => {
@@ -43,11 +44,31 @@ export function EditableText({
     const el = elRef.current;
     if (!el) return;
     // Don't overwrite while focused/editing
-    if (document.activeElement === el) return;
+    if (document.activeElement === el || isEditing) return;
     if (el.innerHTML !== currentValue) {
       el.innerHTML = currentValue;
     }
-  }, [currentValue]);
+  }, [currentValue, isEditing]);
+
+  // Double-click to start editing
+  const handleDoubleClick = useCallback(() => {
+    if (!isAdmin) return;
+    setIsEditing(true);
+    // Focus the element after a tick so contentEditable is applied
+    requestAnimationFrame(() => {
+      const el = elRef.current;
+      if (el) {
+        el.focus();
+        // Place cursor at end
+        const range = document.createRange();
+        const sel = window.getSelection();
+        range.selectNodeContents(el);
+        range.collapse(false);
+        sel?.removeAllRanges();
+        sel?.addRange(range);
+      }
+    });
+  }, [isAdmin]);
 
   const handleInput = useCallback(() => {
     const el = elRef.current;
@@ -56,6 +77,7 @@ export function EditableText({
   }, [sectionId, setDraft]);
 
   const handleBlur = useCallback(async () => {
+    setIsEditing(false);
     if (savingRef.current) return;
     savingRef.current = true;
 
@@ -97,14 +119,15 @@ export function EditableText({
   return (
     <Tag
       ref={elRef}
-      className={`${className} ${isAdmin ? 'cms-editable' : ''}`}
+      className={`${className} ${isAdmin ? 'cms-editable' : ''} ${isEditing ? 'cms-editing' : ''}`}
       style={style}
-      contentEditable={isAdmin ? true : undefined}
+      contentEditable={isEditing ? true : undefined}
       suppressContentEditableWarning
-      onInput={isAdmin ? handleInput : undefined}
-      onBlur={isAdmin ? handleBlur : undefined}
-      onKeyDown={isAdmin ? handleKeyDown : undefined}
-      onPaste={isAdmin ? handlePaste : undefined}
+      onDoubleClick={isAdmin ? handleDoubleClick : undefined}
+      onInput={isEditing ? handleInput : undefined}
+      onBlur={isEditing ? handleBlur : undefined}
+      onKeyDown={isEditing ? handleKeyDown : undefined}
+      onPaste={isEditing ? handlePaste : undefined}
       dangerouslySetInnerHTML={{ __html: currentValue }}
     />
   );

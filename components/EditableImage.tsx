@@ -50,7 +50,7 @@ export function EditableImage({
 
   const currentSrc = dbImageUrl || defaultSrc;
 
-  const handleClick = useCallback((e: React.MouseEvent) => {
+  const handleDoubleClick = useCallback((e: React.MouseEvent) => {
     if (!isAdmin) return;
     e.preventDefault();
     e.stopPropagation();
@@ -73,7 +73,7 @@ export function EditableImage({
       <div
         className={`${isAdmin ? 'cms-editable-image' : ''}`}
         style={wrapperStyle}
-        onClick={handleClick}
+        onDoubleClick={handleDoubleClick}
       >
         <Image
           className={className}
@@ -88,7 +88,7 @@ export function EditableImage({
             <span className="cms-image-overlay-icon">📷</span>
             {!overlayCompact && (
               <span className="cms-image-overlay-text">
-                {dbImageUrl ? 'Změnit / smazat' : 'Nahrát obrázek'}
+                {dbImageUrl ? '2× klik pro změnu' : '2× klik pro nahrání'}
               </span>
             )}
           </div>
