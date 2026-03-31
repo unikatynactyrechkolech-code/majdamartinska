@@ -28,9 +28,11 @@ export default function HomePage() {
             className="hero-label"
           />
           <h1 className="hero-title">
-            <EditableText sectionId="home.hero.line1" defaultValue="Vaše" as="span" className="hero-line" />
-            <span className="hero-line"><EditableText sectionId="home.hero.line2" defaultValue="příběhy" as="em" /></span>
-            <EditableText sectionId="home.hero.line3" defaultValue="zachycené navždy" as="span" className="hero-line" />
+            <EditableText
+              sectionId="home.hero.intro"
+              defaultValue="Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Neváhej mi napsat!"
+              as="span"
+            />
           </h1>
           <div className="hero-btns">
             <Link href="/kontakt" className="btn btn-primary hero-btn">
@@ -39,14 +41,6 @@ export default function HomePage() {
             <Link href="/portfolio" className="btn btn-outline-dark hero-btn">
               <EditableText sectionId="home.hero.btn2" defaultValue="Celé portfolio" as="span" />
             </Link>
-          </div>
-          <div className="hero-intro">
-            <EditableText
-              sectionId="home.hero.intro"
-              defaultValue="Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Neváhej mi napsat!"
-              as="p"
-              multiline
-            />
           </div>
         </div>
         <HeroSlideshow />
@@ -80,7 +74,7 @@ export default function HomePage() {
                 height={725}
                 quality={80}
                 sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ width: '100%', height: 'auto', aspectRatio: '4/5', objectFit: 'cover' }}
+                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
               />
             </div>
           </div>

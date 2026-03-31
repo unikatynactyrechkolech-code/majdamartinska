@@ -16,7 +16,7 @@
     --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
     --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
     --container: 1320px;
-    --nav-height: 48px;
+    --nav-height: 80px;
 }
 
 *, *::before, *::after {
@@ -202,7 +202,7 @@ ul {
 }
 
 .nav-logo img {
-    height: 32px;
+    height: 52px;
     width: auto;
 }
 
@@ -248,13 +248,13 @@ ul {
 }
 
 .nav-menu a {
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 400;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: rgba(26,26,26,0.55);
     position: relative;
-    padding: 0.2rem 0;
+    padding: 0.3rem 0;
 }
 
 .nav-menu a::after {
@@ -439,12 +439,13 @@ ul {
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: clamp(2.8rem, 5.5vw, 5rem);
-    font-weight: 500;
-    line-height: 1.15;
-    margin-bottom: 1.5rem;
+    font-size: clamp(1.6rem, 3vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 2rem;
     color: var(--color-text);
     overflow: visible;
+    max-width: 540px;
 }
 
 .hero-line {
@@ -571,12 +572,13 @@ ul {
 
 .promise-img {
     position: relative;
+    border-radius: 1rem;
     overflow: hidden;
 }
 
 .promise-img img {
     width: 100%;
-    aspect-ratio: 4/5;
+    height: auto;
     object-fit: cover;
     transition: transform 0.8s var(--ease-out);
 }
@@ -1101,6 +1103,71 @@ ul {
 
 .portfolio-item:hover img {
     transform: scale(1.04);
+}
+
+/* Admin portfolio overlays & add card */
+.portfolio-item-admin {
+    cursor: pointer;
+}
+
+.portfolio-item-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.4rem 0.6rem;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    font-size: 0.7rem;
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    pointer-events: none;
+}
+
+.portfolio-item-admin:hover .portfolio-item-overlay {
+    opacity: 1;
+}
+
+.portfolio-add-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    border: 3px dashed var(--color-brown, #8B7355);
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: background 0.25s ease, border-color 0.25s ease;
+    background: rgba(139, 115, 85, 0.06);
+}
+
+.portfolio-add-card:hover {
+    background: rgba(139, 115, 85, 0.14);
+    border-color: var(--color-primary, #8B7355);
+}
+
+.portfolio-add-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--color-brown, #8B7355);
+}
+
+.portfolio-add-icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    font-weight: 300;
+}
+
+.portfolio-add-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.portfolio-add-hint {
+    font-size: 0.65rem;
+    opacity: 0.6;
 }
 
 .portfolio-filter-count {
@@ -1749,6 +1816,14 @@ ul {
 
 @media (max-width: 768px) {
     /* NAV */
+    :root {
+        --nav-height: 48px;
+    }
+
+    .nav-logo img {
+        height: 32px;
+    }
+
     .nav-toggle {
         display: flex;
     }

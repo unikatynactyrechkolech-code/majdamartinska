@@ -315,3 +315,52 @@ export async function getAllImages(): Promise<Record<string, ImageRecord>> {
     return {};
   }
 }
+
+// ============================================================
+// PORTFOLIO — get all portfolio gallery images by prefix
+// ============================================================
+
+export interface PortfolioImageRecord {
+  sectionId: string;
+  imageUrl: string;
+  category: string;
+}
+
+export async function getPortfolioImages(): Promise<PortfolioImageRecord[]> {
+  try {
+    const projectId = getProjectId();
+    if (!isSupabaseConfigured()) return [];
+
+    const { createClient } = await import('@/lib/supabase/server');
+    const supabase = await createClient();
+
+    const { data, error } = await supabase
+      .from('page_content')
+      .select('section_id, image_url')
+      .eq('project_id', projectId)
+      .like('section_id', 'portfolio.gallery.%')
+      .not('image_url', 'is', null)
+      .order('section_id');
+
+    if (error || !data) return [];
+
+    return data
+      .filter(row => row.image_url)
+      .map(row => {
+        // section_id format: portfolio.gallery.{category}.{index}
+        const parts = row.section_id.split('.');
+        const category = parts[2] || 'rodinna';
+        return {
+          sectionId: row.section_id,
+          imageUrl: row.image_url,
+          category,
+        };
+      });
+  } catch {
+    return [];
+  }
+}
+
+export async function deletePortfolioImage(sectionId: string): Promise<DeleteResult> {
+  return deleteImage(sectionId);
+}
