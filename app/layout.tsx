@@ -7,6 +7,7 @@ import { PageTransition } from '@/components/PageTransition';
 import { LoadingScreen } from '@/components/LoadingScreen';
 import { ScrollAnimations } from '@/components/ScrollAnimations';
 import { AdminProvider } from '@/contexts/AdminContext';
+import { LanguageProvider } from '@/contexts/LanguageContext';
 import { AdminToolbar } from '@/components/AdminToolbar';
 import { CookieConsent } from '@/components/CookieConsent';
 
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body>
         <AdminProvider>
+          <LanguageProvider>
           <LoadingScreen />
           <PageTransition />
           <AdminToolbar />
@@ -39,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <ScrollAnimations />
           <CookieConsent />
+          </LanguageProvider>
         </AdminProvider>
       </body>
     </html>

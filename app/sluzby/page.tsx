@@ -16,7 +16,7 @@ export default function SluzbyPage() {
       />
 
       {/* RODINNÉ */}
-      <section className="section service-detail" id="rodinna" data-animate>
+      <section className="section service-detail section-brown" id="rodinna" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -72,7 +72,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* SVATBY */}
-      <section className="section service-detail" id="svatby" data-animate>
+      <section className="section service-detail section-brown" id="svatby" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -128,7 +128,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* TĚHOTENSKÉ */}
-      <section className="section service-detail" id="tehotenske" data-animate>
+      <section className="section service-detail section-brown" id="tehotenske" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -184,7 +184,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* CTA */}
-      <section className="section cta" data-animate>
+      <section className="section cta section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="sluzby.cta.label" defaultValue="NEVÁHEJTE" as="p" className="section-label" />
           <h2 className="section-title-big">

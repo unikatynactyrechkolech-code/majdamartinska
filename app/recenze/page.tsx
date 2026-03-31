@@ -78,7 +78,7 @@ export default function RecenzePage() {
         sectionPrefix="recenze.hero"
       />
 
-      <section className="section" data-animate>
+      <section className="section section-brown" data-animate>
         <div className="container">
           <div className="reviews-grid">
             {reviews.map((review, idx) => (

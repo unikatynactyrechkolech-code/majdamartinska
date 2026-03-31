@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { EditableText } from '@/components/EditableText';
+import { useLang } from '@/contexts/LanguageContext';
 
 const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
@@ -21,12 +22,7 @@ export function Navigation() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lang, setLang] = useState<'cs' | 'en'>('cs');
-
-  useEffect(() => {
-    const saved = localStorage.getItem('majda-lang') as 'cs' | 'en' | null;
-    if (saved) setLang(saved);
-  }, []);
+  const { lang, setLang } = useLang();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60);
@@ -49,9 +45,7 @@ export function Navigation() {
   }, []);
 
   const toggleLang = () => {
-    const next = lang === 'cs' ? 'en' : 'cs';
-    setLang(next);
-    localStorage.setItem('majda-lang', next);
+    setLang(lang === 'cs' ? 'en' : 'cs');
   };
 
   return (
@@ -89,11 +83,7 @@ export function Navigation() {
                 document.body.style.overflow = '';
               }}
             >
-              {lang === 'cs' ? (
-                <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
-              ) : (
-                <span>{item.labelEn}</span>
-              )}
+              <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
             </Link>
           </li>
         ))}

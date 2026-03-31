@@ -32,9 +32,14 @@ export default function HomePage() {
             <span className="hero-line"><EditableText sectionId="home.hero.line2" defaultValue="příběhy" as="em" /></span>
             <EditableText sectionId="home.hero.line3" defaultValue="zachycené navždy" as="span" className="hero-line" />
           </h1>
-          <Link href="/kontakt" className="btn btn-primary hero-btn">
-            <EditableText sectionId="home.hero.btn" defaultValue="Mám zájem" as="span" />
-          </Link>
+          <div className="hero-btns">
+            <Link href="/kontakt" className="btn btn-primary hero-btn">
+              <EditableText sectionId="home.hero.btn" defaultValue="Chci fotky" as="span" />
+            </Link>
+            <Link href="/portfolio" className="btn btn-outline-dark hero-btn">
+              <EditableText sectionId="home.hero.btn2" defaultValue="Celé portfolio" as="span" />
+            </Link>
+          </div>
         </div>
         <HeroSlideshow />
       </section>

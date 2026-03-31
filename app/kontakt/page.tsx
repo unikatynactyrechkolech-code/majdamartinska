@@ -74,7 +74,7 @@ export default function KontaktPage() {
       </section>
 
       {/* STUDIO */}
-      <section className="section studio" data-animate>
+      <section className="section studio section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="kontakt.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">

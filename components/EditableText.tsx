@@ -2,6 +2,7 @@
 
 import { useRef, useEffect, useCallback, useState } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { useLang } from '@/contexts/LanguageContext';
 
 interface EditableTextProps {
   /** Unique identifier for this piece of content, e.g. "home.hero.title" */
@@ -27,6 +28,7 @@ export function EditableText({
   style,
 }: EditableTextProps) {
   const { isAdmin, drafts, setDraft, initContent } = useAdmin();
+  const { lang, t } = useLang();
   const elRef = useRef<HTMLElement>(null);
   const savingRef = useRef(false);
   const [isEditing, setIsEditing] = useState(false);
@@ -36,7 +38,9 @@ export function EditableText({
     initContent(sectionId, defaultValue);
   }, [sectionId, defaultValue, initContent]);
 
-  const currentValue = drafts[sectionId]?.value ?? defaultValue;
+  // In EN mode, translate the default value; in CS mode use DB value or default
+  const csValue = drafts[sectionId]?.value ?? defaultValue;
+  const currentValue = lang === 'en' ? t(defaultValue) : csValue;
 
   // Sync innerHTML when value changes externally (e.g. DB load)
   // but NOT while user is editing (to avoid cursor jumping)

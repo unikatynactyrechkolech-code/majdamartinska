@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useLang } from '@/contexts/LanguageContext';
 
 export function CookieConsent() {
   const [visible, setVisible] = useState(false);
   const [closing, setClosing] = useState(false);
+  const { t } = useLang();
 
   useEffect(() => {
     // Check if consent was already given
@@ -39,19 +41,17 @@ export function CookieConsent() {
       <div className="cookie-banner-inner">
         <div className="cookie-banner-icon">🍪</div>
         <div className="cookie-banner-text">
-          <h4>Tato stránka používá cookies</h4>
+          <h4>{t('Tato stránka používá cookies')}</h4>
           <p>
-            Na stránkách používáme soubory cookies. Některé jsou nezbytné pro fungování
-            stránek, jiné nám umožňují poskytnout vám lepší zkušenost při návštěvě
-            a pomáhají nám analyzovat návštěvnost.
+            {t('Na stránkách používáme soubory cookies. Některé jsou nezbytné pro fungování stránek, jiné nám umožňují poskytnout vám lepší zkušenost při návštěvě a pomáhají nám analyzovat návštěvnost.')}
           </p>
         </div>
         <div className="cookie-banner-actions">
           <button className="btn btn-primary cookie-btn-accept" onClick={accept}>
-            Souhlasím
+            {t('Souhlasím')}
           </button>
           <button className="btn btn-outline cookie-btn-decline" onClick={decline}>
-            Odmítnout
+            {t('Odmítnout')}
           </button>
         </div>
       </div>

@@ -145,6 +145,18 @@ ul {
     transform: translateY(-1px);
 }
 
+.btn-outline-dark {
+    background: transparent;
+    color: var(--color-text);
+    border: 1.5px solid var(--color-text);
+}
+
+.btn-outline-dark:hover {
+    background: var(--color-text);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
 .btn-text {
     background: none;
     border: none;
@@ -446,10 +458,16 @@ ul {
 .hero-title .hero-line:nth-child(2) { animation-delay: 0.65s; }
 .hero-title .hero-line:nth-child(3) { animation-delay: 0.8s; }
 
-.hero-btn {
+.hero-btns {
+    display: flex;
+    gap: 0.75rem;
     opacity: 0;
     animation: fadeSlideUp 0.8s var(--ease-out) forwards;
     animation-delay: 1.1s;
+}
+
+.hero-btn {
+    /* no separate animation — .hero-btns handles it */
 }
 
 @keyframes fadeSlideUp {
@@ -1685,6 +1703,11 @@ ul {
     .hero-title {
         font-size: clamp(2rem, 9vw, 3.2rem);
         margin-bottom: 1.5rem;
+    }
+
+    .hero-btns {
+        justify-content: center;
+        flex-wrap: wrap;
     }
 
     .hero-btn {

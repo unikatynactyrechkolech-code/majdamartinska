@@ -30,7 +30,7 @@ export default function PortfolioPage() {
         sectionPrefix="portfolio.hero"
       />
 
-      <section className="section" data-animate>
+      <section className="section section-brown" data-animate>
         <div className="container">
           <PortfolioFilter images={portfolioImages} />
         </div>
