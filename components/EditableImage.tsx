@@ -1,6 +1,7 @@
 'use client';
 
 import Image, { type ImageProps } from 'next/image';
+import { createPortal } from 'react-dom';
 import { useAdmin } from '@/contexts/AdminContext';
 import { ImageUploader } from '@/components/ImageUploader';
 import { useCallback, useState, useEffect } from 'react';
@@ -25,7 +26,9 @@ export function EditableImage({
   const { isAdmin } = useAdmin();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Track the current image URL from DB (null = use default prop)
+  const [uploadSuccess, setUploadSuccess] = useState(false);
+
+  // Load existing image from DB on mount
   const [dbImageUrl, setDbImageUrl] = useState<string | null>(null);
   const [dbPublicId, setDbPublicId] = useState<string | null>(null);
 
@@ -59,6 +62,7 @@ export function EditableImage({
 
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
+    setUploadSuccess(false);
   }, []);
 
   // For fill images, we need the wrapper to also be position:relative
@@ -95,8 +99,8 @@ export function EditableImage({
         )}
       </div>
 
-      {/* Upload modal — uses universal ImageUploader */}
-      {isModalOpen && (
+      {/* Upload modal — rendered via Portal into body to escape overflow:hidden */}
+      {isModalOpen && createPortal(
         <div className="cms-img-modal-backdrop" onClick={closeModal}>
           <div className="cms-img-modal" onClick={(e) => e.stopPropagation()}>
             <button className="cms-img-modal-close" onClick={closeModal}>✕</button>
@@ -113,23 +117,30 @@ export function EditableImage({
               onUploadComplete={(data) => {
                 setDbImageUrl(data.imageUrl);
                 setDbPublicId(data.publicId);
-                setIsModalOpen(false);
+                setUploadSuccess(true);
               }}
               onDeleteComplete={() => {
                 setDbImageUrl(null);
                 setDbPublicId(null);
-                setIsModalOpen(false);
+                setUploadSuccess(false);
               }}
               compact
             />
 
+            {uploadSuccess && (
+              <div className="cms-img-modal-success">
+                ✅ Obrázek uložen! Změna je okamžitě aktivní — nemusíte klikat na &quot;Publikovat&quot;.
+              </div>
+            )}
+
             <div className="cms-img-modal-actions">
               <button className="cms-img-btn-cancel" onClick={closeModal}>
-                Zavřít
+                {uploadSuccess ? '✓ Hotovo' : 'Zavřít'}
               </button>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </>
   );
