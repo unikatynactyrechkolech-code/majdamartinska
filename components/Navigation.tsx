@@ -60,18 +60,13 @@ export function Navigation() {
           priority
         />
       </Link>
-      <div className="nav-right">
-        <button className="lang-switch" onClick={toggleLang} aria-label="Switch language">
-          {lang === 'cs' ? 'EN' : 'CZ'}
-        </button>
-        <button
-          className={`nav-toggle ${menuOpen ? 'active' : ''}`}
-          onClick={toggleMenu}
-          aria-label="Menu"
-        >
-          <span /><span /><span />
-        </button>
-      </div>
+      <button
+        className={`nav-toggle ${menuOpen ? 'active' : ''}`}
+        onClick={toggleMenu}
+        aria-label="Menu"
+      >
+        <span /><span /><span />
+      </button>
       <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
         {navItems.map(item => (
           <li key={item.href}>
@@ -87,6 +82,11 @@ export function Navigation() {
             </Link>
           </li>
         ))}
+        <li className="nav-lang-item">
+          <button className="lang-switch" onClick={toggleLang} aria-label="Switch language">
+            {lang === 'cs' ? 'EN' : 'CZ'}
+          </button>
+        </li>
       </ul>
     </nav>
   );

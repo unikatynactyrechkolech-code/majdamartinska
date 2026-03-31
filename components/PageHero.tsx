@@ -2,7 +2,6 @@
 
 import { EditableImage } from '@/components/EditableImage';
 import { EditableText } from '@/components/EditableText';
-import { useLang } from '@/contexts/LanguageContext';
 
 export interface PageHeroProps {
   title: string;

@@ -25,7 +25,7 @@ export default function SluzbyPage() {
             <div className="service-detail-content">
               <p className="section-label">01</p>
               <h2><EditableText sectionId="sluzby.rodinna.title" defaultValue="Rodinné a <em>párové focení</em>" as="span" /></h2>
-              <EditableText sectionId="sluzby.rodinna.text" defaultValue="Focení rodin, párů, sourozenců, kamarádů. Prostě všech, kteří se mají rádi a chtějí si to připomenout i za 10 let. Focení probíhá většinou venku v přírodě, nebo v mém ateliéru na Suchdole. Rodinné focení trvá cca 1–1,5 h." as="p" multiline />
+              <EditableText sectionId="sluzby.rodinna.text" defaultValue="Vyber si ateliér nebo les a louku, záleží na tobě. To hlavní ale je, aby byla pohoda a bylo to celé o příjemném zážitku, ze kterého si odneseš na památku fotografie. Nechci abys focení odbil/a v křeči, ale abys ho užil/a :)" as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.rodinna.li1" defaultValue="Rodinné focení / párové focení" as="span" /></li>
                 <li><EditableText sectionId="sluzby.rodinna.li2" defaultValue="V exteriéru nebo v ateliéru" as="span" /></li>
@@ -53,7 +53,7 @@ export default function SluzbyPage() {
             <div className="service-detail-content">
               <p className="section-label">02</p>
               <h2><EditableText sectionId="sluzby.newborn.title" defaultValue="Newborn — <em>miminka</em>" as="span" /></h2>
-              <EditableText sectionId="sluzby.newborn.text" defaultValue="Newborn focení je zaměřené na novorozence ve věku 5–14 dní. V tomto období jsou miminka ještě hodně ospalá a dají se krásně tvarovat do různých pozic. Focení probíhá v mém ateliéru, kde je teplo, klid a vše potřebné." as="p" multiline />
+              <EditableText sectionId="sluzby.newborn.text" defaultValue="Focení mrňousků do 14 dnů života... to mě moc baví. Vím, že to bývá pro rodiče náročné a tak se snažím o maximální pohodlí všech. Rodiče dostanou kafíčko a dětičky mají zase zajištěnou tu nejlepší péči. Hoďte si nohy nahoru a nechte svého prťouska rozmazlovat." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.newborn.li1" defaultValue="Newborn focení (5–14 dní)" as="span" /></li>
                 <li><EditableText sectionId="sluzby.newborn.li2" defaultValue="V ateliéru Praha Suchdol" as="span" /></li>
@@ -81,7 +81,7 @@ export default function SluzbyPage() {
             <div className="service-detail-content">
               <p className="section-label">03</p>
               <h2><EditableText sectionId="sluzby.svatby.title" defaultValue="Svatební <em>focení</em>" as="span" /></h2>
-              <EditableText sectionId="sluzby.svatby.text" defaultValue="Váš velký den si zaslouží být zachycen přirozeně a s citem. Focím reportážním stylem — žádné nucené pózy, ale skutečné emoce a momenty, které byste jinak zapomněli." as="p" multiline />
+              <EditableText sectionId="sluzby.svatby.text" defaultValue="Ahoj budoucí novomanželé. Bojíte se abyste měli na fotkách všechno? Bojíte se, aby fotograf nenarušoval váš krásný den? Bojíte se, že bude fotograf protiva? Tak se nebojte :). Právě jste našli, to co hledáte :)))" as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.svatby.li1" defaultValue="Svatební den — reportážní styl" as="span" /></li>
                 <li><EditableText sectionId="sluzby.svatby.li2" defaultValue="Přípravy, obřad, focení párů, hostina" as="span" /></li>
@@ -109,7 +109,7 @@ export default function SluzbyPage() {
             <div className="service-detail-content">
               <p className="section-label">04</p>
               <h2><EditableText sectionId="sluzby.psi.title" defaultValue="Psí <em>kamarádi</em>" as="span" /></h2>
-              <EditableText sectionId="sluzby.psi.text" defaultValue="Máš doma mazlíka, co ti dělá radost? Focení psích kamarádů (a samozřejmě i s jejich páníčky) je něco, co mě neskutečně baví. Focení probíhá venku v přírodě." as="p" multiline />
+              <EditableText sectionId="sluzby.psi.text" defaultValue="Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice, nebo trhá pošťákovi kalhoty? Chceš ho mít na očích stále a dívat se na něj na fotkách nebo obraze? Tož to tady jsi správně." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.psi.li1" defaultValue="Focení psů a jejich páníčků" as="span" /></li>
                 <li><EditableText sectionId="sluzby.psi.li2" defaultValue="V přírodě" as="span" /></li>

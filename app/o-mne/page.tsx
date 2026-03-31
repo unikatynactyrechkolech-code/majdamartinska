@@ -32,9 +32,9 @@ export default function OMnePage() {
             </div>
             <div className="about-text">
               <h2><EditableText sectionId="omne.intro.title" defaultValue="Ahoj, jsem <em>Majda</em>" as="span" /></h2>
-              <EditableText sectionId="omne.intro.text1" defaultValue="Focení mě lákalo od dětství — tenkrát jsem běhala po zahradě s foťákem od babičky a fotila všechno, co se hýbalo (většinou kočky, které se hýbat nechtěly)." as="p" multiline />
-              <EditableText sectionId="omne.intro.text2" defaultValue="Jsem Majda, rodinná a newborn fotografka z Prahy. Focení je pro mě víc než práce — je to způsob, jak zachytit momenty, na které budete jednou vzpomínat s úsměvem." as="p" multiline />
-              <EditableText sectionId="omne.intro.text3" defaultValue="Mám ráda humor a to se objevuje i v mých fotografiích. Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi záleží. Taky jsem dost upovídaná, takže kdo se bojí trapného ticha, nemusí :)" as="p" multiline />
+              <EditableText sectionId="omne.intro.text1" defaultValue="Jako dítě jsem tátovi tajně brala foťák a snažila jsem se s ním fotit. Ale pak jsem ze strachu, že na to přijde, vyndavala negativy ven :)). Nu škoda, možná by to mohly být pěkné záběry. Tak jako tak, fakt je, že mě focení lákalo od dětství." as="p" multiline />
+              <EditableText sectionId="omne.intro.text2" defaultValue="Nejraději fotím bláznivé fotky se špetkou humoru. Mám moc ráda humor a to se objevuje v mých uměleckých fotografiích. A světe div se, i komerční focení probíhá ve veselém tónu." as="p" multiline />
+              <EditableText sectionId="omne.intro.text3" defaultValue="Dobrá nálada, otevřenost, přirozenost a žádná křeč... to je to, na čem mi při focení záleží :). Taky jsem dost upovídaná. Maminka by spíš řekla: 'ty tu klapačku taky nezavřeš'. Takže kdo se bojí trapného ticha — nebude :))" as="p" multiline />
             </div>
           </div>
         </div>
@@ -45,17 +45,53 @@ export default function OMnePage() {
         <div className="container">
           <EditableText sectionId="omne.reasons.label" defaultValue="PROČ PRÁVĚ JÁ?" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="omne.reasons.title" defaultValue="10 důvodů, proč <em>fotit se mnou</em>" as="span" />
+            <EditableText sectionId="omne.reasons.title" defaultValue="10 důvodů, proč <em>fotit se mnou</em> a ne od Pučálkovic Aminy" as="span" />
           </h2>
           <div className="reasons-grid">
-            {[1,2,3,4,5,6,7,8,9,10].map(n => (
-              <div className="reason-card" key={n}>
-                <span className="reason-number">{String(n).padStart(2, '0')}</span>
-                <h3><EditableText sectionId={`omne.reason${n}.title`} defaultValue={`Důvod ${n}`} as="span" /></h3>
-                <EditableText sectionId={`omne.reason${n}.text`} defaultValue={`Popis důvodu ${n}`} as="p" multiline />
-              </div>
-            ))}
+            <div className="reason-card">
+              <span className="reason-number">01</span>
+              <EditableText sectionId="omne.reason1.text" defaultValue="Je u mě lepší zábava, než u Aminy a to už je co říct." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">02</span>
+              <EditableText sectionId="omne.reason2.text" defaultValue="Fakt se snažím, aby ses cítil/a uvolněně (a to v přítomnosti žirafy nejde)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">03</span>
+              <EditableText sectionId="omne.reason3.text" defaultValue="Fotím z očí do očí a tak to vypadá přirozeně (Amina fotí zásadně z nadhledu)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">04</span>
+              <EditableText sectionId="omne.reason4.text" defaultValue="Na úpravě fotografií si dávám hodně záležet (Amina ani neví, co je Photoshop)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">05</span>
+              <EditableText sectionId="omne.reason5.text" defaultValue="Návštěva u mě není jen focení, ale i přátelské setkání dvou a více lidí." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">06</span>
+              <EditableText sectionId="omne.reason6.text" defaultValue="K focení v ateliéru ti uvařím lahodnou kávu (Amina kávu nepije a co hůř, nepije ani alkohol)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">07</span>
+              <EditableText sectionId="omne.reason7.text" defaultValue="Při venkovním focení tě vezmu na vážně pěkná místa (tady musím uznat, že Amina by to možná zvládla lépe)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">08</span>
+              <EditableText sectionId="omne.reason8.text" defaultValue="Fotografie odevzdám do 21 dnů nejpozději (Amina neumí napočítat ani do pěti)." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">09</span>
+              <EditableText sectionId="omne.reason9.text" defaultValue="Kromě toho, že toho hodně namluvím, tak ti i naslouchám a přizpůsobím se tvým přáním." as="p" multiline />
+            </div>
+            <div className="reason-card">
+              <span className="reason-number">10</span>
+              <EditableText sectionId="omne.reason10.text" defaultValue="Vedu 9:1 v důvodech, proč jít ke mně a ne k Amině. Tak neváhej a kontaktuj mě." as="p" multiline />
+            </div>
           </div>
+          <p className="reasons-footnote" style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', marginTop: '2rem', fontStyle: 'italic', textAlign: 'center' }}>
+            <EditableText sectionId="omne.reasons.footnote" defaultValue="Vsuvka: Pučálkovic Amina je žirafa, kterou si v jedné báječné knize vymyslel Jindřich Plachta :)" as="span" />
+          </p>
         </div>
       </section>
 

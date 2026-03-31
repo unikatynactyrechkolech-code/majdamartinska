@@ -2,8 +2,10 @@
 
 import { FormEvent, useCallback } from 'react';
 import { EditableText } from '@/components/EditableText';
+import { useLang } from '@/contexts/LanguageContext';
 
 export function ContactForm() {
+  const { t } = useLang();
   const handleSubmit = useCallback((e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
@@ -36,14 +38,14 @@ export function ContactForm() {
       <div className="form-group">
         <label htmlFor="package"><EditableText sectionId="form.label.package" defaultValue="Zvolený balíček" as="span" /></label>
         <select id="package" name="package">
-          <option value=""><EditableText sectionId="form.option.default" defaultValue="— Vyberte —" as="span" /></option>
-          <option value="rodinna"><EditableText sectionId="form.option.rodinna" defaultValue="Rodinné a portrétní focení" as="span" /></option>
-          <option value="newborn"><EditableText sectionId="form.option.newborn" defaultValue="Newborn — miminka" as="span" /></option>
-          <option value="svatby"><EditableText sectionId="form.option.svatby" defaultValue="Svatba" as="span" /></option>
-          <option value="tehotenske"><EditableText sectionId="form.option.tehotenske" defaultValue="Těhotenské focení" as="span" /></option>
-          <option value="psi"><EditableText sectionId="form.option.psi" defaultValue="Focení pejsků" as="span" /></option>
-          <option value="portret"><EditableText sectionId="form.option.portret" defaultValue="Portréty" as="span" /></option>
-          <option value="jine"><EditableText sectionId="form.option.jine" defaultValue="Jiné" as="span" /></option>
+          <option value="">{t('— Vyberte —')}</option>
+          <option value="rodinna">{t('Rodinné a portrétní focení')}</option>
+          <option value="newborn">{t('Newborn — miminka')}</option>
+          <option value="svatby">{t('Svatba')}</option>
+          <option value="tehotenske">{t('Těhotenské focení')}</option>
+          <option value="psi">{t('Focení pejsků')}</option>
+          <option value="portret">{t('Portréty')}</option>
+          <option value="jine">{t('Jiné')}</option>
         </select>
       </div>
       <div className="form-group">

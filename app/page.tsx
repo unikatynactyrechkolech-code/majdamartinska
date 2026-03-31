@@ -23,7 +23,7 @@ export default function HomePage() {
         <div className="hero-content">
           <EditableText
             sectionId="home.hero.label"
-            defaultValue="RODINNÉ · SVATEBNÍ · NEWBORN FOCENÍ"
+            defaultValue="RODINNÉ, SVATEBNÍ A NEWBORN FOCENÍ"
             as="p"
             className="hero-label"
           />
@@ -55,7 +55,7 @@ export default function HomePage() {
             <div className="promise-text">
               <EditableText
                 sectionId="home.promise.text"
-                defaultValue="Hledáte fotografku a zároveň pohodářku? Chcete si focení užít a neprotrpět? Jste na správném místě. Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi při focení záleží."
+                defaultValue="Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi při focení záleží. Neváhej mi napsat!"
                 as="p"
                 multiline
               />
@@ -148,7 +148,7 @@ export default function HomePage() {
               </h2>
               <EditableText
                 sectionId="home.about.text"
-                defaultValue="Focení mě lákalo od dětství. Mám ráda humor a to se objevuje i v mých fotografiích. Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi záleží. Taky jsem dost upovídaná, takže kdo se bojí trapného ticha, nebude :)"
+                defaultValue="Jako dítě jsem tátovi tajně brala foťák a snažila se s ním fotit. Mám ráda humor a to se objevuje i v mých fotografiích. Dobrá nálada, otevřenost, přirozenost a žádná křeč. Taky jsem dost upovídaná, takže kdo se bojí trapného ticha — nebude :)"
                 as="p"
                 multiline
               />
@@ -174,7 +174,7 @@ export default function HomePage() {
                 <EditableImage sectionId="home.more1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/91,0,1091,1000,580,580,1/0-0-0/df099d74-dc42-4b6c-b83e-fb2200b54189/1/2/_FFF6743.jpg?fjkss=exp=2088926255~hmac=69a228dbb31ba452684c67584e88c7e9291798244e448bc468b9c8071a5c924a" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <EditableText sectionId="home.more1.title" defaultValue="Psí kamarádi" as="h3" />
-              <EditableText sectionId="home.more1.text" defaultValue="Máš doma mazlíka? Chceš ho mít na fotkách? Tož to tady jsi správně." as="p" />
+              <EditableText sectionId="home.more1.text" defaultValue="Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice? Chceš ho mít na fotkách? Tož to tady jsi správně." as="p" />
               <EditableText sectionId="home.more1.cta" defaultValue="INFORMACE →" as="span" className="more-service-cta" />
             </Link>
             <Link href="/sluzby#tehotenske" className="more-service-item">
@@ -205,7 +205,7 @@ export default function HomePage() {
             <blockquote>
               <EditableText
                 sectionId="home.testimonial.text"
-                defaultValue={'„Spolupracovat s Majdou byla naprostá paráda. S naším 14denním synem zacházela více než mateřsky. Fotografie jsou plné něhy, lásky a profesionality."'}
+                defaultValue={'„Naše spolupráce s Majdou byla naprosto úžasná. S naším 14denním synem zacházela více než mateřsky. Fotografie od ní jsou plné něhy, lásky a profesionality. Mockrát děkujeme za krásné odpoledne a úžasné vzpomínky."'}
                 as="p"
                 multiline
               />
