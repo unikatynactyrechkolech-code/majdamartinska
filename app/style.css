@@ -1006,6 +1006,7 @@ ul {
 .page-hero {
     height: auto;
     min-height: 0;
+    margin-top: var(--nav-height);
     padding: 3.5rem 2rem 2.5rem;
     display: flex;
     align-items: center;
@@ -1013,6 +1014,7 @@ ul {
     position: relative;
     overflow: hidden;
     background: var(--color-warm-bg, #f5efe7);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
 }
 
 .page-hero-bg {
@@ -1354,12 +1356,20 @@ ul {
 .about-img {
     position: sticky;
     top: calc(var(--nav-height) + 2rem);
+    border-radius: 1rem;
+    overflow: hidden;
+}
+
+.about-img > div {
+    width: 100%;
+    height: 100%;
 }
 
 .about-img img {
     width: 100%;
     aspect-ratio: 3/4;
     object-fit: cover;
+    border-radius: 1rem;
 }
 
 .about-text h2 {
@@ -2316,6 +2326,7 @@ ul {
     /* PAGE HERO */
     .page-hero {
         padding: 2.5rem 1.5rem 2rem;
+        margin-top: var(--nav-height);
     }
 
     .page-hero-content h1 {
