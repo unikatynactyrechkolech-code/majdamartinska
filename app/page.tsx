@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1200,800,2500,800/0-0-0/9f27a5f7-9b8d-4a77-b0cf-0aeb03a1d293/1/1/_A737282.jpg?fjkss=exp=2090606687~hmac=dca27e1dfd9527205d26e8d93b95d589d5754c1e263e2e7333fad9a4114c1370" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service1.name" defaultValue="Rodinné a portrétní" as="span" className="service-name" />
@@ -108,7 +108,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#newborn" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2088926256~hmac=f068764e9720bd72e5c31b1778dc5b3c9757133c8222f974f4fbd7a2070d2581" alt="Newborn focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/39552bba-f5eb-49c1-8e5e-f5d232a38f4c/1/1/_FFF0538-SharpenAI-Softness.jpg?fjkss=exp=2090606351~hmac=5670ce43709043e64478644a63bcfcc126ca0fa9cf9958a72e84f2af0f1a98cf" alt="Newborn focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service2.name" defaultValue="Newborn — miminka" as="span" className="service-name" />
@@ -117,7 +117,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#svatby" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2088926256~hmac=048edc5062605e1fa227333279bc4d80d6f5dc521a10449af549312b0ba64723" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,2500,1000/0-0-0/f30ef38a-00e3-414c-aa4f-ab5dc3f3e761/1/1/beranci431.jpg?fjkss=exp=2090606430~hmac=fb6f9f0aed07b67285e976063947789493028c8f896290be5fe05bb4d9eae045" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service3.name" defaultValue="Svatby" as="span" className="service-name" />
@@ -213,7 +213,7 @@ export default function HomePage() {
               />
             </blockquote>
             <div className="testimonial-author">
-              <EditableImage sectionId="home.testimonial.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/341,0,1341,999,760,760,1/0-0-0/465305c9-f66c-4175-b352-2218472c9b79/1/2/_FFF7991-SharpenAI-Softness.jpg?fjkss=exp=2088927693~hmac=e5651265ed7944c54ef2104fff6f891c739eeae40455d82b8168c81c91edacf0" alt="Bára M." width={56} height={56} style={{ borderRadius: '50%', objectFit: 'cover' }} overlayCompact />
+              <EditableImage sectionId="home.testimonial.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/341,0,1341,999,760,760,1/0-0-0/465305c9-f66c-4175-b352-2218472c9b79/1/2/_FFF7991-SharpenAI-Softness.jpg?fjkss=exp=2088927693~hmac=e5651265ed7944c54ef2104fff6f891c739eeae40455d82b8168c81c91edacf0" alt="Bára M." width={56} height={56} style={{ borderRadius: '50%', objectFit: 'cover' }} overlayCompact noLightbox />
               <div>
                 <EditableText sectionId="home.testimonial.name" defaultValue="Bára M." as="strong" />
                 <EditableText sectionId="home.testimonial.type" defaultValue="Newborn focení" as="span" />

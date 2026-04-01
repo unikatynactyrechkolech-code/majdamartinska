@@ -13,18 +13,12 @@ export function LoadingScreen() {
   const pathname = usePathname();
   const { dbLoaded } = useAdmin();
 
-  // Add is-loading class to body immediately on mount
-  useEffect(() => {
-    document.body.classList.add('is-loading');
-  }, []);
-
   // Reveal content once DB is loaded (regardless of loading screen)
   useEffect(() => {
     if (!dbLoaded) return;
 
-    // If we're NOT showing the loading animation, reveal immediately
+    // If we're NOT showing the loading animation, or it already finished, reveal content
     if (!shouldShow || hidden) {
-      document.body.classList.remove('is-loading');
       document.body.classList.add('is-loaded');
     }
   }, [dbLoaded, shouldShow, hidden]);
@@ -38,8 +32,7 @@ export function LoadingScreen() {
         setHidden(true);
         document.body.style.overflow = '';
         sessionStorage.setItem('majda-loaded', '1');
-        // Reveal content after loading animation ends, but only if DB is ready
-        document.body.classList.remove('is-loading');
+        // Reveal content after loading animation ends
         document.body.classList.add('is-loaded');
       }, 2800);
       return () => clearTimeout(timer);

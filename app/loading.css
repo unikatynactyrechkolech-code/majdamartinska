@@ -2,19 +2,20 @@
    LOADING SCREEN
    ======================================== */
 
-/* Hide page content behind loader until ready */
-body.is-loading > main,
-body.is-loading > nav,
-body.is-loading > footer {
+/* Hide page content by default — prevents flash before JS loads */
+body > main,
+body > nav,
+body > footer {
     opacity: 0 !important;
     transition: none !important;
 }
 
+/* Reveal content once JS confirms everything is loaded */
 body.is-loaded > main,
 body.is-loaded > nav,
 body.is-loaded > footer {
-    opacity: 1;
-    transition: opacity 0.35s ease;
+    opacity: 1 !important;
+    transition: opacity 0.35s ease !important;
 }
 
 .loader {

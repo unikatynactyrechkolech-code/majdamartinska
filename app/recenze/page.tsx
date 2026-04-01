@@ -97,6 +97,7 @@ export default function RecenzePage() {
                     sizes="48px"
                     style={{ borderRadius: '50%', objectFit: 'cover', width: '48px', height: '48px', minWidth: '48px', minHeight: '48px', flexShrink: 0 }}
                     overlayCompact
+                    noLightbox
                   />
                   <div>
                     <EditableText sectionId={`recenze.review${idx + 1}.name`} defaultValue={review.name} as="strong" />

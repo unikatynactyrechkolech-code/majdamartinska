@@ -13,8 +13,14 @@ export function PageTransition() {
 
   useEffect(() => {
     if (prevPath.current !== pathname) {
+      // Hide content and show transition overlay
+      document.body.classList.remove('is-loaded');
       setActive(true);
-      const timer = setTimeout(() => setActive(false), 700);
+      const timer = setTimeout(() => {
+        setActive(false);
+        // Reveal content after transition completes
+        document.body.classList.add('is-loaded');
+      }, 700);
       prevPath.current = pathname;
       return () => clearTimeout(timer);
     }

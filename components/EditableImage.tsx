@@ -4,6 +4,7 @@ import Image, { type ImageProps } from 'next/image';
 import { createPortal } from 'react-dom';
 import { useAdmin } from '@/contexts/AdminContext';
 import { ImageUploader } from '@/components/ImageUploader';
+import { useLightbox } from '@/components/ImageLightbox';
 import { useCallback, useState } from 'react';
 
 interface EditableImageProps extends Omit<ImageProps, 'onClick'> {
@@ -11,6 +12,8 @@ interface EditableImageProps extends Omit<ImageProps, 'onClick'> {
   sectionId: string;
   /** Optional: hide the overlay text (useful for small images like avatars) */
   overlayCompact?: boolean;
+  /** Optional: disable lightbox for this specific image */
+  noLightbox?: boolean;
 }
 
 export function EditableImage({
@@ -20,10 +23,12 @@ export function EditableImage({
   src: defaultSrc,
   alt: defaultAlt,
   overlayCompact = false,
+  noLightbox = false,
   fill,
   ...props
 }: EditableImageProps) {
   const { isAdmin, images, setImage } = useAdmin();
+  const { openLightbox } = useLightbox();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
@@ -39,6 +44,14 @@ export function EditableImage({
     setIsModalOpen(true);
   }, [isAdmin]);
 
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    // In admin mode, don't open lightbox (admin uses double-click to edit)
+    if (isAdmin || noLightbox) return;
+    e.preventDefault();
+    e.stopPropagation();
+    openLightbox(String(currentSrc), String(defaultAlt));
+  }, [isAdmin, noLightbox, currentSrc, defaultAlt, openLightbox]);
+
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
     setUploadSuccess(false);
@@ -47,7 +60,7 @@ export function EditableImage({
   // For fill images, we need the wrapper to also be position:relative
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
-    cursor: isAdmin ? 'pointer' : undefined,
+    cursor: isAdmin ? 'pointer' : (noLightbox ? undefined : 'zoom-in'),
     ...(fill ? { width: '100%', height: '100%' } : {}),
   };
 
@@ -57,6 +70,7 @@ export function EditableImage({
         className={`${isAdmin ? 'cms-editable-image' : ''}`}
         style={wrapperStyle}
         onDoubleClick={handleDoubleClick}
+        onClick={handleClick}
       >
         <Image
           className={className}

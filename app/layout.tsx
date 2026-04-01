@@ -10,6 +10,7 @@ import { AdminProvider } from '@/contexts/AdminContext';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { AdminToolbar } from '@/components/AdminToolbar';
 import { CookieConsent } from '@/components/CookieConsent';
+import { LightboxProvider } from '@/components/ImageLightbox';
 
 export const metadata: Metadata = {
   title: 'Majda Martinská — Fotografka',
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <AdminProvider>
           <LanguageProvider>
+          <LightboxProvider>
           <LoadingScreen />
           <PageTransition />
           <AdminToolbar />
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <ScrollAnimations />
           <CookieConsent />
+          </LightboxProvider>
           </LanguageProvider>
         </AdminProvider>
       </body>
