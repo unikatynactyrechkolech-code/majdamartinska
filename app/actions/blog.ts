@@ -115,6 +115,7 @@ export async function saveBlogPost(input: SaveBlogPostInput): Promise<SaveResult
     }
 
     revalidatePath('/blog');
+    revalidatePath(`/blog/${result.slug}`);
     revalidatePath('/');
     return { success: true, post: result as BlogPost };
   } catch (err) {

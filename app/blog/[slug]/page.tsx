@@ -1,10 +1,14 @@
-import { getBlogPostBySlug, getBlogPosts } from '@/app/actions/blog';
+import { getBlogPostBySlug } from '@/app/actions/blog';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 
 // ============================================================
 // /blog/[slug] — veřejná stránka jednoho článku
+// Dynamická stránka — nově publikované články fungují ihned
 // ============================================================
+
+// Force dynamic rendering — articles are added at runtime
+export const dynamic = 'force-dynamic';
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -19,11 +23,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: post.excerpt || undefined,
     openGraph: post.cover_image ? { images: [post.cover_image] } : undefined,
   };
-}
-
-export async function generateStaticParams() {
-  const posts = await getBlogPosts(true);
-  return posts.map((p) => ({ slug: p.slug }));
 }
 
 export default async function BlogPostPage({ params }: Props) {
