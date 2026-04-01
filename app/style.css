@@ -719,21 +719,30 @@ ul {
 
 .about-preview-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: clamp(3rem, 6vw, 6rem);
+    grid-template-columns: 1fr 1.2fr;
+    gap: clamp(3rem, 6vw, 7rem);
     align-items: center;
 }
 
 .about-preview-img {
     position: relative;
     overflow: hidden;
+    border-radius: 50%;
+    aspect-ratio: 1;
+    max-width: 500px;
+}
+
+.about-preview-img > div {
+    width: 100%;
+    height: 100%;
 }
 
 .about-preview-img img {
     width: 100%;
+    height: 100%;
     aspect-ratio: 1;
     object-fit: cover;
-    border-radius: 2px;
+    border-radius: 50%;
 }
 
 .about-preview-content p {
@@ -997,7 +1006,7 @@ ul {
 .page-hero {
     height: auto;
     min-height: 0;
-    padding: 6rem 2rem 4rem;
+    padding: 3.5rem 2rem 2.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1978,6 +1987,11 @@ ul {
         text-align: center;
     }
 
+    .about-preview-img {
+        max-width: 320px;
+        margin: 0 auto;
+    }
+
     .about-preview-content {
         display: flex;
         flex-direction: column;
@@ -2301,7 +2315,7 @@ ul {
 
     /* PAGE HERO */
     .page-hero {
-        padding: 4rem 1.5rem 3rem;
+        padding: 2.5rem 1.5rem 2rem;
     }
 
     .page-hero-content h1 {
@@ -4615,7 +4629,7 @@ body:has(.cms-toolbar) .page-hero {
     cursor: zoom-in;
 }
 
-.lightbox-overlay {
+.gl-lightbox-overlay {
     position: fixed;
     inset: 0;
     z-index: 999999;
@@ -4623,17 +4637,17 @@ body:has(.cms-toolbar) .page-hero {
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: lightboxFadeIn 0.25s ease forwards;
+    animation: glLightboxFadeIn 0.25s ease forwards;
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
 }
 
-@keyframes lightboxFadeIn {
+@keyframes glLightboxFadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
 
-.lightbox-close {
+.gl-lightbox-close {
     position: fixed;
     top: 20px;
     right: 24px;
@@ -4653,34 +4667,34 @@ body:has(.cms-toolbar) .page-hero {
     line-height: 1;
 }
 
-.lightbox-close:hover {
+.gl-lightbox-close:hover {
     background: rgba(255, 255, 255, 0.25);
     transform: scale(1.1);
 }
 
-.lightbox-content {
+.gl-lightbox-content {
     max-width: 92vw;
     max-height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    animation: lightboxZoomIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: glLightboxZoomIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
-.lightbox-content img {
+.gl-lightbox-content img {
     max-width: 92vw;
     max-height: 90vh;
     object-fit: contain;
     border-radius: 2px;
 }
 
-@keyframes lightboxZoomIn {
+@keyframes glLightboxZoomIn {
     from { opacity: 0; transform: scale(0.92); }
     to { opacity: 1; transform: scale(1); }
 }
 
 @media (max-width: 768px) {
-    .lightbox-close {
+    .gl-lightbox-close {
         top: 12px;
         right: 12px;
         width: 40px;
@@ -4688,7 +4702,7 @@ body:has(.cms-toolbar) .page-hero {
         font-size: 1.25rem;
     }
 
-    .lightbox-content {
+    .gl-lightbox-content {
         max-width: 96vw;
         max-height: 92vh;
     }

@@ -138,9 +138,9 @@ export default function HomePage() {
                 src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,999,999,1520,1520,1/0-0-0/c11ca67d-b1da-42ba-b398-a4483cfafa6e/1/2/mandarinkab.jpg?fjkss=exp=2088927692~hmac=4057268ac7beb84ef3e15484149ef0a30d91712645ea49bc32d3aca6b40f9f7d"
                 alt="Majda Martinská"
                 width={760}
-                height={950}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ width: '100%', height: 'auto', aspectRatio: '4/5', objectFit: 'cover', borderRadius: '2px' }}
+                height={760}
+                sizes="(max-width: 768px) 100vw, 40vw"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
               />
             </div>
             <div className="about-preview-content">

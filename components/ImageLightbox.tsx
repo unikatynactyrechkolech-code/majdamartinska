@@ -52,11 +52,11 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
     <LightboxContext.Provider value={{ openLightbox }}>
       {children}
       {mounted && isOpen && createPortal(
-        <div className="lightbox-overlay" onClick={closeLightbox}>
-          <button className="lightbox-close" onClick={closeLightbox} aria-label="Zavřít">
+        <div className="gl-lightbox-overlay" onClick={closeLightbox}>
+          <button className="gl-lightbox-close" onClick={closeLightbox} aria-label="Zavřít">
             ✕
           </button>
-          <div className="lightbox-content" onClick={(e) => e.stopPropagation()}>
+          <div className="gl-lightbox-content" onClick={(e) => e.stopPropagation()}>
             <Image
               src={imgSrc}
               alt={imgAlt}
