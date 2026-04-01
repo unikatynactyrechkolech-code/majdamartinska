@@ -11,7 +11,6 @@ export default function SluzbyPage() {
       <PageHero
         title="Služby"
         subtitle="Co pro vás mohu udělat"
-        image="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864"
         sectionPrefix="sluzby.hero"
       />
 

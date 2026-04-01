@@ -210,3 +210,33 @@ export async function getAllContent() {
   }
   return result;
 }
+
+/**
+ * Delete a content entry from DB so the code default takes effect again.
+ */
+export async function deleteContentEntry(sectionId: string) {
+  'use server';
+  const projectId = getProjectId();
+
+  if (!isSupabaseConfigured()) {
+    const key = `${projectId}::${sectionId}`;
+    delete localStore[key];
+    return { success: true };
+  }
+
+  const { createClient } = await import('@/lib/supabase/server');
+  const supabase = await createClient();
+
+  const { error: delError } = await supabase
+    .from('page_content')
+    .delete()
+    .eq('project_id', projectId)
+    .eq('section_id', sectionId);
+
+  if (delError) {
+    console.error('deleteContentEntry error:', delError);
+    return { success: false, error: delError.message };
+  }
+
+  return { success: true };
+}

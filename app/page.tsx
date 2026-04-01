@@ -99,7 +99,7 @@ export default function HomePage() {
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1200,800,2500,800/0-0-0/9f27a5f7-9b8d-4a77-b0cf-0aeb03a1d293/1/1/_A737282.jpg?fjkss=exp=2090606687~hmac=dca27e1dfd9527205d26e8d93b95d589d5754c1e263e2e7333fad9a4114c1370" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2421,3655,2500,3655/0-0-0/ad1dec5e-cf75-4196-abba-2bd5853d4cf0/1/1/gina19.jpg?fjkss=exp=2090606687~hmac=296733df89e375c81e9b5ffb56961018558495c3c5a112e42811b446bdc0e79f" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service1.name" defaultValue="Rodinné a portrétní" as="span" className="service-name" />
@@ -117,7 +117,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#svatby" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,2500,1000/0-0-0/f30ef38a-00e3-414c-aa4f-ab5dc3f3e761/1/1/beranci431.jpg?fjkss=exp=2090606430~hmac=fb6f9f0aed07b67285e976063947789493028c8f896290be5fe05bb4d9eae045" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/1649f5de-14a9-4043-83c3-18348f332575/1/1/svatba106.jpg?fjkss=exp=2090606430~hmac=2733df189cffe6d708b8f165742368c35237ea80699f7c8fcdafff6fafff0e38" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service3.name" defaultValue="Svatby" as="span" className="service-name" />

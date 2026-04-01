@@ -35,7 +35,6 @@ export default function BlogPage() {
       <PageHero
         title="Blog"
         subtitle="Příběhy, tipy a zákulisí focení"
-        image="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,3655,2421,2500,2421/0-0-0/22e58576-8744-4781-94bf-611c637df94a/1/1/gina27.jpg?fjkss=exp=2090606687~hmac=b582ea2298956095d2332d662c9acdfeb05bf3aee720839ffc62deff28187445"
         sectionPrefix="blog.hero"
       />
 

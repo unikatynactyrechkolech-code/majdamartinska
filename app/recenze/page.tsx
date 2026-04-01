@@ -74,7 +74,6 @@ export default function RecenzePage() {
       <PageHero
         title="Recenze"
         subtitle="Co říkají moji klienti"
-        image="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/287,0,1287,1000,580,580,1/0-0-0/abd0b8bc-40a7-4cba-a769-cbc568d41c13/1/2/_FFF5931.jpg?fjkss=exp=2088681039~hmac=22be9649398a9ea56ec377944dcd6bd02254347ecc8e43027ed7075709fe618c"
         sectionPrefix="recenze.hero"
       />
 
