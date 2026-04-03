@@ -77,7 +77,7 @@ export default function RecenzePage() {
         sectionPrefix="recenze.hero"
       />
 
-      <section className="section section-brown" data-animate>
+      <section className="section" data-animate>
         <div className="container">
           <div className="reviews-grid">
             {reviews.map((review, idx) => (
@@ -110,7 +110,7 @@ export default function RecenzePage() {
       </section>
 
       {/* CTA */}
-      <section className="section cta" data-animate>
+      <section className="section cta section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="recenze.cta.label" defaultValue="CHCETE BÝT DALŠÍ?" as="p" className="section-label" />
           <h2 className="section-title-big">

@@ -173,7 +173,7 @@ export default function HomePage() {
           <div className="more-services-grid">
             <Link href="/sluzby#psi" className="more-service-item">
               <div className="more-service-img">
-                <EditableImage sectionId="home.more1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/91,0,1091,1000,580,580,1/0-0-0/0f5e1d24-6127-4f85-b2b3-4d63d44ce3e6/1/1/_FFF4817.jpg?fjkss=exp=2090606586~hmac=ecef99f4c28cd7e45323320e9e6e4e12c6e1eedafe2caf6e6b117e5f73a38f86" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.more1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/77a14f0b-d0aa-426b-9aa6-13318fb554aa/1/1/_FFF4817.jpg?fjkss=exp=2090606586~hmac=6d18ef0957232c473f0b7f06217a567cebd6320d8a1ad99e71700cb7762b65b1" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <EditableText sectionId="home.more1.title" defaultValue="Psí kamarádi" as="h3" />
               <EditableText sectionId="home.more1.text" defaultValue="Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice? Chceš ho mít na fotkách? Tož to tady jsi správně." as="p" />
@@ -189,7 +189,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sluzby#portret" className="more-service-item">
               <div className="more-service-img">
-                <EditableImage sectionId="home.more3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/269,0,1269,1000,580,580,1/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2090606529~hmac=4d3e25e9c6a6f8e7d1a2c5b9f0e3d6a8c2b5f7e0d3a6c9b2e5f8d1a4c7b0e3" alt="Portrétní focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.more3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,2500,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2090606529~hmac=f08c05fa2ea1085f4bec130434e26a7aea32ecfea9dd8c5e22e555cf333f2d83" alt="Portrétní focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               </div>
               <EditableText sectionId="home.more3.title" defaultValue="Portréty" as="h3" />
               <EditableText sectionId="home.more3.text" defaultValue="Profesionální portrétní fotografie pro vaši prezentaci i osobní účely." as="p" />

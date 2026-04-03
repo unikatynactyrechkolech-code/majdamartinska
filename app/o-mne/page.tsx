@@ -15,7 +15,7 @@ export default function OMnePage() {
       />
 
       {/* ABOUT INTRO */}
-      <section className="section about-intro section-brown" data-animate>
+      <section className="section about-intro" data-animate>
         <div className="container">
           <div className="about-grid">
             <div className="about-img">
@@ -40,7 +40,7 @@ export default function OMnePage() {
       </section>
 
       {/* 10 DŮVODŮ */}
-      <section className="section reasons" data-animate>
+      <section className="section reasons section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="omne.reasons.label" defaultValue="PROČ PRÁVĚ JÁ?" as="p" className="section-label" />
           <h2 className="section-title">
@@ -95,7 +95,7 @@ export default function OMnePage() {
       </section>
 
       {/* STUDIO */}
-      <section className="section studio section-brown" data-animate>
+      <section className="section studio" data-animate>
         <div className="container">
           <EditableText sectionId="omne.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">
@@ -109,7 +109,7 @@ export default function OMnePage() {
       </section>
 
       {/* CTA */}
-      <section className="section cta" data-animate>
+      <section className="section cta section-brown" data-animate>
         <div className="container">
           <EditableText sectionId="omne.cta.label" defaultValue="ZAUJALA JSEM VÁS?" as="p" className="section-label" />
           <h2 className="section-title-big">

@@ -15,7 +15,7 @@ export default function SluzbyPage() {
       />
 
       {/* RODINNÉ */}
-      <section className="section service-detail section-brown" id="rodinna" data-animate>
+      <section className="section service-detail" id="rodinna" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -43,7 +43,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* NEWBORN */}
-      <section className="section service-detail" id="newborn" data-animate>
+      <section className="section service-detail section-brown" id="newborn" data-animate>
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
@@ -71,7 +71,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* SVATBY */}
-      <section className="section service-detail section-brown" id="svatby" data-animate>
+      <section className="section service-detail" id="svatby" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -99,7 +99,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* PSI */}
-      <section className="section service-detail" id="psi" data-animate>
+      <section className="section service-detail section-brown" id="psi" data-animate>
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
@@ -127,7 +127,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* TĚHOTENSKÉ */}
-      <section className="section service-detail section-brown" id="tehotenske" data-animate>
+      <section className="section service-detail" id="tehotenske" data-animate>
         <div className="container">
           <div className="service-detail-grid">
             <div className="service-detail-img">
@@ -155,7 +155,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* PORTRÉTY */}
-      <section className="section service-detail" id="portret" data-animate>
+      <section className="section service-detail section-brown" id="portret" data-animate>
         <div className="container">
           <div className="service-detail-grid reverse">
             <div className="service-detail-img">
@@ -183,7 +183,7 @@ export default function SluzbyPage() {
       </section>
 
       {/* CTA */}
-      <section className="section cta section-brown" data-animate>
+      <section className="section cta" data-animate>
         <div className="container">
           <EditableText sectionId="sluzby.cta.label" defaultValue="NEVÁHEJTE" as="p" className="section-label" />
           <h2 className="section-title-big">

@@ -48,7 +48,7 @@ export default function BlogPage() {
       )}
 
       {/* Public blog list */}
-      <section className="section section-brown" data-animate>
+      <section className="section" data-animate>
         <div className="container">
           <p className="section-label">
             <EditableText sectionId="blog.label" defaultValue="BLOG" as="span" />
