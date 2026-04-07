@@ -48,7 +48,7 @@ const FONT_SIZES = [
 
 const FONT_FAMILIES = [
   { label: 'Výchozí', value: '' },
-  { label: 'Playfair Display', value: 'Playfair Display, serif' },
+  { label: 'Poppins', value: 'Poppins, sans-serif' },
   { label: 'Inter', value: 'Inter, sans-serif' },
   { label: 'Georgia', value: 'Georgia, serif' },
   { label: 'Courier', value: 'Courier New, monospace' },

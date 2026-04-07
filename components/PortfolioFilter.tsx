@@ -27,13 +27,13 @@ const IMAGES_PER_PAGE = 24;
 const filters = [
   { key: 'all', sectionId: 'portfolio.filter.all', label: 'Vše' },
   { key: 'fotokouzla', sectionId: 'portfolio.filter.fotokouzla', label: 'Fotokouzla' },
-  { key: 'barevne', sectionId: 'portfolio.filter.barevne', label: 'Barevné focení' },
-  { key: 'rodinna', sectionId: 'portfolio.filter.rodinna', label: 'Rodinné' },
   { key: 'newborn', sectionId: 'portfolio.filter.newborn', label: 'Newborn' },
-  { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
-  { key: 'portret', sectionId: 'portfolio.filter.portret', label: 'Portréty' },
-  { key: 'svatby', sectionId: 'portfolio.filter.svatby', label: 'Svatby' },
+  { key: 'rodinna', sectionId: 'portfolio.filter.rodinna', label: 'Rodinné' },
   { key: 'psi', sectionId: 'portfolio.filter.psi', label: 'Pejsci' },
+  { key: 'svatby', sectionId: 'portfolio.filter.svatby', label: 'Svatby' },
+  { key: 'portret', sectionId: 'portfolio.filter.portret', label: 'Portréty' },
+  { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
+  { key: 'barevne', sectionId: 'portfolio.filter.barevne', label: 'Barevné focení' },
 ];
 
 const categoryAltMap: Record<string, string> = {
@@ -59,6 +59,14 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   const [addModal, setAddModal] = useState<string | null>(null); // category for new image
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const addSectionIdRef = useRef<string>('');
+
+  // Read URL hash on mount (e.g. /portfolio#rodinna → auto-select filter)
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && filters.some(f => f.key === hash)) {
+      setActive(hash);
+    }
+  }, []);
 
   // Compute deleted set from dbImages (tombstones persisted in DB)
   const deletedSectionIds = useMemo(() => {
@@ -363,6 +371,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
             <EditableText sectionId="portfolio.loadmore" defaultValue="Načíst další fotky" as="span" />
             <span className="portfolio-remaining"> ({filtered.length - visibleCount})</span>
           </button>
+          <a href="/kontakt" className="btn btn-primary">Chci fotky</a>
         </div>
       )}
 

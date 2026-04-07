@@ -105,7 +105,7 @@ export function HeroCamera() {
 
           {/* Shutter button */}
           <circle cx="175" cy="45" r="8" fill="#333" stroke="#444" strokeWidth="1" />
-          <circle cx="175" cy="45" r="5" fill="#b08d57" className="hero-camera-shutter-btn" />
+          <circle cx="175" cy="45" r="5" fill="#a98d6d" className="hero-camera-shutter-btn" />
 
           {/* Main lens outer ring */}
           <circle cx="120" cy="125" r="48" fill="#222" stroke="#333" strokeWidth="2" />
@@ -116,10 +116,10 @@ export function HeroCamera() {
             <circle cx="120" cy="125" r="35" fill="#0d1117" />
             <circle cx="120" cy="125" r="28" fill="#161b22" stroke="#222" strokeWidth="0.5" />
             {/* Lens reflections */}
-            <ellipse cx="110" cy="115" rx="12" ry="8" fill="rgba(176,141,87,0.15)" transform="rotate(-20 110 115)" />
-            <ellipse cx="130" cy="135" rx="8" ry="5" fill="rgba(176,141,87,0.08)" transform="rotate(25 130 135)" />
+            <ellipse cx="110" cy="115" rx="12" ry="8" fill="rgba(169,141,109,0.15)" transform="rotate(-20 110 115)" />
+            <ellipse cx="130" cy="135" rx="8" ry="5" fill="rgba(169,141,109,0.08)" transform="rotate(25 130 135)" />
             {/* Center dot */}
-            <circle cx="120" cy="125" r="4" fill="#b08d57" opacity="0.6" />
+            <circle cx="120" cy="125" r="4" fill="#a98d6d" opacity="0.6" />
           </g>
 
           {/* Shutter lines (iris) */}
@@ -135,7 +135,7 @@ export function HeroCamera() {
 
           {/* Small detail - mode dial */}
           <circle cx="50" cy="45" r="10" fill="#222" stroke="#333" strokeWidth="1" />
-          <line x1="50" y1="37" x2="50" y2="40" stroke="#b08d57" strokeWidth="1.5" />
+          <line x1="50" y1="37" x2="50" y2="40" stroke="#a98d6d" strokeWidth="1.5" />
 
           {/* Grip texture lines */}
           <line x1="28" y1="80" x2="28" y2="160" stroke="#252525" strokeWidth="0.7" />

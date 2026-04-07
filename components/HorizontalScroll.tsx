@@ -1,6 +1,7 @@
 'use client';
 
 import { useRef, useEffect, useCallback } from 'react';
+import Link from 'next/link';
 import { EditableImage } from '@/components/EditableImage';
 
 interface HScrollItem {
@@ -9,13 +10,23 @@ interface HScrollItem {
   caption: string;
   /** sectionId for editable image, e.g. "home.hscroll.1" */
   sectionId?: string;
+  /** Optional link — clicking navigates instead of opening lightbox */
+  href?: string;
 }
 
 export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
+  const hasDragged = useRef(false);
   const startX = useRef(0);
   const scrollLeftRef = useRef(0);
+
+  // Prevent link navigation when user was dragging
+  const handleItemClick = useCallback((e: React.MouseEvent) => {
+    if (hasDragged.current) {
+      e.preventDefault();
+    }
+  }, []);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
@@ -23,6 +34,7 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
 
     const onMouseDown = (e: MouseEvent) => {
       isDragging.current = true;
+      hasDragged.current = false;
       wrapper.style.cursor = 'grabbing';
       startX.current = e.pageX - wrapper.offsetLeft;
       scrollLeftRef.current = wrapper.scrollLeft;
@@ -31,6 +43,8 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
     const onMouseUp = () => {
       isDragging.current = false;
       wrapper.style.cursor = 'grab';
+      // Reset hasDragged after a tick so click handler can still read it
+      setTimeout(() => { hasDragged.current = false; }, 0);
     };
 
     const onMouseMove = (e: MouseEvent) => {
@@ -38,6 +52,9 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
       e.preventDefault();
       const x = e.pageX - wrapper.offsetLeft;
       const walk = (x - startX.current) * 2;
+      if (Math.abs(x - startX.current) > 5) {
+        hasDragged.current = true;
+      }
       wrapper.scrollLeft = scrollLeftRef.current - walk;
     };
 
@@ -86,22 +103,36 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
   return (
     <div className="h-scroll-wrapper" ref={wrapperRef}>
       <div className="h-scroll-track">
-        {items.map((item, i) => (
-          <div className="h-scroll-item" key={i}>
-            <EditableImage
-              sectionId={item.sectionId || `hscroll.${i}`}
-              src={item.src}
-              alt={item.alt}
-              width={500}
-              height={667}
-              quality={80}
-              loading="eager"
-              sizes="(max-width: 768px) 260px, 35vw"
-              style={{ width: '100%', height: 'auto', aspectRatio: '3/4', objectFit: 'cover' }}
-            />
-            <div className="h-scroll-caption">{item.caption}</div>
-          </div>
-        ))}
+        {items.map((item, i) => {
+          const content = (
+            <>
+              <EditableImage
+                sectionId={item.sectionId || `hscroll.${i}`}
+                src={item.src}
+                alt={item.alt}
+                width={500}
+                height={667}
+                quality={80}
+                loading="eager"
+                sizes="(max-width: 768px) 260px, 35vw"
+                style={{ width: '100%', height: 'auto', aspectRatio: '3/4', objectFit: 'cover' }}
+                noLightbox={!!item.href}
+                unoptimized
+              />
+              <div className="h-scroll-caption">{item.caption}</div>
+            </>
+          );
+
+          return item.href ? (
+            <Link href={item.href} className="h-scroll-item" key={i} onClick={handleItemClick}>
+              {content}
+            </Link>
+          ) : (
+            <div className="h-scroll-item" key={i}>
+              {content}
+            </div>
+          );
+        })}
       </div>
     </div>
   );

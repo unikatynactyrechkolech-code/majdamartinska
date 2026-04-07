@@ -7,12 +7,12 @@ import { EditableText } from '@/components/EditableText';
 import { EditableImage } from '@/components/EditableImage';
 
 const hScrollItems = [
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/3f875228-71be-40bf-96d2-b419364599a1/1/1/_FFF5983.jpg?fjkss=exp=2088681035~hmac=2e9c039a5620e3d43d3fe64b3f7daef7015cc8ae1b4d717a0fea903df01196c7', alt: 'Rodinné focení', caption: 'Rodinné', sectionId: 'home.hscroll.1' },
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/0bbb0044-6aac-4da5-8043-4c09d06b8164/1/1/192.jpg?fjkss=exp=2088920790~hmac=77261ddf4add0008600b2e0b4dacb93e5a710de8a3ec6ff85a0d2ada0c8b3165', alt: 'Svatby', caption: 'Svatby', sectionId: 'home.hscroll.2' },
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/77117316-7f64-4db7-8b23-d32496550df9/1/1/_FFF7059.jpg?fjkss=exp=2088927709~hmac=d73e6ebc3df068b24965421c829df9026c667decd48f2b207774d18a99d1bcd5', alt: 'Newborn', caption: 'Newborn', sectionId: 'home.hscroll.3' },
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,1600,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2088920600~hmac=7012a75d6187677fa811f9a01dbd2f217af3a83b2a2bfbd3378d20da1d9f46d8', alt: 'Portréty', caption: 'Portréty', sectionId: 'home.hscroll.4' },
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c', alt: 'Těhotenské focení', caption: 'Těhotenské', sectionId: 'home.hscroll.5' },
-  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864', alt: 'Rodinné focení', caption: 'Rodina', sectionId: 'home.hscroll.6' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/3f875228-71be-40bf-96d2-b419364599a1/1/1/_FFF5983.jpg?fjkss=exp=2088681035~hmac=2e9c039a5620e3d43d3fe64b3f7daef7015cc8ae1b4d717a0fea903df01196c7', alt: 'Rodinné focení', caption: 'Rodinné', sectionId: 'home.hscroll.1', href: '/portfolio#rodinna' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/0bbb0044-6aac-4da5-8043-4c09d06b8164/1/1/192.jpg?fjkss=exp=2088920790~hmac=77261ddf4add0008600b2e0b4dacb93e5a710de8a3ec6ff85a0d2ada0c8b3165', alt: 'Svatby', caption: 'Svatby', sectionId: 'home.hscroll.2', href: '/portfolio#svatby' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/77117316-7f64-4db7-8b23-d32496550df9/1/1/_FFF7059.jpg?fjkss=exp=2088927709~hmac=d73e6ebc3df068b24965421c829df9026c667decd48f2b207774d18a99d1bcd5', alt: 'Newborn', caption: 'Newborn', sectionId: 'home.hscroll.3', href: '/portfolio#newborn' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,1600,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2088920600~hmac=7012a75d6187677fa811f9a01dbd2f217af3a83b2a2bfbd3378d20da1d9f46d8', alt: 'Portréty', caption: 'Portréty', sectionId: 'home.hscroll.4', href: '/portfolio#portret' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c', alt: 'Těhotenské focení', caption: 'Těhotenské', sectionId: 'home.hscroll.5', href: '/portfolio#tehotenske' },
+  { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2088926255~hmac=0e915221ac8400e348f232f2aaeb08aa4d77091d2dd68ad90e89e16f5a339864', alt: 'Rodinné focení', caption: 'Rodina', sectionId: 'home.hscroll.6', href: '/portfolio#rodinna' },
 ];
 
 export default function HomePage() {
@@ -46,35 +46,65 @@ export default function HomePage() {
         <HeroSlideshow />
       </section>
 
-      {/* PROMISE */}
-      <section className="section promise section-brown" data-animate>
+      {/* 10 DŮVODŮ — AMINA */}
+      <section className="section reasons section-brown" data-animate>
         <div className="container">
-          <EditableText sectionId="home.promise.label" defaultValue="SLIBUJI VÁM" as="p" className="section-label" />
-          <h2 className="section-title-big">
-            <EditableText sectionId="home.promise.title" defaultValue="Že focení bude přirozené &amp; v pohodě" as="span" />
-          </h2>
-          <div className="promise-grid">
-            <div className="promise-text">
-              <EditableText
-                sectionId="home.promise.text"
-                defaultValue="Zdravím tě tam na druhém konci. Hledáš fotografa? A zároveň pohodářku? Chceš si focení užít a neprotrpět? Dobrá nálada, otevřenost, přirozenost a žádná křeč — to je to, na čem mi při focení záleží. Neváhej mi napsat!"
-                as="p"
-                multiline
-              />
-              <Link href="/kontakt" className="btn btn-outline">
-                <EditableText sectionId="home.promise.btn" defaultValue="Napište mi →" as="span" />
-              </Link>
+          <div className="reasons-layout">
+            <div className="reasons-content">
+              <h2 className="reasons-title">
+                10 důvodů, proč se nechat fotit ode mě a&nbsp;ne od <em>Pučálkovic Aminy</em>
+              </h2>
+              <ol className="reasons-list">
+                <li>
+                  <span className="reason-num">1.</span>
+                  <span>je u mě lepší zábava, než u Aminy a&nbsp;to už je co říct</span>
+                </li>
+                <li>
+                  <span className="reason-num">2.</span>
+                  <span>fakt se snažím, aby ses cítil/a uvolněně <em>(a&nbsp;to v&nbsp;přítomnosti žirafy nejde)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">3.</span>
+                  <span>fotím z&nbsp;očí do očí a&nbsp;tak to vypadá přirozeně <em>(Amina fotí zásadně z&nbsp;nadhledu)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">4.</span>
+                  <span>na úpravě fotografií si dávám hodně záležet <em>(Amina ani neví, co je grafický tablet nebo Photoshop)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">5.</span>
+                  <span>návštěva u&nbsp;mě není jen focení, ale i&nbsp;přátelské setkání dvou a&nbsp;více lidí <em>(Amina je sice přátelská, ale projevy její náklonnosti to vážně nechceš)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">6.</span>
+                  <span>k&nbsp;focení v&nbsp;ateliéru ti uvařím lahodnou kávu <em>(Amina kávu nepije a&nbsp;co hůř, nepije ani alkohol)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">7.</span>
+                  <span>při venkovním focení tě vezmu na vážně pěkná místa <em>(no tady musím uznat, že to by možná Amina zvládla lépe)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">8.</span>
+                  <span>fotografie odevzdám do 21 dnů nejpozději <em>(Amina neumí napočítat ani do pěti a&nbsp;i&nbsp;se tak tváří)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">9.</span>
+                  <span>kromě toho, že toho hodně namluvím, tak ti i&nbsp;naslouchám a&nbsp;tak se přizpůsobím tvým přáním <em>(Amina jen tak zvláštně okouní)</em></span>
+                </li>
+                <li>
+                  <span className="reason-num">10.</span>
+                  <span>proti Amině vedu 9:1 v&nbsp;důvodech, proč jít ke mně a&nbsp;ne k&nbsp;ní. Tak neváhej a&nbsp;kontaktuj mě.</span>
+                </li>
+              </ol>
+              <p className="reasons-note">
+                Vsuvka: Pučálkovic Amina je žirafa, kterou si v&nbsp;jedné báječné knize vymyslel Jindřich Plachta :)
+              </p>
             </div>
-            <div className="promise-img">
-              <EditableImage
-                sectionId="home.promise.img"
-                src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/287,0,1287,1000,580,580,1/0-0-0/abd0b8bc-40a7-4cba-a769-cbc568d41c13/1/2/_FFF5931.jpg?fjkss=exp=2088681039~hmac=22be9649398a9ea56ec377944dcd6bd02254347ecc8e43027ed7075709fe618c"
-                alt="Rodinné focení"
-                width={580}
-                height={725}
-                quality={80}
-                sizes="(max-width: 768px) 100vw, 50vw"
-                style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
+            <div className="reasons-giraffe">
+              <img
+                src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,200,200,400,398/0-0-0/7b20a2a3-defe-43c3-a04c-8a0dacb2ed8f/1/1/c.jpg?fjkss=exp=2090500769~hmac=753b9490a076f1ddc6d98bbff0baf6245293e79326df98853ad903ae37c0df4a"
+                alt="Pučálkovic Amina — žirafa"
+                className="giraffe-img"
               />
             </div>
           </div>
@@ -99,7 +129,7 @@ export default function HomePage() {
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2421,3655,2500,3655/0-0-0/ad1dec5e-cf75-4196-abba-2bd5853d4cf0/1/1/gina19.jpg?fjkss=exp=2090606687~hmac=296733df89e375c81e9b5ffb56961018558495c3c5a112e42811b446bdc0e79f" alt="Rodinné focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2090500769~hmac=eef2d133c7ca7b74b7e2ae131120ff1441f3b8003feeccd22d281e85adc9fcd9" alt="Rodinné focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service1.name" defaultValue="Rodinné a portrétní" as="span" className="service-name" />
@@ -108,7 +138,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#newborn" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/39552bba-f5eb-49c1-8e5e-f5d232a38f4c/1/1/_FFF0538-SharpenAI-Softness.jpg?fjkss=exp=2090606351~hmac=5670ce43709043e64478644a63bcfcc126ca0fa9cf9958a72e84f2af0f1a98cf" alt="Newborn focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2090500769~hmac=5a5c04d383c5d309ae187e122f4e4662e768f97e28463e8e14ea0865192474ca" alt="Newborn focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service2.name" defaultValue="Newborn — miminka" as="span" className="service-name" />
@@ -117,7 +147,7 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#svatby" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/1649f5de-14a9-4043-83c3-18348f332575/1/1/svatba106.jpg?fjkss=exp=2090606430~hmac=2733df189cffe6d708b8f165742368c35237ea80699f7c8fcdafff6fafff0e38" alt="Svatební focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2090500769~hmac=ca506626be6ee5c414e27c9226b590c58cbb1f1e8e820d4f7200b628d224d174" alt="Svatební focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service3.name" defaultValue="Svatby" as="span" className="service-name" />
@@ -173,7 +203,7 @@ export default function HomePage() {
           <div className="more-services-grid">
             <Link href="/sluzby#psi" className="more-service-item">
               <div className="more-service-img">
-                <EditableImage sectionId="home.more1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/77a14f0b-d0aa-426b-9aa6-13318fb554aa/1/1/_FFF4817.jpg?fjkss=exp=2090606586~hmac=6d18ef0957232c473f0b7f06217a567cebd6320d8a1ad99e71700cb7762b65b1" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.more1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/77a14f0b-d0aa-426b-9aa6-13318fb554aa/1/1/_FFF4817.jpg?fjkss=exp=2090606586~hmac=6d18ef0957232c473f0b7f06217a567cebd6320d8a1ad99e71700cb7762b65b1" alt="Focení psích kamarádů" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <EditableText sectionId="home.more1.title" defaultValue="Psí kamarádi" as="h3" />
               <EditableText sectionId="home.more1.text" defaultValue="Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice? Chceš ho mít na fotkách? Tož to tady jsi správně." as="p" />
@@ -181,7 +211,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sluzby#tehotenske" className="more-service-item">
               <div className="more-service-img">
-                <EditableImage sectionId="home.more2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c" alt="Těhotenské focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.more2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c" alt="Těhotenské focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <EditableText sectionId="home.more2.title" defaultValue="Těhotenské focení" as="h3" />
               <EditableText sectionId="home.more2.text" defaultValue="Krásné období, které si zaslouží zachytit na fotografiích." as="p" />
@@ -189,7 +219,7 @@ export default function HomePage() {
             </Link>
             <Link href="/sluzby#portret" className="more-service-item">
               <div className="more-service-img">
-                <EditableImage sectionId="home.more3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,2500,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2090606529~hmac=f08c05fa2ea1085f4bec130434e26a7aea32ecfea9dd8c5e22e555cf333f2d83" alt="Portrétní focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <EditableImage sectionId="home.more3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,800,1200,2500,1200/0-0-0/e73300d8-5661-4b60-8039-bd421a04ddfa/1/1/_FFF9854.jpg?fjkss=exp=2090606529~hmac=f08c05fa2ea1085f4bec130434e26a7aea32ecfea9dd8c5e22e555cf333f2d83" alt="Portrétní focení" width={580} height={773} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <EditableText sectionId="home.more3.title" defaultValue="Portréty" as="h3" />
               <EditableText sectionId="home.more3.text" defaultValue="Profesionální portrétní fotografie pro vaši prezentaci i osobní účely." as="p" />

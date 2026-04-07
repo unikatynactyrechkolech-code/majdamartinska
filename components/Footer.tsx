@@ -58,6 +58,7 @@ export function Footer() {
         </div>
         <div className="footer-bottom">
           <p><EditableText sectionId="footer.copyright" defaultValue="© Majda Martinská 2026" as="span" /></p>
+          <p className="footer-credit">web by <a href="https://webpojede.cz" target="_blank" rel="noopener noreferrer">webpojede.cz</a></p>
         </div>
       </div>
     </footer>
