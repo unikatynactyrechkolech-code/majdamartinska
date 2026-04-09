@@ -9,7 +9,7 @@ export default function PortfolioPage() {
     <>
       <PageHero
         title="Portfolio"
-        subtitle="Výběr z mé práce"
+        subtitle="Ukázky rodinného, svatebního a newborn focení"
         sectionPrefix="portfolio.hero"
       />
 

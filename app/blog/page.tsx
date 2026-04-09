@@ -34,7 +34,7 @@ export default function BlogPage() {
     <>
       <PageHero
         title="Blog"
-        subtitle="Příběhy, tipy a zákulisí focení"
+        subtitle="Tipy na focení, inspirace a zákulisí"
         sectionPrefix="blog.hero"
       />
 

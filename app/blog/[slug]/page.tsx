@@ -19,9 +19,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = await getBlogPostBySlug(slug);
   if (!post) return { title: 'Článek nenalezen' };
   return {
-    title: `${post.title} — Majda Martinská Blog`,
-    description: post.excerpt || undefined,
-    openGraph: post.cover_image ? { images: [post.cover_image] } : undefined,
+    title: `${post.title} — Blog`,
+    description: post.excerpt || `Přečtěte si článek "${post.title}" na blogu fotografky Majdy Martinské.`,
+    alternates: {
+      canonical: `https://www.majdamartinska.com/blog/${slug}`,
+    },
+    openGraph: {
+      title: `${post.title} — Majda Martinská Blog`,
+      description: post.excerpt || undefined,
+      url: `https://www.majdamartinska.com/blog/${slug}`,
+      type: 'article',
+      ...(post.cover_image ? { images: [post.cover_image] } : {}),
+    },
   };
 }
 

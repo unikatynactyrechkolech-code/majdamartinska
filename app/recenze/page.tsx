@@ -73,7 +73,7 @@ export default function RecenzePage() {
     <>
       <PageHero
         title="Recenze"
-        subtitle="Co říkají moji klienti"
+        subtitle="Co říkají spokojení klienti o mém focení"
         sectionPrefix="recenze.hero"
       />
 
@@ -115,7 +115,7 @@ export default function RecenzePage() {
         <div className="container">
           <EditableText sectionId="recenze.cta.label" defaultValue="CHCETE BÝT DALŠÍ?" as="p" className="section-label" />
           <h2 className="section-title-big">
-            <EditableText sectionId="recenze.cta.title" defaultValue="Pojďme <em>do toho</em>" as="span" />
+            <EditableText sectionId="recenze.cta.title" defaultValue="Objednejte si <em>focení</em> i vy" as="span" />
           </h2>
           <Link href="/kontakt" className="btn btn-primary">
             <EditableText sectionId="recenze.cta.btn" defaultValue="Napište mi" as="span" />

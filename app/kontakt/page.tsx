@@ -10,7 +10,7 @@ export default function KontaktPage() {
     <>
       <PageHero
         title="Kontakt"
-        subtitle="Ozvěte se mi"
+        subtitle="Objednejte si focení v Praze"
         sectionPrefix="kontakt.hero"
       />
 
@@ -19,7 +19,7 @@ export default function KontaktPage() {
           <div className="contact-grid">
             <div className="contact-info">
               <h2>
-                <EditableText sectionId="kontakt.info.title" defaultValue="Pojďme se <em>spojit</em>" as="span" />
+                <EditableText sectionId="kontakt.info.title" defaultValue="Kontaktujte <em>fotografku</em>" as="span" />
               </h2>
               <EditableText
                 sectionId="kontakt.info.text"
@@ -77,7 +77,7 @@ export default function KontaktPage() {
         <div className="container">
           <EditableText sectionId="kontakt.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="kontakt.studio.title" defaultValue="Ateliér <em>Praha Suchdol</em>" as="span" />
+            <EditableText sectionId="kontakt.studio.title" defaultValue="Fotoateliér <em>Praha Suchdol</em>" as="span" />
           </h2>
           <EditableText sectionId="kontakt.studio.text" defaultValue="Disponuji velkým a dobře vybaveným ateliérem v klidné části Praha — Suchdol. Ideální pro newborn, rodinné i portrétní focení." as="p" className="studio-desc" multiline />
           <a href="https://www.youtube.com/watch?v=NSrVtQRirpE" target="_blank" rel="noopener noreferrer" className="btn btn-outline">

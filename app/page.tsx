@@ -124,7 +124,7 @@ export default function HomePage() {
         <div className="container">
           <EditableText sectionId="home.services.label" defaultValue="MOJE SLUŽBY" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="home.services.title" defaultValue="Moje <em>práce</em>" as="span" />
+            <EditableText sectionId="home.services.title" defaultValue="Profesionální <em>focení</em> v Praze" as="span" />
           </h2>
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
@@ -176,7 +176,7 @@ export default function HomePage() {
             <div className="about-preview-content">
               <EditableText sectionId="home.about.label" defaultValue="KDO STOJÍ ZA OBJEKTIVEM?" as="p" className="section-label" />
               <h2 className="section-title">
-                <EditableText sectionId="home.about.title" defaultValue="Ahoj,<br />jsem <em>Majda</em>" as="span" />
+                <EditableText sectionId="home.about.title" defaultValue="Vaše <em>fotografka</em> Majda" as="span" />
               </h2>
               <EditableText
                 sectionId="home.about.text"
@@ -258,7 +258,7 @@ export default function HomePage() {
         <div className="container">
           <EditableText sectionId="home.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="home.studio.title" defaultValue="Ateliér <em>Praha Suchdol</em>" as="span" />
+            <EditableText sectionId="home.studio.title" defaultValue="Fotoateliér <em>Praha Suchdol</em>" as="span" />
           </h2>
           <EditableText
             sectionId="home.studio.text"
@@ -278,7 +278,7 @@ export default function HomePage() {
         <div className="container">
           <EditableText sectionId="home.cta.label" defaultValue="JSME NA PODOBNÉ VLNĚ?" as="p" className="section-label" />
           <h2 className="section-title-big">
-            <EditableText sectionId="home.cta.title" defaultValue="Pojďme <em>do toho</em>" as="span" />
+            <EditableText sectionId="home.cta.title" defaultValue="Objednejte si <em>focení</em>" as="span" />
           </h2>
           <Link href="/kontakt" className="btn btn-primary">
             <EditableText sectionId="home.cta.btn" defaultValue="Kontakt" as="span" />

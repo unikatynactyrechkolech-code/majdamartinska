@@ -10,7 +10,7 @@ export default function OMnePage() {
     <>
       <PageHero
         title="O mně"
-        subtitle="Kdo stojí za objektivem"
+        subtitle="Fotografka Majda Martinská — Praha"
         sectionPrefix="omne.hero"
       />
 
@@ -30,7 +30,7 @@ export default function OMnePage() {
               />
             </div>
             <div className="about-text">
-              <h2><EditableText sectionId="omne.intro.title" defaultValue="Ahoj, jsem <em>Majda</em>" as="span" /></h2>
+              <h2><EditableText sectionId="omne.intro.title" defaultValue="Fotografka <em>Majda Martinská</em>" as="span" /></h2>
               <EditableText sectionId="omne.intro.text1" defaultValue="Jako dítě jsem tátovi tajně brala foťák a snažila jsem se s ním fotit. Ale pak jsem ze strachu, že na to přijde, vyndavala negativy ven :)). Nu škoda, možná by to mohly být pěkné záběry. Tak jako tak, fakt je, že mě focení lákalo od dětství." as="p" multiline />
               <EditableText sectionId="omne.intro.text2" defaultValue="Nejraději fotím bláznivé fotky se špetkou humoru. Mám moc ráda humor a to se objevuje v mých uměleckých fotografiích. A světe div se, i komerční focení probíhá ve veselém tónu." as="p" multiline />
               <EditableText sectionId="omne.intro.text3" defaultValue="Dobrá nálada, otevřenost, přirozenost a žádná křeč... to je to, na čem mi při focení záleží :). Taky jsem dost upovídaná. Maminka by spíš řekla: 'ty tu klapačku taky nezavřeš'. Takže kdo se bojí trapného ticha — nebude :))" as="p" multiline />
@@ -44,7 +44,7 @@ export default function OMnePage() {
         <div className="container">
           <EditableText sectionId="omne.reasons.label" defaultValue="PROČ PRÁVĚ JÁ?" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="omne.reasons.title" defaultValue="10 důvodů, proč <em>fotit se mnou</em> a ne od Pučálkovic Aminy" as="span" />
+            <EditableText sectionId="omne.reasons.title" defaultValue="Proč si vybrat <em>moje focení</em> — 10 důvodů" as="span" />
           </h2>
           <div className="reasons-grid">
             <div className="reason-card">
@@ -99,7 +99,7 @@ export default function OMnePage() {
         <div className="container">
           <EditableText sectionId="omne.studio.label" defaultValue="ATELIÉR" as="p" className="section-label" />
           <h2 className="section-title">
-            <EditableText sectionId="omne.studio.title" defaultValue="Ateliér <em>Praha Suchdol</em>" as="span" />
+            <EditableText sectionId="omne.studio.title" defaultValue="Fotoateliér <em>Praha Suchdol</em>" as="span" />
           </h2>
           <EditableText sectionId="omne.studio.text" defaultValue="Disponuji velkým a dobře vybaveným ateliérem v klidné části Praha — Suchdol. Je vhodný pro newborn focení, rodinné focení, portrétní focení i pro focení těhotných." as="p" className="studio-desc" multiline />
           <a href="https://www.youtube.com/watch?v=NSrVtQRirpE" target="_blank" rel="noopener noreferrer" className="btn btn-outline">
@@ -113,7 +113,7 @@ export default function OMnePage() {
         <div className="container">
           <EditableText sectionId="omne.cta.label" defaultValue="ZAUJALA JSEM VÁS?" as="p" className="section-label" />
           <h2 className="section-title-big">
-            <EditableText sectionId="omne.cta.title" defaultValue="Pojďme <em>do toho</em>" as="span" />
+            <EditableText sectionId="omne.cta.title" defaultValue="Domluvme se <em>na focení</em>" as="span" />
           </h2>
           <Link href="/kontakt" className="btn btn-primary">
             <EditableText sectionId="omne.cta.btn" defaultValue="Kontaktujte mě" as="span" />

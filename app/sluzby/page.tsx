@@ -9,8 +9,8 @@ export default function SluzbyPage() {
   return (
     <>
       <PageHero
-        title="Služby"
-        subtitle="Co pro vás mohu udělat"
+        title="Služby a ceník focení"
+        subtitle="Nabídka profesionálního focení v Praze"
         sectionPrefix="sluzby.hero"
       />
 
@@ -23,7 +23,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">01</p>
-              <h2><EditableText sectionId="sluzby.rodinna.title" defaultValue="Rodinné a <em>párové focení</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.rodinna.title" defaultValue="Rodinné a <em>párové focení</em> v Praze" as="span" /></h2>
               <EditableText sectionId="sluzby.rodinna.text" defaultValue="Vyber si ateliér nebo les a louku, záleží na tobě. To hlavní ale je, aby byla pohoda a bylo to celé o příjemném zážitku, ze kterého si odneseš na památku fotografie. Nechci abys focení odbil/a v křeči, ale abys ho užil/a :)" as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.rodinna.li1" defaultValue="Rodinné focení / párové focení" as="span" /></li>
@@ -51,7 +51,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">02</p>
-              <h2><EditableText sectionId="sluzby.newborn.title" defaultValue="Newborn — <em>miminka</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.newborn.title" defaultValue="Newborn focení <em>miminek</em> v ateliéru" as="span" /></h2>
               <EditableText sectionId="sluzby.newborn.text" defaultValue="Focení mrňousků do 14 dnů života... to mě moc baví. Vím, že to bývá pro rodiče náročné a tak se snažím o maximální pohodlí všech. Rodiče dostanou kafíčko a dětičky mají zase zajištěnou tu nejlepší péči. Hoďte si nohy nahoru a nechte svého prťouska rozmazlovat." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.newborn.li1" defaultValue="Newborn focení (5–14 dní)" as="span" /></li>
@@ -79,7 +79,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">03</p>
-              <h2><EditableText sectionId="sluzby.svatby.title" defaultValue="Svatební <em>focení</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.svatby.title" defaultValue="Svatební <em>fotografie</em> plné emocí" as="span" /></h2>
               <EditableText sectionId="sluzby.svatby.text" defaultValue="Ahoj budoucí novomanželé. Bojíte se abyste měli na fotkách všechno? Bojíte se, aby fotograf nenarušoval váš krásný den? Bojíte se, že bude fotograf protiva? Tak se nebojte :). Právě jste našli, to co hledáte :)))" as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.svatby.li1" defaultValue="Svatební den — reportážní styl" as="span" /></li>
@@ -107,7 +107,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">04</p>
-              <h2><EditableText sectionId="sluzby.psi.title" defaultValue="Psí <em>kamarádi</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.psi.title" defaultValue="Focení <em>psů</em> a mazlíčků" as="span" /></h2>
               <EditableText sectionId="sluzby.psi.text" defaultValue="Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice, nebo trhá pošťákovi kalhoty? Chceš ho mít na očích stále a dívat se na něj na fotkách nebo obraze? Tož to tady jsi správně." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.psi.li1" defaultValue="Focení psů a jejich páníčků" as="span" /></li>
@@ -135,7 +135,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">05</p>
-              <h2><EditableText sectionId="sluzby.tehotenske.title" defaultValue="Těhotenské <em>focení</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.tehotenske.title" defaultValue="Těhotenské focení — <em>krásné vzpomínky</em>" as="span" /></h2>
               <EditableText sectionId="sluzby.tehotenske.text" defaultValue="Krásné období, které si zaslouží zachytit na fotografiích. Těhotenské focení je nejkrásnější kolem 30.–36. týdne těhotenství. Focení probíhá v ateliéru nebo v přírodě." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.tehotenske.li1" defaultValue="Těhotenské focení (30.–36. týden)" as="span" /></li>
@@ -163,7 +163,7 @@ export default function SluzbyPage() {
             </div>
             <div className="service-detail-content">
               <p className="section-label">06</p>
-              <h2><EditableText sectionId="sluzby.portret.title" defaultValue="Portrétní <em>focení</em>" as="span" /></h2>
+              <h2><EditableText sectionId="sluzby.portret.title" defaultValue="Profesionální <em>portrétní</em> fotografie" as="span" /></h2>
               <EditableText sectionId="sluzby.portret.text" defaultValue="Profesionální portrétní fotografie pro vaši osobní prezentaci, LinkedIn, nebo prostě jen proto, že chcete krásné fotky sebe. Focení probíhá v ateliéru i venku." as="p" multiline />
               <ul className="service-detail-list">
                 <li><EditableText sectionId="sluzby.portret.li1" defaultValue="Portrétní / profilové focení" as="span" /></li>
@@ -187,7 +187,7 @@ export default function SluzbyPage() {
         <div className="container">
           <EditableText sectionId="sluzby.cta.label" defaultValue="NEVÁHEJTE" as="p" className="section-label" />
           <h2 className="section-title-big">
-            <EditableText sectionId="sluzby.cta.title" defaultValue="Pojďme <em>do toho</em>" as="span" />
+            <EditableText sectionId="sluzby.cta.title" defaultValue="Rezervujte si <em>termín</em>" as="span" />
           </h2>
           <Link href="/kontakt" className="btn btn-primary">
             <EditableText sectionId="sluzby.cta.btn" defaultValue="Napište mi" as="span" />

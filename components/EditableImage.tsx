@@ -37,7 +37,7 @@ export function EditableImage({
   const currentSrc = entry?.url || defaultSrc;
   const currentPublicId = entry?.publicId || null;
 
-  const handleDoubleClick = useCallback((e: React.MouseEvent) => {
+  const handleContextMenu = useCallback((e: React.MouseEvent) => {
     if (!isAdmin) return;
     e.preventDefault();
     e.stopPropagation();
@@ -45,12 +45,12 @@ export function EditableImage({
   }, [isAdmin]);
 
   const handleClick = useCallback((e: React.MouseEvent) => {
-    // In admin mode, don't open lightbox (admin uses double-click to edit)
-    if (isAdmin || noLightbox) return;
+    // Lightbox works for all users now (admin uses right-click to edit)
+    if (noLightbox) return;
     e.preventDefault();
     e.stopPropagation();
     openLightbox(String(currentSrc), String(defaultAlt));
-  }, [isAdmin, noLightbox, currentSrc, defaultAlt, openLightbox]);
+  }, [noLightbox, currentSrc, defaultAlt, openLightbox]);
 
   const closeModal = useCallback(() => {
     setIsModalOpen(false);
@@ -69,7 +69,7 @@ export function EditableImage({
       <div
         className={`${isAdmin ? 'cms-editable-image' : ''}`}
         style={wrapperStyle}
-        onDoubleClick={handleDoubleClick}
+        onContextMenu={handleContextMenu}
         onClick={handleClick}
       >
         <Image
@@ -85,7 +85,7 @@ export function EditableImage({
             <span className="cms-image-overlay-icon">📷</span>
             {!overlayCompact && (
               <span className="cms-image-overlay-text">
-                {entry ? '2× klik pro změnu' : '2× klik pro nahrání'}
+                {entry ? 'Pravý klik pro změnu' : 'Pravý klik pro nahrání'}
               </span>
             )}
           </div>
