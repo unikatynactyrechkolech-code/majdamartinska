@@ -57,7 +57,7 @@ export function EditableImage({
     setUploadSuccess(false);
   }, []);
 
-  // For fill images, we need the wrapper to also be position:relative
+  // Wrapper must fill its parent so CSS like aspect-ratio + overflow:hidden works
   const wrapperStyle: React.CSSProperties = {
     position: 'relative',
     cursor: isAdmin ? 'pointer' : (noLightbox ? undefined : 'zoom-in'),

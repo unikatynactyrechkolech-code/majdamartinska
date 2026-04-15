@@ -290,6 +290,20 @@ const translations: Record<string, string> = {
   // ── HORIZONTAL SCROLL CAPTIONS ──
   'Rodina': 'Family',
 
+  // ── HOME: 10 DŮVODŮ (AMINA) ──
+  '10 důvodů, proč se nechat fotit ode mě a&nbsp;ne od <em>Pučálkovic Aminy</em>': '10 reasons to choose me and&nbsp;not <em>Pučálkovic Amina</em>',
+  'je u mě lepší zábava, než u Aminy a&nbsp;to už je co říct': 'the fun is better with me than with Amina, and&nbsp;that\'s saying something',
+  'fakt se snažím, aby ses cítil/a uvolněně <em>(a&nbsp;to v&nbsp;přítomnosti žirafy nejde)</em>': 'I really try to make you feel relaxed <em>(which&nbsp;isn\'t possible around a giraffe)</em>',
+  'fotím z&nbsp;očí do očí a&nbsp;tak to vypadá přirozeně <em>(Amina fotí zásadně z&nbsp;nadhledu)</em>': 'I shoot at eye level so it looks natural <em>(Amina always shoots from&nbsp;above)</em>',
+  'na úpravě fotografií si dávám hodně záležet <em>(Amina ani neví, co je grafický tablet nebo Photoshop)</em>': 'I put a lot of effort into editing <em>(Amina doesn\'t even know what a graphics tablet or Photoshop&nbsp;is)</em>',
+  'návštěva u&nbsp;mě není jen focení, ale i&nbsp;přátelské setkání dvou a&nbsp;více lidí <em>(Amina je sice přátelská, ale projevy její náklonnosti to vážně nechceš)</em>': 'a visit to me isn\'t just a shoot, but a friendly meeting <em>(Amina is friendly, but you really don\'t want her showing&nbsp;affection)</em>',
+  'k&nbsp;focení v&nbsp;ateliéru ti uvařím lahodnou kávu <em>(Amina kávu nepije a&nbsp;co hůř, nepije ani alkohol)</em>': 'I\'ll make you a delicious coffee for the studio shoot <em>(Amina doesn\'t drink coffee, and worse, no&nbsp;alcohol&nbsp;either)</em>',
+  'při venkovním focení tě vezmu na vážně pěkná místa <em>(no tady musím uznat, že to by možná Amina zvládla lépe)</em>': 'for outdoor shoots I\'ll take you to really nice spots <em>(I must admit Amina might do this&nbsp;better)</em>',
+  'fotografie odevzdám do 21 dnů nejpozději <em>(Amina neumí napočítat ani do pěti a&nbsp;i&nbsp;se tak tváří)</em>': 'I deliver photos within 21 days max <em>(Amina can\'t even count to five and&nbsp;looks&nbsp;like&nbsp;it)</em>',
+  'kromě toho, že toho hodně namluvím, tak ti i&nbsp;naslouchám a&nbsp;tak se přizpůsobím tvým přáním <em>(Amina jen tak zvláštně okouní)</em>': 'besides talking a lot, I also listen and adapt to your wishes <em>(Amina just stands there staring&nbsp;oddly)</em>',
+  'proti Amině vedu 9:1 v&nbsp;důvodech, proč jít ke mně a&nbsp;ne k&nbsp;ní. Tak neváhej a&nbsp;kontaktuj mě.': 'I\'m leading 9:1 in reasons to choose me over Amina. Don\'t hesitate —&nbsp;contact&nbsp;me.',
+  'Vsuvka: Pučálkovic Amina je žirafa, kterou si v&nbsp;jedné báječné knize vymyslel Jindřich Plachta :)': 'Note: Pučálkovic Amina is a giraffe from a wonderful book by Jindřich Plachta :)',
+
   // ── FOOTER ADDRESS ──
   'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Praha — Suchdol<br />IČ 87765403':
     'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Prague — Suchdol<br />ID 87765403',

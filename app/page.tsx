@@ -52,59 +52,64 @@ export default function HomePage() {
           <div className="reasons-layout">
             <div className="reasons-content">
               <h2 className="reasons-title">
-                10 důvodů, proč se nechat fotit ode mě a&nbsp;ne od <em>Pučálkovic Aminy</em>
+                <EditableText sectionId="home.reasons.title" defaultValue='10 důvodů, proč se nechat fotit ode mě a&nbsp;ne od <em>Pučálkovic Aminy</em>' as="span" />
               </h2>
               <ol className="reasons-list">
                 <li>
                   <span className="reason-num">1.</span>
-                  <span>je u mě lepší zábava, než u Aminy a&nbsp;to už je co říct</span>
+                  <EditableText sectionId="home.reason1" defaultValue='je u mě lepší zábava, než u Aminy a&nbsp;to už je co říct' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">2.</span>
-                  <span>fakt se snažím, aby ses cítil/a uvolněně <em>(a&nbsp;to v&nbsp;přítomnosti žirafy nejde)</em></span>
+                  <EditableText sectionId="home.reason2" defaultValue='fakt se snažím, aby ses cítil/a uvolněně <em>(a&nbsp;to v&nbsp;přítomnosti žirafy nejde)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">3.</span>
-                  <span>fotím z&nbsp;očí do očí a&nbsp;tak to vypadá přirozeně <em>(Amina fotí zásadně z&nbsp;nadhledu)</em></span>
+                  <EditableText sectionId="home.reason3" defaultValue='fotím z&nbsp;očí do očí a&nbsp;tak to vypadá přirozeně <em>(Amina fotí zásadně z&nbsp;nadhledu)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">4.</span>
-                  <span>na úpravě fotografií si dávám hodně záležet <em>(Amina ani neví, co je grafický tablet nebo Photoshop)</em></span>
+                  <EditableText sectionId="home.reason4" defaultValue='na úpravě fotografií si dávám hodně záležet <em>(Amina ani neví, co je grafický tablet nebo Photoshop)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">5.</span>
-                  <span>návštěva u&nbsp;mě není jen focení, ale i&nbsp;přátelské setkání dvou a&nbsp;více lidí <em>(Amina je sice přátelská, ale projevy její náklonnosti to vážně nechceš)</em></span>
+                  <EditableText sectionId="home.reason5" defaultValue='návštěva u&nbsp;mě není jen focení, ale i&nbsp;přátelské setkání dvou a&nbsp;více lidí <em>(Amina je sice přátelská, ale projevy její náklonnosti to vážně nechceš)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">6.</span>
-                  <span>k&nbsp;focení v&nbsp;ateliéru ti uvařím lahodnou kávu <em>(Amina kávu nepije a&nbsp;co hůř, nepije ani alkohol)</em></span>
+                  <EditableText sectionId="home.reason6" defaultValue='k&nbsp;focení v&nbsp;ateliéru ti uvařím lahodnou kávu <em>(Amina kávu nepije a&nbsp;co hůř, nepije ani alkohol)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">7.</span>
-                  <span>při venkovním focení tě vezmu na vážně pěkná místa <em>(no tady musím uznat, že to by možná Amina zvládla lépe)</em></span>
+                  <EditableText sectionId="home.reason7" defaultValue='při venkovním focení tě vezmu na vážně pěkná místa <em>(no tady musím uznat, že to by možná Amina zvládla lépe)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">8.</span>
-                  <span>fotografie odevzdám do 21 dnů nejpozději <em>(Amina neumí napočítat ani do pěti a&nbsp;i&nbsp;se tak tváří)</em></span>
+                  <EditableText sectionId="home.reason8" defaultValue='fotografie odevzdám do 21 dnů nejpozději <em>(Amina neumí napočítat ani do pěti a&nbsp;i&nbsp;se tak tváří)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">9.</span>
-                  <span>kromě toho, že toho hodně namluvím, tak ti i&nbsp;naslouchám a&nbsp;tak se přizpůsobím tvým přáním <em>(Amina jen tak zvláštně okouní)</em></span>
+                  <EditableText sectionId="home.reason9" defaultValue='kromě toho, že toho hodně namluvím, tak ti i&nbsp;naslouchám a&nbsp;tak se přizpůsobím tvým přáním <em>(Amina jen tak zvláštně okouní)</em>' as="span" />
                 </li>
                 <li>
                   <span className="reason-num">10.</span>
-                  <span>proti Amině vedu 9:1 v&nbsp;důvodech, proč jít ke mně a&nbsp;ne k&nbsp;ní. Tak neváhej a&nbsp;kontaktuj mě.</span>
+                  <EditableText sectionId="home.reason10" defaultValue='proti Amině vedu 9:1 v&nbsp;důvodech, proč jít ke mně a&nbsp;ne k&nbsp;ní. Tak neváhej a&nbsp;kontaktuj mě.' as="span" />
                 </li>
               </ol>
               <p className="reasons-note">
-                Vsuvka: Pučálkovic Amina je žirafa, kterou si v&nbsp;jedné báječné knize vymyslel Jindřich Plachta :)
+                <EditableText sectionId="home.reasons.note" defaultValue='Vsuvka: Pučálkovic Amina je žirafa, kterou si v&nbsp;jedné báječné knize vymyslel Jindřich Plachta :)' as="span" />
               </p>
             </div>
             <div className="reasons-giraffe">
-              <img
+              <EditableImage
+                sectionId="home.reasons.giraffe"
                 src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,200,200,400,398/0-0-0/7b20a2a3-defe-43c3-a04c-8a0dacb2ed8f/1/1/c.jpg?fjkss=exp=2090500769~hmac=753b9490a076f1ddc6d98bbff0baf6245293e79326df98853ad903ae37c0df4a"
                 alt="Pučálkovic Amina — žirafa"
                 className="giraffe-img"
+                width={400}
+                height={398}
+                noLightbox
+                unoptimized
               />
             </div>
           </div>

@@ -734,6 +734,11 @@ ul {
     aspect-ratio: 3/4;
 }
 
+.service-img > div {
+    width: 100%;
+    height: 100%;
+}
+
 .service-img img {
     width: 100%;
     height: 100%;
@@ -839,6 +844,11 @@ ul {
     overflow: hidden;
     margin-bottom: 1.5rem;
     aspect-ratio: 3/4;
+}
+
+.more-service-img > div {
+    width: 100%;
+    height: 100%;
 }
 
 .more-service-img img {
@@ -1061,13 +1071,13 @@ ul {
 }
 
 .footer-credit a {
-    color: var(--color-accent);
+    color: #6cb4d9;
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .footer-credit a:hover {
-    color: var(--color-accent-hover);
+    color: #8ec8e8;
     text-decoration: underline;
 }
 
