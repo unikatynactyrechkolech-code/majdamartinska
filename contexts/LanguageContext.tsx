@@ -253,6 +253,8 @@ const translations: Record<string, string> = {
   'Co říkají spokojení klienti o mém focení': 'What satisfied clients say about my photography',
   'Objednejte si <em>focení</em> i vy': 'Book your <em>photo session</em> too',
   'Ateliérové focení': 'Studio photography',
+  'Číst více': 'Read more',
+  'Skrýt': 'Show less',
 
   // ── CONTACT PAGE (additional) ──
   'Objednejte si focení v Praze': 'Book a photo session in Prague',

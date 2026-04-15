@@ -1694,7 +1694,33 @@ ul {
     font-size: 0.95rem;
     color: var(--color-text-muted);
     line-height: 1.8;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
+}
+
+.review-text-collapsed {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.review-read-more {
+    background: none;
+    border: none;
+    color: var(--color-accent);
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+    transition: color 0.2s ease;
+}
+
+.review-read-more:hover {
+    color: var(--color-text);
+    text-decoration: underline;
 }
 
 .review-author span {
@@ -2354,6 +2380,10 @@ ul {
 
     .review-text {
         font-size: 0.9rem;
+    }
+
+    .review-read-more {
+        font-size: 0.8rem;
     }
 
     /* CONTACT */
