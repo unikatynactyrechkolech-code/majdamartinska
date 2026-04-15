@@ -228,23 +228,17 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lightbox, filtered.length]);
 
-  // — Admin: edit/delete on double-click —
-  const handleItemClick = (idx: number, e: React.MouseEvent) => {
-    if (isAdmin && e.detail === 2) {
-      // Double-click in admin mode: open edit modal
-      e.preventDefault();
-      setEditModal(filtered[idx]);
-      setUploadSuccess(false);
-    } else if (e.detail === 1) {
-      // Single-click: open lightbox (with slight delay to distinguish from dblclick)
-      setTimeout(() => {
-        // only open lightbox if editModal wasn't just opened
-        setEditModal((current) => {
-          if (current === null) openLightbox(idx);
-          return current;
-        });
-      }, 200);
-    }
+  // — Admin: right-click to edit, single-click for lightbox —
+  const handleItemClick = (idx: number) => {
+    openLightbox(idx);
+  };
+
+  const handleItemContextMenu = (idx: number, e: React.MouseEvent) => {
+    if (!isAdmin) return;
+    e.preventDefault();
+    e.stopPropagation();
+    setEditModal(filtered[idx]);
+    setUploadSuccess(false);
   };
 
   const closeEditModal = () => {
@@ -330,7 +324,8 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
           <div
             className={`portfolio-item ${isAdmin ? 'portfolio-item-admin' : ''}`}
             key={img.sectionId}
-            onClick={(e) => handleItemClick(i, e)}
+            onClick={() => handleItemClick(i)}
+            onContextMenu={(e) => handleItemContextMenu(i, e)}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -342,7 +337,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
             />
             {isAdmin && (
               <div className="portfolio-item-overlay">
-                <span>📷 2× klik</span>
+                <span>📷 Pravý klik</span>
               </div>
             )}
           </div>

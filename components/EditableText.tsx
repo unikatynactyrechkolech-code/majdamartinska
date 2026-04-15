@@ -318,6 +318,25 @@ export function EditableText({
     });
   }, [isAdmin]);
 
+  // When editing, prevent clicks from triggering parent <a>/<Link> navigation
+  const handleClick = useCallback((e: React.MouseEvent) => {
+    if (!isEditing) return;
+    e.preventDefault();
+    e.stopPropagation();
+  }, [isEditing]);
+
+  // Block parent <a>/<Link> navigation while editing (capture phase)
+  useEffect(() => {
+    if (!isEditing) return;
+    const el = elRef.current;
+    if (!el) return;
+    const link = el.closest('a');
+    if (!link) return;
+    const block = (e: Event) => { e.preventDefault(); e.stopPropagation(); };
+    link.addEventListener('click', block, true);
+    return () => link.removeEventListener('click', block, true);
+  }, [isEditing]);
+
   // Use ref-based input handler to avoid re-render during typing (cursor jump fix)
   const handleInput = useCallback(() => {
     // We intentionally do NOT call setDraft here during typing.
@@ -386,6 +405,7 @@ export function EditableText({
         contentEditable={isEditing ? true : undefined}
         suppressContentEditableWarning
         onContextMenu={isAdmin ? handleContextMenu : undefined}
+        onClick={isEditing ? handleClick : undefined}
         onInput={isEditing ? handleInput : undefined}
         onBlur={isEditing ? handleBlur : undefined}
         onKeyDown={isEditing ? handleKeyDown : undefined}
