@@ -3,6 +3,7 @@
 import { useRef, useEffect, useCallback } from 'react';
 import Link from 'next/link';
 import { EditableImage } from '@/components/EditableImage';
+import { useLang } from '@/contexts/LanguageContext';
 
 interface HScrollItem {
   src: string;
@@ -16,6 +17,7 @@ interface HScrollItem {
 
 export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const { t } = useLang();
   const isDragging = useRef(false);
   const hasDragged = useRef(false);
   const startX = useRef(0);
@@ -119,7 +121,7 @@ export function HorizontalScroll({ items }: { items: HScrollItem[] }) {
                 noLightbox={!!item.href}
                 unoptimized
               />
-              <div className="h-scroll-caption">{item.caption}</div>
+              <div className="h-scroll-caption">{t(item.caption)}</div>
             </>
           );
 

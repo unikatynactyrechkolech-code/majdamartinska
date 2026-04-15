@@ -10,9 +10,9 @@ export function ContactForm() {
     e.preventDefault();
     const form = e.currentTarget;
     const data = new FormData(form);
-    const subject = encodeURIComponent('Poptávka focení');
+    const subject = encodeURIComponent(t('Poptávka focení'));
     const body = encodeURIComponent(
-      `Jméno: ${data.get('name')}\nEmail: ${data.get('email')}\nTelefon: ${data.get('phone')}\nDatum: ${data.get('date')}\nBalíček: ${data.get('package')}\nPodrobnosti: ${data.get('details')}`
+      `${t('Jméno')}: ${data.get('name')}\nEmail: ${data.get('email')}\n${t('Telefon')}: ${data.get('phone')}\n${t('Datum focení')}: ${data.get('date')}\n${t('Zvolený balíček')}: ${data.get('package')}\n${t('Další podrobnosti')}: ${data.get('details')}`
     );
     window.location.href = `mailto:martinskafoto@gmail.com?subject=${subject}&body=${body}`;
   }, []);
@@ -21,11 +21,11 @@ export function ContactForm() {
     <form className="contact-form" onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="name"><EditableText sectionId="form.label.name" defaultValue="Jméno" as="span" /></label>
-        <input type="text" id="name" name="name" required placeholder="Vaše jméno" />
+        <input type="text" id="name" name="name" required placeholder={t('Vaše jméno')} />
       </div>
       <div className="form-group">
         <label htmlFor="email"><EditableText sectionId="form.label.email" defaultValue="Email" as="span" /></label>
-        <input type="email" id="email" name="email" required placeholder="vas@email.cz" />
+        <input type="email" id="email" name="email" required placeholder={t('vas@email.cz')} />
       </div>
       <div className="form-group">
         <label htmlFor="phone"><EditableText sectionId="form.label.phone" defaultValue="Telefon" as="span" /></label>
@@ -33,7 +33,7 @@ export function ContactForm() {
       </div>
       <div className="form-group">
         <label htmlFor="date"><EditableText sectionId="form.label.date" defaultValue="Datum focení" as="span" /></label>
-        <input type="text" id="date" name="date" placeholder="Pokud máš návrh" />
+        <input type="text" id="date" name="date" placeholder={t('Pokud máš návrh')} />
       </div>
       <div className="form-group">
         <label htmlFor="package"><EditableText sectionId="form.label.package" defaultValue="Zvolený balíček" as="span" /></label>
@@ -50,7 +50,7 @@ export function ContactForm() {
       </div>
       <div className="form-group">
         <label htmlFor="details"><EditableText sectionId="form.label.details" defaultValue="Další podrobnosti" as="span" /></label>
-        <textarea id="details" name="details" placeholder="Napište cokoliv, co bych měla vědět..." />
+        <textarea id="details" name="details" placeholder={t('Napište cokoliv, co bych měla vědět...')} />
       </div>
       <button type="submit" className="btn btn-primary">
         <EditableText sectionId="form.btn.submit" defaultValue="Odeslat poptávku" as="span" />

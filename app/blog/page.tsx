@@ -5,10 +5,12 @@ import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
 import { BlogAdmin } from '@/components/BlogAdmin';
 import { useAdmin } from '@/contexts/AdminContext';
+import { useLang } from '@/contexts/LanguageContext';
 import type { BlogPost } from '@/app/actions/blog';
 
 export default function BlogPage() {
   const { isAdmin } = useAdmin();
+  const { t, lang } = useLang();
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -55,7 +57,7 @@ export default function BlogPage() {
           </p>
 
           {loading ? (
-            <p style={{ textAlign: 'center', opacity: 0.6, padding: '2rem' }}>Načítám články…</p>
+            <p style={{ textAlign: 'center', opacity: 0.6, padding: '2rem' }}>{t('Načítám články…')}</p>
           ) : publishedPosts.length === 0 ? (
             <div style={{ textAlign: 'center', padding: '4rem 1rem' }}>
               <h2 className="section-title" style={{ marginBottom: '1.5rem' }}>
@@ -81,7 +83,7 @@ export default function BlogPage() {
                   )}
                   <div className="blog-card-body">
                     <p className="blog-card-date">
-                      {new Date(post.published_at || post.created_at).toLocaleDateString('cs-CZ', {
+                      {new Date(post.published_at || post.created_at).toLocaleDateString(lang === 'en' ? 'en-US' : 'cs-CZ', {
                         day: 'numeric',
                         month: 'long',
                         year: 'numeric',
@@ -89,7 +91,7 @@ export default function BlogPage() {
                     </p>
                     <h3 className="blog-card-title">{post.title}</h3>
                     {post.excerpt && <p className="blog-card-excerpt">{post.excerpt}</p>}
-                    <span className="blog-card-cta">Číst více →</span>
+                    <span className="blog-card-cta">{t('Číst více →')}</span>
                   </div>
                 </a>
               ))}

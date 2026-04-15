@@ -273,9 +273,16 @@ export function EditableText({
     initContent(sectionId, defaultValue);
   }, [sectionId, defaultValue, initContent]);
 
-  // In EN mode, translate the default value; in CS mode use DB value or default
+  // Determine the effective sectionId for EN translations
+  const enSectionId = `${sectionId}__en`;
+
+  // In EN mode: use DB-stored EN translation → fallback to static dictionary → fallback to Czech
+  // In CS mode: use DB value or default
   const csValue = drafts[sectionId]?.value ?? defaultValue;
-  const currentValue = lang === 'en' ? t(defaultValue) : csValue;
+  const enDbValue = drafts[enSectionId]?.value;
+  const currentValue = lang === 'en'
+    ? (enDbValue || t(defaultValue))
+    : csValue;
 
   // Sync innerHTML when value changes externally (e.g. DB load)
   // but NOT while user is editing (to avoid cursor jumping)
@@ -328,18 +335,20 @@ export function EditableText({
     savingRef.current = true;
 
     const value = elRef.current?.innerHTML ?? drafts[sectionId]?.value ?? defaultValue;
+    // Save to the correct sectionId: EN translations use __en suffix
+    const saveSectionId = lang === 'en' ? enSectionId : sectionId;
     // Update draft state with final value
-    setDraft(sectionId, value);
+    setDraft(saveSectionId, value);
 
     try {
       const { saveDrafts } = await import('@/app/actions/content');
-      await saveDrafts([{ section_id: sectionId, draft_text: value }]);
+      await saveDrafts([{ section_id: saveSectionId, draft_text: value }]);
     } catch (err) {
       console.error('Failed to save draft:', err);
     } finally {
       savingRef.current = false;
     }
-  }, [sectionId, drafts, defaultValue, setDraft]);
+  }, [sectionId, enSectionId, lang, drafts, defaultValue, setDraft]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {

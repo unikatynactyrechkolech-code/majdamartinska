@@ -122,23 +122,23 @@ export default function HomePage() {
       {/* SERVICES */}
       <section className="section services section-brown" data-animate>
         <div className="container">
-          <EditableText sectionId="home.services.label" defaultValue="MOJE SLUŽBY" as="p" className="section-label" />
-          <h2 className="section-title">
-            <EditableText sectionId="home.services.title" defaultValue="Profesionální <em>focení</em> v Praze" as="span" />
+            <EditableText sectionId="home.services.label" defaultValue="MOJE PRÁCE" as="p" className="section-label" />
+            <h2 className="section-title">
+              <EditableText sectionId="home.services.title" defaultValue="Moje <em>práce</em>" as="span" />
           </h2>
           <div className="services-grid">
             <Link href="/portfolio#rodinna" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/337,0,1337,1000,580,580,1/0-0-0/2b1abef9-f657-4d4d-af2d-f2ea0305c275/1/2/_FFF5852.jpg?fjkss=exp=2090500769~hmac=eef2d133c7ca7b74b7e2ae131120ff1441f3b8003feeccd22d281e85adc9fcd9" alt="Rodinné focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
+                  <EditableImage sectionId="home.service1.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/374cea7b-60cd-4811-9524-ee5d44975753/1/1/_FFF7820.jpg?fjkss=exp=2090606687~hmac=f4386541e9cb3db2cd8840df3360068e6ad9397a37da78c0d3a58372925b7c27" alt="Rodinné focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
-                <EditableText sectionId="home.service1.name" defaultValue="Rodinné a portrétní" as="span" className="service-name" />
+                  <EditableText sectionId="home.service1.name" defaultValue="Rodinné focení" as="span" className="service-name" />
                 <EditableText sectionId="home.service1.cta" defaultValue="ZOBRAZIT →" as="span" className="service-cta" />
               </div>
             </Link>
             <Link href="/portfolio#newborn" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/105,0,1105,1000,580,580,1/0-0-0/e31af609-ffc4-4df0-9dd0-55164c01ae9c/1/2/beranci420.jpg?fjkss=exp=2090500769~hmac=5a5c04d383c5d309ae187e122f4e4662e768f97e28463e8e14ea0865192474ca" alt="Newborn focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
+                  <EditableImage sectionId="home.service2.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1000,2500,1000/0-0-0/414592d6-abb7-466c-9710-505675263187/1/1/_FFF1107.jpg?fjkss=exp=2090606351~hmac=fe1b9542344fd40fe07c14beff71fca72fd81d22b04270126fa38a8516f7a424" alt="Newborn focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
                 <EditableText sectionId="home.service2.name" defaultValue="Newborn — miminka" as="span" className="service-name" />
@@ -147,10 +147,10 @@ export default function HomePage() {
             </Link>
             <Link href="/portfolio#svatby" className="service-card">
               <div className="service-img">
-                <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/242,0,1242,1000,580,580,1/0-0-0/6a22c40a-2331-4783-8eda-c50263a4e231/1/2/_FFF6358-DeNoiseAI-standard.jpg?fjkss=exp=2090500769~hmac=ca506626be6ee5c414e27c9226b590c58cbb1f1e8e820d4f7200b628d224d174" alt="Svatební focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
+                  <EditableImage sectionId="home.service3.img" src="https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,899,899,2500,899/0-0-0/42ba55b7-dfe7-4ea0-b535-908073c37184/1/1/svatba87.jpg?fjkss=exp=2090606430~hmac=c09d5d25a88523d8a5480ba831b1b62f93ad5af43d9cf9e34583b70346b25f45" alt="Svatební focení" width={580} height={580} sizes="(max-width: 768px) 100vw, 33vw" style={{ width: '100%', height: '100%', objectFit: 'cover' }} noLightbox unoptimized />
               </div>
               <div className="service-info">
-                <EditableText sectionId="home.service3.name" defaultValue="Svatby" as="span" className="service-name" />
+                  <EditableText sectionId="home.service3.name" defaultValue="Svatební focení" as="span" className="service-name" />
                 <EditableText sectionId="home.service3.cta" defaultValue="ZOBRAZIT →" as="span" className="service-cta" />
               </div>
             </Link>

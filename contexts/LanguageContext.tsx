@@ -48,9 +48,11 @@ const translations: Record<string, string> = {
   // ── GALLERY ──
   'PORTFOLIO': 'PORTFOLIO',
 
-  // ── SERVICES ──
+  // ── SERVICES / MOJE PRÁCE ──
   'MOJE SLUŽBY': 'MY SERVICES',
+  'MOJE PRÁCE': 'MY WORK',
   'Moje <em>práce</em>': 'My <em>work</em>',
+  'Profesionální <em>focení</em> v Praze': 'Professional <em>photography</em> in Prague',
   'Rodinné a portrétní': 'Family & portrait',
   'Newborn — miminka': 'Newborn — babies',
   'Svatby': 'Weddings',
@@ -230,6 +232,67 @@ const translations: Record<string, string> = {
   'Další podrobnosti': 'Additional details',
   'Odeslat poptávku': 'Send inquiry',
   'CHCETE BÝT DALŠÍ?': 'WANT TO BE NEXT?',
+  'Vaše jméno': 'Your name',
+  'vas@email.cz': 'your@email.com',
+  'Pokud máš návrh': 'If you have a preference',
+  'Napište cokoliv, co bych měla vědět...': 'Write anything I should know...',
+  'Poptávka focení': 'Photography inquiry',
+
+  // ── SERVICES PAGE (PageHero + additional) ──
+  'Služby a ceník focení': 'Services & pricing',
+  'Nabídka profesionálního focení v Praze': 'Professional photography in Prague',
+  'Rodinné a <em>párové focení</em> v Praze': 'Family & <em>couple photography</em> in Prague',
+  'Newborn focení <em>miminek</em> v ateliéru': 'Newborn <em>baby</em> photography in studio',
+  'Svatební <em>fotografie</em> plné emocí': 'Wedding <em>photography</em> full of emotions',
+  'Focení <em>psů</em> a mazlíčků': 'Photographing <em>dogs</em> & pets',
+  'Těhotenské focení — <em>krásné vzpomínky</em>': 'Maternity photography — <em>beautiful memories</em>',
+  'Profesionální <em>portrétní</em> fotografie': 'Professional <em>portrait</em> photography',
+  'Rezervujte si <em>termín</em>': 'Book your <em>appointment</em>',
+
+  // ── REVIEWS PAGE (additional) ──
+  'Co říkají spokojení klienti o mém focení': 'What satisfied clients say about my photography',
+  'Objednejte si <em>focení</em> i vy': 'Book your <em>photo session</em> too',
+  'Ateliérové focení': 'Studio photography',
+
+  // ── CONTACT PAGE (additional) ──
+  'Objednejte si focení v Praze': 'Book a photo session in Prague',
+  'Kontaktujte <em>fotografku</em>': 'Contact the <em>photographer</em>',
+
+  // ── ABOUT PAGE (additional) ──
+  'Fotografka Majda Martinská — Praha': 'Photographer Majda Martinská — Prague',
+  'Fotografka <em>Majda Martinská</em>': 'Photographer <em>Majda Martinská</em>',
+  'Proč si vybrat <em>moje focení</em> — 10 důvodů': 'Why choose <em>my photography</em> — 10 reasons',
+  'Je u mě lepší zábava, než u Aminy a to už je co říct.': 'The fun is better with me than with Amina, and that\'s saying something.',
+  'Fakt se snažím, aby ses cítil/a uvolněně (a to v přítomnosti žirafy nejde).': 'I really try to make you feel relaxed (which isn\'t possible around a giraffe).',
+  'Fotím z očí do očí a tak to vypadá přirozeně (Amina fotí zásadně z nadhledu).': 'I shoot at eye level so it looks natural (Amina always shoots from above).',
+  'Na úpravě fotografií si dávám hodně záležet (Amina ani neví, co je Photoshop).': 'I put a lot of effort into editing (Amina doesn\'t even know what Photoshop is).',
+  'Návštěva u mě není jen focení, ale i přátelské setkání dvou a více lidí.': 'A visit to me isn\'t just a shoot, but a friendly meeting of two or more people.',
+  'K focení v ateliéru ti uvařím lahodnou kávu (Amina kávu nepije a co hůř, nepije ani alkohol).': 'I\'ll make you a delicious coffee for the studio shoot (Amina doesn\'t drink coffee, and worse, she doesn\'t drink alcohol either).',
+  'Při venkovním focení tě vezmu na vážně pěkná místa (tady musím uznat, že Amina by to možná zvládla lépe).': 'For outdoor shoots I\'ll take you to really nice spots (I must admit Amina might do this better).',
+  'Fotografie odevzdám do 21 dnů nejpozději (Amina neumí napočítat ani do pěti).': 'I deliver photos within 21 days max (Amina can\'t even count to five).',
+  'Kromě toho, že toho hodně namluvím, tak ti i naslouchám a přizpůsobím se tvým přáním.': 'Besides talking a lot, I also listen and adapt to your wishes.',
+  'Vedu 9:1 v důvodech, proč jít ke mně a ne k Amině. Tak neváhej a kontaktuj mě.': 'I\'m leading 9:1 in reasons to choose me over Amina. Don\'t hesitate — contact me.',
+  'Vsuvka: Pučálkovic Amina je žirafa, kterou si v jedné báječné knize vymyslel Jindřich Plachta :)': 'Note: Pučálkovic Amina is a giraffe from a wonderful book by Jindřich Plachta :)',
+  'Domluvme se <em>na focení</em>': 'Let\'s arrange <em>a photo session</em>',
+  'Vaše <em>fotografka</em> Majda': 'Your <em>photographer</em> Majda',
+  'Fotoateliér <em>Praha Suchdol</em>': 'Photo studio <em>Prague Suchdol</em>',
+  'Objednejte si <em>focení</em>': 'Book a <em>photo session</em>',
+
+  // ── PORTFOLIO PAGE (additional) ──
+  'Ukázky rodinného, svatebního a newborn focení': 'Examples of family, wedding and newborn photography',
+
+  // ── BLOG PAGE (additional) ──
+  'Tipy na focení, inspirace a zákulisí': 'Photography tips, inspiration and behind the scenes',
+  'BLOG': 'BLOG',
+  'Načítám články…': 'Loading articles…',
+  'Číst více →': 'Read more →',
+
+  // ── HORIZONTAL SCROLL CAPTIONS ──
+  'Rodina': 'Family',
+
+  // ── FOOTER ADDRESS ──
+  'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Praha — Suchdol<br />IČ 87765403':
+    'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Prague — Suchdol<br />ID 87765403',
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
