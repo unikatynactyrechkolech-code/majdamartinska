@@ -132,18 +132,17 @@ export default function RecenzePage() {
     })();
   }, []);
 
-  // Vždy zobrazit statické recenze + přidat nové z DB (ty co nejsou v statickém poli)
-  const staticDisplay = staticReviews.map((r) => ({ text: r.text, name: r.name, type: r.type, img: r.img, stars: 5 }));
-  const dbDisplay = (dbReviews ?? [])
-    .filter((r) => !staticReviews.some((s) => s.name === r.name))
-    .map((r) => ({
-      text: lang === 'en' && r.text_en ? r.text_en : r.text,
-      name: lang === 'en' && r.name_en ? r.name_en : r.name,
-      type: lang === 'en' && r.type_en ? r.type_en : r.type,
-      img: r.profile_image || '',
-      stars: r.stars ?? 5,
-    }));
-  const displayReviews = [...staticDisplay, ...dbDisplay];
+  // Všechno z DB (auto-seed zajistí že tam jsou i originální recenze)
+  // Fallback na statické jen pokud DB vrátí prázdno
+  const displayReviews = (dbReviews && dbReviews.length > 0)
+    ? dbReviews.map((r) => ({
+        text: lang === 'en' && r.text_en ? r.text_en : r.text,
+        name: lang === 'en' && r.name_en ? r.name_en : r.name,
+        type: lang === 'en' && r.type_en ? r.type_en : r.type,
+        img: r.profile_image || '',
+        stars: r.stars ?? 5,
+      }))
+    : staticReviews.map((r) => ({ text: r.text, name: r.name, type: r.type, img: r.img, stars: 5 }));
 
   return (
     <>
