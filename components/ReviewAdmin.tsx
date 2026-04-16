@@ -15,10 +15,12 @@ function ReviewEditor({
   review,
   onSaved,
   onCancel,
+  nextOrder = 1,
 }: {
   review?: Review;
   onSaved: (r: Review) => void;
   onCancel: () => void;
+  nextOrder?: number;
 }) {
   const [name, setName] = useState(review?.name ?? '');
   const [nameEn, setNameEn] = useState(review?.name_en ?? '');
@@ -28,7 +30,7 @@ function ReviewEditor({
   const [textEn, setTextEn] = useState(review?.text_en ?? '');
   const [profileImage, setProfileImage] = useState(review?.profile_image ?? '');
   const [stars, setStars] = useState(review?.stars ?? 5);
-  const [sortOrder, setSortOrder] = useState(review?.sort_order ?? 999);
+  const [sortOrder, setSortOrder] = useState(review?.sort_order ?? nextOrder);
   const [visible, setVisible] = useState(review?.visible ?? true);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
@@ -259,7 +261,7 @@ export function ReviewAdmin() {
     return (
       <section className="section">
         <div className="container">
-          <ReviewEditor onSaved={handleSaved} onCancel={() => setView('list')} />
+          <ReviewEditor onSaved={handleSaved} onCancel={() => setView('list')} nextOrder={reviews.length > 0 ? Math.max(...reviews.map(r => r.sort_order)) + 1 : 1} />
         </div>
       </section>
     );
