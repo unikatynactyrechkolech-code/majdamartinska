@@ -1,13 +1,15 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
-import { EditableImage } from '@/components/EditableImage';
 import { useLang } from '@/contexts/LanguageContext';
+import { useAdmin } from '@/contexts/AdminContext';
+import { ReviewAdmin } from '@/components/ReviewAdmin';
+import type { Review } from '@/app/actions/reviews';
 
-const reviews = [
+const staticReviews = [
   {
     text: 'Požádala jsem Majdu o fotografie pro web, který prezentuje mé konzultace. Přestože jsem přátelské a komunikativní povahy, nejsem typ člověka, který se potřebuje předvést před objektivem při každé příležitosti. Proto je pro mě cílené pózování před fotoaparátem výstup z komfortní zóny. Ale s Majdou šlo celé focení jako po másle. Z našeho setkání se stala nenucená procházka přírodou, kdy se člověk má prostor nejen nadechnout, ale také uvolnit. Takže nějaké to cvaknutí fotoaparátu už jej pak ani nerozhodí. Navíc je Majda velmi empatická, trpělivá a má neotřelé nápady na místa i způsoby, jak si člověka postavit. Člověk se tak nemusí cítit jako nějaká loutka nebo umělá figurína. Když mi přišel výsledek, byla jsem jedním slovem dojatá. Z vlastních fotek na mě dýchla taková pohoda, jakou jsem při focení cítila a také chci přes můj web předávat mým klientům. Přestože od focení s Majdou uplynul již nějaký čas, stále se na fotky dívám s velkou vděčností a ráda na to naše společné focení vzpomínám.',
     name: 'Pavla K.',
@@ -73,21 +75,16 @@ const reviews = [
 /* Threshold: reviews shorter than this are shown in full */
 const COLLAPSED_LENGTH = 200;
 
-function ReviewCard({ review, idx }: { review: typeof reviews[number]; idx: number }) {
+function ReviewCard({ text, name, type, img, stars = 5 }: { text: string; name: string; type: string; img: string; stars?: number }) {
   const { t } = useLang();
   const [expanded, setExpanded] = useState(false);
-  const isLong = review.text.length > COLLAPSED_LENGTH;
+  const isLong = text.length > COLLAPSED_LENGTH;
 
   return (
     <div className="review-card">
-      <div className="review-stars">★★★★★</div>
+      <div className="review-stars">{'★'.repeat(stars)}{'☆'.repeat(5 - stars)}</div>
       <div className={`review-text ${isLong && !expanded ? 'review-text-collapsed' : ''}`}>
-        <EditableText
-          sectionId={`recenze.review${idx + 1}.text`}
-          defaultValue={`\u201E${review.text}\u201C`}
-          as="span"
-          multiline
-        />
+        <span>{`\u201E${text}\u201C`}</span>
       </div>
       {isLong && (
         <button
@@ -99,21 +96,21 @@ function ReviewCard({ review, idx }: { review: typeof reviews[number]; idx: numb
         </button>
       )}
       <div className="review-author">
-        <EditableImage
-          sectionId={`recenze.review${idx + 1}.img`}
-          src={review.img}
-          alt={review.name}
-          width={48}
-          height={48}
-          sizes="48px"
-          style={{ borderRadius: '50%', objectFit: 'cover', width: '48px', height: '48px', minWidth: '48px', minHeight: '48px', flexShrink: 0 }}
-          overlayCompact
-          noLightbox
-          unoptimized
-        />
+        {img ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img
+            src={img}
+            alt={name}
+            width={48}
+            height={48}
+            style={{ borderRadius: '50%', objectFit: 'cover', width: '48px', height: '48px', minWidth: '48px', minHeight: '48px', flexShrink: 0 }}
+          />
+        ) : (
+          <span style={{ fontSize: 32, lineHeight: 1, width: 48, height: 48, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f0ebe5', borderRadius: '50%', flexShrink: 0 }}>👤</span>
+        )}
         <div>
-          <EditableText sectionId={`recenze.review${idx + 1}.name`} defaultValue={review.name} as="strong" />
-          <EditableText sectionId={`recenze.review${idx + 1}.type`} defaultValue={review.type} as="span" />
+          <strong>{name}</strong>
+          <span>{type}</span>
         </div>
       </div>
     </div>
@@ -121,6 +118,30 @@ function ReviewCard({ review, idx }: { review: typeof reviews[number]; idx: numb
 }
 
 export default function RecenzePage() {
+  const { isAdmin } = useAdmin();
+  const { lang, t } = useLang();
+  const [dbReviews, setDbReviews] = useState<Review[] | null>(null);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        const { getReviews } = await import('@/app/actions/reviews');
+        const data = await getReviews(true);
+        if (data.length > 0) setDbReviews(data);
+      } catch { /* fallback to static */ }
+    })();
+  }, []);
+
+  const displayReviews = dbReviews
+    ? dbReviews.map((r) => ({
+        text: lang === 'en' && r.text_en ? r.text_en : r.text,
+        name: lang === 'en' && r.name_en ? r.name_en : r.name,
+        type: lang === 'en' && r.type_en ? r.type_en : r.type,
+        img: r.profile_image || '',
+        stars: r.stars ?? 5,
+      }))
+    : staticReviews.map((r) => ({ text: r.text, name: r.name, type: r.type, img: r.img, stars: 5 }));
+
   return (
     <>
       <PageHero
@@ -132,12 +153,31 @@ export default function RecenzePage() {
       <section className="section" data-animate>
         <div className="container">
           <div className="reviews-grid">
-            {reviews.map((review, idx) => (
-              <ReviewCard review={review} idx={idx} key={idx} />
+            {displayReviews.map((review, idx) => (
+              <ReviewCard key={idx} {...review} />
             ))}
+          </div>
+
+          <div className="reviews-google-cta">
+            <a
+              href="https://www.google.com/maps/place/Majda+Martinsk%C3%A1+-+fotografka/@50.1450432,14.3863492,573m/data=!3m1!1e3!4m8!3m7!1s0x470bea7863f292ed:0x21debe4dffdc2402!8m2!3d50.1450432!4d14.3863492!9m1!1b1!16s%2Fg%2F119t95l5q!18m1!1e1?entry=ttu&g_ep=EgoyMDI2MDQxMy4wIKXMDSoASAFQAw%3D%3D"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-google-reviews"
+            >
+              <svg className="google-logo" viewBox="0 0 24 24" width="20" height="20" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" fill="#4285F4"/>
+                <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+              </svg>
+              {t('Všechny recenze')}
+            </a>
           </div>
         </div>
       </section>
+
+      {isAdmin && <ReviewAdmin />}
 
       {/* CTA */}
       <section className="section cta section-brown" data-animate>
