@@ -257,7 +257,7 @@ export function ReviewAdmin() {
   // --- Editor view ---
   if (view === 'new') {
     return (
-      <section className="section" data-animate>
+      <section className="section">
         <div className="container">
           <ReviewEditor onSaved={handleSaved} onCancel={() => setView('list')} />
         </div>
@@ -266,7 +266,7 @@ export function ReviewAdmin() {
   }
   if (view === 'edit' && editingReview) {
     return (
-      <section className="section" data-animate>
+      <section className="section">
         <div className="container">
           <ReviewEditor review={editingReview} onSaved={handleSaved} onCancel={() => { setView('list'); setEditingReview(null); }} />
         </div>
@@ -276,7 +276,7 @@ export function ReviewAdmin() {
 
   // --- List view ---
   return (
-    <section className="section" data-animate>
+    <section className="section">
       <div className="container">
         <div className="review-admin">
           <div className="blog-admin-header">
