@@ -50,7 +50,7 @@ function LoginModal() {
 }
 
 export function AdminToolbar() {
-  const { isAdmin, openLogin, logout, hasDirtyDrafts, publishAll, isPublishing } =
+  const { isAdmin, logout, hasDirtyDrafts, publishAll, isPublishing } =
     useAdmin();
 
   return (
@@ -58,15 +58,8 @@ export function AdminToolbar() {
       {/* Login modal */}
       <LoginModal />
 
-      {/* Floating toggle button – always visible at bottom-right */}
-      <button
-        className="cms-admin-toggle"
-        onClick={isAdmin ? logout : openLogin}
-        title="Admin mód (Ctrl+Shift+E)"
-        aria-label="Toggle admin mode"
-      >
-        {isAdmin ? '🔓' : '🔒'}
-      </button>
+      {/* Floating toggle button intentionally hidden — admin přístup pouze přes /admin
+          (původní zámek odstraněn na přání zadavatele, funkčnost zachována). */}
 
       {/* Toolbar – shown only in admin mode */}
       {isAdmin && (

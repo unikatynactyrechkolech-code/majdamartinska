@@ -58,7 +58,7 @@ export default function KontaktPage() {
                   <a href="https://www.instagram.com/majdamartinska/" target="_blank" rel="noopener noreferrer" className="social-link">
                     <EditableText sectionId="kontakt.social.instagram" defaultValue="Instagram" as="span" />
                   </a>
-                  <a href="https://www.facebook.com/majdamartinska" target="_blank" rel="noopener noreferrer" className="social-link">
+                  <a href="https://www.facebook.com/profile.php?id=100066773513366&locale=eo_EO" target="_blank" rel="noopener noreferrer" className="social-link">
                     <EditableText sectionId="kontakt.social.facebook" defaultValue="Facebook" as="span" />
                   </a>
                 </div>

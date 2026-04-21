@@ -26,6 +26,8 @@ interface ImageUploaderProps {
   label?: string;
   /** Kompaktní režim */
   compact?: boolean;
+  /** Povolí nahrávání více souborů najednou */
+  multiple?: boolean;
 }
 
 export function ImageUploader({
@@ -36,26 +38,28 @@ export function ImageUploader({
   onDeleteComplete,
   label,
   compact = false,
+  // Defaultně povolit nahrávání více fotek najednou — funguje to všude,
+  // kde to dává smysl (galerie). Single-slot komponenty (EditableImage,
+  // edit modal) stejně použijí jen první soubor díky callbacku.
+  multiple = true,
 }: ImageUploaderProps) {
   const { isAdmin } = useAdmin();
   const [isUploading, setIsUploading] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [uploadProgress, setUploadProgress] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   if (!isAdmin) return null;
 
-  // ---- Upload ----
-  const handleFileUpload = async (file: File) => {
-    setIsUploading(true);
-    setError(null);
-    setSuccessMsg(null);
-
+  // ---- Upload single file ----
+  const handleFileUpload = async (file: File, overrideSectionId?: string) => {
+    const targetSectionId = overrideSectionId || sectionId;
     try {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('sectionId', sectionId);
+      formData.append('sectionId', targetSectionId);
 
       const { uploadImage } = await import('@/app/actions/images');
       const result = await uploadImage(formData);
@@ -63,14 +67,6 @@ export function ImageUploader({
       if (!result.success) {
         setError(result.error || 'Nahrávání selhalo.');
         return;
-      }
-
-      if (result.error) {
-        // Partial success (uploaded but DB failed)
-        setError(result.error);
-      } else {
-        setSuccessMsg('✅ Obrázek úspěšně nahrán!');
-        setTimeout(() => setSuccessMsg(null), 3000);
       }
 
       if (result.imageUrl && result.publicId && onUploadComplete) {
@@ -84,16 +80,46 @@ export function ImageUploader({
     } catch (err) {
       console.error('Upload error:', err);
       setError(err instanceof Error ? err.message : 'Neznámá chyba.');
-    } finally {
-      setIsUploading(false);
-      // Reset file input
-      if (fileInputRef.current) fileInputRef.current.value = '';
+      throw err;
     }
   };
 
+  // ---- Upload one or more files ----
+  const handleFilesUpload = async (files: FileList | File[]) => {
+    const fileArray = Array.from(files);
+    if (fileArray.length === 0) return;
+
+    setIsUploading(true);
+    setError(null);
+    setSuccessMsg(null);
+    setUploadProgress(null);
+
+    try {
+      if (fileArray.length === 1) {
+        await handleFileUpload(fileArray[0]);
+        setSuccessMsg('✅ Obrázek úspěšně nahrán!');
+      } else {
+        let uploaded = 0;
+        for (let i = 0; i < fileArray.length; i++) {
+          const derivedId = i === 0 ? sectionId : `${sectionId}_${Date.now()}_${i}`;
+          setUploadProgress(`Nahrávám ${i + 1} / ${fileArray.length}…`);
+          await handleFileUpload(fileArray[i], derivedId);
+          uploaded++;
+        }
+        setSuccessMsg(`✅ Nahráno ${uploaded} obrázků!`);
+        setUploadProgress(null);
+      }
+      setTimeout(() => { setSuccessMsg(null); setUploadProgress(null); }, 3000);
+    } catch {
+      // error already set in handleFileUpload
+    } finally {
+      setIsUploading(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
+  };
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) handleFileUpload(file);
+    const files = e.target.files;
+    if (files && files.length > 0) handleFilesUpload(files);
   };
 
   // ---- Drag & Drop ----
@@ -114,9 +140,10 @@ export function ImageUploader({
       e.preventDefault();
       e.stopPropagation();
       setIsDragging(false);
-      const file = e.dataTransfer.files?.[0];
-      if (file && file.type.startsWith('image/')) {
-        handleFileUpload(file);
+      const files = e.dataTransfer.files;
+      const validFiles = Array.from(files).filter(f => f.type.startsWith('image/'));
+      if (validFiles.length > 0) {
+        handleFilesUpload(validFiles);
       } else {
         setError('Přetáhněte obrázek (JPG, PNG, WebP, GIF).');
       }
@@ -185,15 +212,15 @@ export function ImageUploader({
         {isUploading ? (
           <div className="cms-uploader-loading">
             <span className="cms-uploader-spinner" />
-            <span>Nahrávám…</span>
+            <span>{uploadProgress || 'Nahrávám…'}</span>
           </div>
         ) : (
           <>
             <span className="cms-uploader-dropzone-icon">⬆️</span>
             <span className="cms-uploader-dropzone-text">
-              {currentUrl ? 'Nahradit obrázek' : 'Nahrát obrázek'}
+              {currentUrl ? 'Nahradit obrázek' : (multiple ? 'Nahrát fotografie' : 'Nahrát obrázek')}
               <br />
-              <small>Přetáhněte sem nebo klikněte</small>
+              <small>{multiple ? 'Přetáhněte nebo klikněte · lze vybrat více najednou' : 'Přetáhněte sem nebo klikněte'}</small>
             </span>
             <span className="cms-uploader-dropzone-hint">
               JPG, PNG, WebP, GIF · max 10 MB
@@ -205,6 +232,7 @@ export function ImageUploader({
           type="file"
           accept="image/jpeg,image/png,image/webp,image/avif,image/gif"
           onChange={handleFileChange}
+          multiple={multiple}
           style={{ display: 'none' }}
         />
       </div>

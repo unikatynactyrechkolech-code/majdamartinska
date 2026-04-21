@@ -34,6 +34,7 @@ const filters = [
   { key: 'portret', sectionId: 'portfolio.filter.portret', label: 'Portréty' },
   { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
   { key: 'barevne', sectionId: 'portfolio.filter.barevne', label: 'Barevné focení' },
+  { key: 'art', sectionId: 'portfolio.filter.art', label: 'Art' },
 ];
 
 const categoryAltMap: Record<string, string> = {
@@ -43,8 +44,9 @@ const categoryAltMap: Record<string, string> = {
   newborn: 'Newborn focení',
   tehotenske: 'Těhotenské focení',
   portret: 'Portrét',
-  svatby: 'Svatební focení',
+  svatby: 'Svatobní focení',
   psi: 'Focení pejsků',
+  art: 'Art',
 };
 
 /** Tombstone value stored in DB image_url when a static image is deleted */
@@ -441,6 +443,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
               sectionId={editModal.sectionId}
               currentUrl={dbImages[editModal.sectionId]?.url || null}
               cloudinaryPublicId={dbImages[editModal.sectionId]?.publicId || null}
+              multiple={false}
               onUploadComplete={(data) => {
                 setImage(editModal.sectionId, { url: data.imageUrl, publicId: data.publicId });
                 setUploadSuccess(true);
@@ -508,6 +511,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
               sectionId={addSectionIdRef.current}
               currentUrl={null}
               cloudinaryPublicId={null}
+              multiple
               onUploadComplete={(data) => {
                 // The image was saved to DB with addSectionIdRef.current
                 // Update local context with that same sectionId

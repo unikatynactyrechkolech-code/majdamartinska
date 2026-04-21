@@ -24,11 +24,8 @@ export function Footer() {
             <h3><EditableText sectionId="footer.brand.name" defaultValue="Majda Martinská" as="span" /></h3>
             <p><EditableText sectionId="footer.brand.subtitle" defaultValue="Fotografka — Praha Suchdol" as="span" /></p>
             <div className="footer-social">
-              <a href="https://www.facebook.com/pages/Foto-Majda-Martinsk%C3%A1/124691730942453" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+              <a href="https://www.facebook.com/profile.php?id=100066773513366&locale=eo_EO" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-              </a>
-              <a href="https://twitter.com/MajdaMartinska" target="_blank" rel="noopener noreferrer" aria-label="Twitter">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
               </a>
             </div>
           </div>
@@ -37,10 +34,12 @@ export function Footer() {
             <ul>
               <li><Link href="/"><EditableText sectionId="footer.nav.uvod" defaultValue="Úvod" as="span" /></Link></li>
               <li><Link href="/portfolio"><EditableText sectionId="footer.nav.portfolio" defaultValue="Portfolio" as="span" /></Link></li>
+              <li><Link href="/art"><EditableText sectionId="footer.nav.art" defaultValue="Art" as="span" /></Link></li>
               <li><Link href="/sluzby"><EditableText sectionId="footer.nav.sluzby" defaultValue="Služby" as="span" /></Link></li>
               <li><Link href="/o-mne"><EditableText sectionId="footer.nav.omne" defaultValue="Kdo jsem" as="span" /></Link></li>
               <li><Link href="/recenze"><EditableText sectionId="footer.nav.recenze" defaultValue="Recenze" as="span" /></Link></li>
               <li><Link href="/blog"><EditableText sectionId="footer.nav.blog" defaultValue="Blog" as="span" /></Link></li>
+              <li><Link href="/vyzvedni-fotky"><EditableText sectionId="footer.nav.vyzvedni" defaultValue="Vyzvedni fotky" as="span" /></Link></li>
               <li><Link href="/kontakt"><EditableText sectionId="footer.nav.kontakt" defaultValue="Kontakt" as="span" /></Link></li>
             </ul>
           </div>

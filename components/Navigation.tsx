@@ -3,19 +3,18 @@
 import { useEffect, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import Image from 'next/image';
 import { EditableText } from '@/components/EditableText';
 import { useLang } from '@/contexts/LanguageContext';
-
-const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
 const navItems = [
   { href: '/', sectionId: 'nav.item.uvod', label: 'Úvod', labelEn: 'Home' },
   { href: '/portfolio', sectionId: 'nav.item.portfolio', label: 'Portfolio', labelEn: 'Portfolio' },
+  { href: '/art', sectionId: 'nav.item.art', label: 'Art', labelEn: 'Art' },
   { href: '/sluzby', sectionId: 'nav.item.sluzby', label: 'Služby', labelEn: 'Services' },
   { href: '/o-mne', sectionId: 'nav.item.omne', label: 'Kdo jsem', labelEn: 'About' },
   { href: '/recenze', sectionId: 'nav.item.recenze', label: 'Recenze', labelEn: 'Reviews' },
   { href: '/blog', sectionId: 'nav.item.blog', label: 'Blog', labelEn: 'Blog' },
+  { href: '/vyzvedni-fotky', sectionId: 'nav.item.vyzvedni', label: 'Vyzvedni fotky', labelEn: 'Pick up photos' },
   { href: '/kontakt', sectionId: 'nav.item.kontakt', label: 'Kontakt', labelEn: 'Contact' },
 ];
 
@@ -51,16 +50,6 @@ export function Navigation() {
 
   return (
     <nav className={`nav ${scrolled ? 'scrolled' : ''}`} id="nav">
-      <Link href="/" className="nav-logo">
-        <Image
-          src={LOGO_URL}
-          alt="Majda Martinská"
-          width={40}
-          height={40}
-          style={{ objectFit: 'contain' }}
-          priority
-        />
-      </Link>
       <div className="nav-right-mobile">
         <button className="lang-switch lang-switch-mobile" onClick={toggleLang} aria-label="Switch language">
           {lang === 'cs' ? 'EN' : 'CZ'}

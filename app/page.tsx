@@ -1,10 +1,13 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { HorizontalScroll } from '@/components/HorizontalScroll';
 import { HeroSlideshow } from '@/components/HeroSlideshow';
 import { EditableText } from '@/components/EditableText';
 import { EditableImage } from '@/components/EditableImage';
+
+const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
 const hScrollItems = [
   { src: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1500,1000,1600,1000/0-0-0/3f875228-71be-40bf-96d2-b419364599a1/1/1/_FFF5983.jpg?fjkss=exp=2088681035~hmac=2e9c039a5620e3d43d3fe64b3f7daef7015cc8ae1b4d717a0fea903df01196c7', alt: 'Rodinné focení', caption: 'Rodinné', sectionId: 'home.hscroll.1', href: '/portfolio#rodinna' },
@@ -20,6 +23,18 @@ export default function HomePage() {
     <>
       {/* HERO */}
       <section className="hero" id="hero">
+        {/* Brand strip below header */}
+        <div className="hero-brand">
+          <Image
+            src={LOGO_URL}
+            alt="Majda Martinská"
+            width={44}
+            height={44}
+            style={{ objectFit: 'contain' }}
+            priority
+          />
+          <span className="hero-brand-name">Majda Martinská</span>
+        </div>
         <div className="hero-content">
           <EditableText
             sectionId="home.hero.label"

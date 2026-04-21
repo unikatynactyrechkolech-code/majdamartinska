@@ -107,6 +107,7 @@ export function EditableImage({
               sectionId={sectionId}
               currentUrl={entry?.url || null}
               cloudinaryPublicId={currentPublicId}
+              multiple={false}
               onUploadComplete={(data) => {
                 setImage(sectionId, { url: data.imageUrl, publicId: data.publicId });
                 setUploadSuccess(true);
