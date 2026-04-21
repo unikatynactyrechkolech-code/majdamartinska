@@ -21,20 +21,23 @@ const hScrollItems = [
 export default function HomePage() {
   return (
     <>
-      {/* HERO */}
-      <section className="hero" id="hero">
-        {/* Brand strip below header */}
-        <div className="hero-brand">
+      {/* BRAND BANNER — mezi headerem a hero sekcí (logo + jméno, velké) */}
+      <div className="brand-banner">
+        <div className="brand-banner-inner">
           <Image
             src={LOGO_URL}
             alt="Majda Martinská"
-            width={44}
-            height={44}
-            style={{ objectFit: 'contain' }}
+            width={120}
+            height={120}
+            className="brand-banner-logo"
             priority
           />
-          <span className="hero-brand-name">Majda Martinská</span>
+          <span className="brand-banner-name">Majda Martinská</span>
         </div>
+      </div>
+
+      {/* HERO */}
+      <section className="hero" id="hero">
         <div className="hero-content">
           <EditableText
             sectionId="home.hero.label"

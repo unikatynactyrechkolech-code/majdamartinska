@@ -323,13 +323,11 @@ ul {
 
 .hero {
     position: relative;
-    min-height: 100vh;
+    min-height: calc(100vh - var(--nav-height) - var(--brand-banner-height, 110px));
     display: grid;
     /* Desktop: text column užší, fotogalerie širší a blíž k textu */
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.7fr);
-    grid-template-rows: auto 1fr;
     overflow: hidden;
-    padding-top: var(--nav-height);
     background: var(--color-bg);
 }
 
@@ -353,38 +351,55 @@ ul {
     padding: clamp(2rem, 4vw, 4rem) clamp(2rem, 5vw, 5rem);
     max-width: 640px;
     overflow: visible;
-    grid-column: 1;
-    grid-row: 2;
     align-self: center;
 }
 
 /* ========================================
-   HERO BRAND STRIP
+   BRAND BANNER (logo + jméno nad hero sekcí)
    ======================================== */
 
-.hero-brand {
-    grid-column: 1;
-    grid-row: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    padding: 1.5rem clamp(2rem, 5vw, 5rem) 0.5rem;
-    align-self: end;
+.brand-banner {
+    position: relative;
+    width: 100%;
+    margin-top: var(--nav-height);
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-border);
+    z-index: 5;
 }
 
-.hero-brand img {
-    width: 44px;
-    height: 44px;
+.brand-banner-inner {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1rem, 2.5vw, 1.75rem);
+    padding: clamp(1rem, 2.5vw, 1.75rem) clamp(1.5rem, 4vw, 3rem);
+}
+
+.brand-banner-logo {
+    width: clamp(70px, 9vw, 110px) !important;
+    height: clamp(70px, 9vw, 110px) !important;
     object-fit: contain;
     flex-shrink: 0;
 }
 
-.hero-brand-name {
+.brand-banner-name {
     font-family: var(--font-heading);
-    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-size: clamp(1.8rem, 4vw, 3rem);
     font-weight: 500;
-    letter-spacing: 0.02em;
+    letter-spacing: -0.005em;
     color: var(--color-text);
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+/* ========================================
+   HERO BRAND STRIP (legacy — zachováno pro případ použití jinde, ale na home přesunuto)
+   ======================================== */
+
+.hero-brand {
+    display: none;
 }
 
 /* ========================================
@@ -392,8 +407,6 @@ ul {
    ======================================== */
 
 .hero-slideshow {
-    grid-column: 2;
-    grid-row: 1 / -1;
     position: relative;
     height: 100%;
     min-height: 500px;
@@ -1218,12 +1231,29 @@ ul {
     margin-bottom: 1.2rem;
     overflow: hidden;
     position: relative;
+    /* Placeholder pozadí, aby se při lazy-loadu obrázků neblikalo bílé/prázdné místo */
+    background: #efe9e0;
+    min-height: 120px;
+    border-radius: 2px;
 }
 
 .portfolio-item img {
     width: 100%;
     display: block;
-    transition: transform 0.6s var(--ease-out);
+    transition: transform 0.6s var(--ease-out), opacity 0.4s ease;
+    /* Před načtením má obrázek opacity 0, po načtení plynule fade-in.
+       Bez ní je vidět postupné „skládání“ řádků a CSS columns reflow co uživatel popisuje jako „blikání“. */
+}
+
+/* Používejte JS-side fallback: pokud nemáme onLoad handler, raději
+   nastavíme opacity 1 jako default — a fade-in přidejme přes animation. */
+.portfolio-item img {
+    animation: portfolioImgFadeIn 0.5s ease both;
+}
+
+@keyframes portfolioImgFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .portfolio-item:hover img {
@@ -1721,6 +1751,32 @@ ul {
     align-self: flex-start;
 }
 
+.contact-form .btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* Status zprávy formuláře */
+.form-message {
+    padding: 0.85rem 1rem;
+    border-radius: 0.5rem;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+}
+
+.form-message-success {
+    background: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+
+.form-message-error {
+    background: #fdecea;
+    color: #b71c1c;
+    border: 1px solid #f5c6c0;
+}
+
 /* ========================================
    REVIEW CARD DETAILS
    ======================================== */
@@ -2079,22 +2135,31 @@ ul {
     /* HERO */
     .hero {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto auto;
+        grid-template-rows: auto auto;
         min-height: auto;
-        padding-top: var(--nav-height);
     }
 
-    .hero-brand {
-        grid-column: 1;
-        grid-row: 1;
-        justify-content: center;
-        padding: 1rem 1.5rem 0.5rem;
+    /* Brand banner už není v hero gridu — stojí nad sekcí */
+    .brand-banner {
+        margin-top: var(--nav-height);
+    }
+
+    .brand-banner-inner {
+        gap: 0.75rem;
+        padding: 0.85rem 1rem;
+    }
+
+    .brand-banner-logo {
+        width: 56px !important;
+        height: 56px !important;
+    }
+
+    .brand-banner-name {
+        font-size: clamp(1.4rem, 6vw, 1.9rem);
     }
 
     /* Text first, slideshow second on mobile */
     .hero-content {
-        grid-column: 1;
-        grid-row: 2;
         text-align: center;
         padding: 2rem 1.5rem 2rem;
         max-width: 100%;
@@ -2104,8 +2169,6 @@ ul {
     }
 
     .hero-slideshow {
-        grid-column: 1;
-        grid-row: 3;
         min-height: 280px;
         height: 280px;
     }
@@ -2500,9 +2563,49 @@ ul {
         max-width: 100%;
     }
 
+    /* Kontaktní položky — esteticky zarovnané (ikonka + textová část) */
+    .contact-details {
+        width: 100%;
+        max-width: 360px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
     .contact-item {
-        justify-content: center;
+        display: grid;
+        grid-template-columns: 2.25rem 1fr;
+        align-items: center;
+        gap: 0.85rem;
+        margin-bottom: 0;
         text-align: left;
+        justify-content: start;
+    }
+
+    .contact-icon {
+        font-size: 1.1rem;
+        line-height: 1;
+        width: 2.25rem;
+        height: 2.25rem;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .contact-item > div {
+        min-width: 0;
+    }
+
+    .contact-item strong {
+        margin-bottom: 0.15rem;
+    }
+
+    .contact-item a,
+    .contact-item span {
+        font-size: 0.95rem;
+        word-break: break-word;
     }
 
     .contact-social {

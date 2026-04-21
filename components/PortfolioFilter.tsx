@@ -372,8 +372,10 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
         </div>
       )}
 
-      {/* Lightbox */}
-      {lightbox !== null && filtered[lightbox] && (
+      {/* Lightbox — portaled to <body> aby unik z transform-stacking-contextu rodičů
+           ([data-animate] sekce má transform: translateY(0) i ve viditelném stavu,
+           což by jinak rozbíjelo position: fixed lightboxu na vrcholu/dně galerie). */}
+      {lightbox !== null && filtered[lightbox] && createPortal(
         <div className="portfolio-lightbox" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={closeLightbox} aria-label="Zavřít">&times;</button>
           <button
@@ -415,7 +417,8 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
           <div className="lightbox-counter">
             {lightbox + 1} / {filtered.length}
           </div>
-        </div>
+        </div>,
+        document.body
       )}
 
       {/* Edit/Delete Modal (admin) */}
