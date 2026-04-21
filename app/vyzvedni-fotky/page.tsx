@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
+import { useLang } from '@/contexts/LanguageContext';
 
 export default function VyzvedniPage() {
+  const { t } = useLang();
   return (
     <>
       <PageHero
@@ -83,7 +85,7 @@ export default function VyzvedniPage() {
 
             <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <Link href="/kontakt" className="btn btn-primary">
-                Napsat Majdě
+                {t('Napsat Majdě')}
               </Link>
               <a href="mailto:martinskafoto@gmail.com" className="btn btn-outline-dark">
                 martinskafoto@gmail.com

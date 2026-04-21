@@ -52,6 +52,23 @@ const categoryAltMap: Record<string, string> = {
 /** Tombstone value stored in DB image_url when a static image is deleted */
 const DELETED_MARKER = '__deleted__';
 
+/**
+ * Vrátí URL optimalizovanou pro náhled v gridu (menší rozměr, nižší kvalita).
+ * Originální URL se použije v lightboxu pro plnou kvalitu.
+ *  - Cloudinary: vloží transformaci `f_auto,q_auto:eco,w_900,c_limit` za `/upload/`
+ *  - format.creatorcdn.com: ponechá (URL už má pevný rozměr v cestě)
+ *  - ostatní: ponechá
+ */
+function thumbUrl(src: string): string {
+  if (!src) return src;
+  if (src.includes('res.cloudinary.com') && src.includes('/upload/')) {
+    // Pokud už transformace obsahuje vlastní úpravu, nech být
+    if (/\/upload\/[^/]*[wq]_[^/]*\//.test(src)) return src;
+    return src.replace('/upload/', '/upload/f_auto,q_auto:eco,w_900,c_limit/');
+  }
+  return src;
+}
+
 export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   const { isAdmin, images: dbImages, setImage } = useAdmin();
   const [active, setActive] = useState('all');
@@ -331,7 +348,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={img.src}
+              src={thumbUrl(img.src)}
               alt={img.alt}
               loading="lazy"
               decoding="async"

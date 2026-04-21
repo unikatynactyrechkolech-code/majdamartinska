@@ -2114,13 +2114,19 @@ ul {
         right: -100%;
         width: 100%;
         height: 100vh;
+        height: 100dvh; /* dynamic viewport height — lepší na iOS Safari kde top/bottom bary mizejí */
         background: #fff;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
-        gap: 2rem;
+        /* Položky začínají blíž u nav-baru aby se vlezly všechny i nad bottom UI baru telefonu */
+        justify-content: flex-start;
+        padding-top: calc(var(--nav-height) + 1.5rem);
+        padding-bottom: 5rem;
+        overflow-y: auto;
+        gap: 1.4rem;
         transition: right 0.4s var(--ease-out);
         z-index: 1000;
+        -webkit-overflow-scrolling: touch;
     }
 
     .nav-menu.open {

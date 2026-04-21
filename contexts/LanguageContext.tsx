@@ -309,6 +309,42 @@ const translations: Record<string, string> = {
   // ── FOOTER ADDRESS ──
   'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Praha — Suchdol<br />IČ 87765403':
     'Magdaléna Martinská<br />Nad Spáleným mlýnem 466/3<br />165 00 Prague — Suchdol<br />ID 87765403',
+
+  // ── VYZVEDNI FOTKY (Pick up photos) ──
+  'Vyzvedni fotky': 'Pick up photos',
+  'Zde si vyzvedneš své hotové fotografie': 'Here you can pick up your finished photos',
+  'HOTOVÉ FOTKY': 'FINISHED PHOTOS',
+  'Jak si fotky vyzvednout?': 'How to pick up your photos?',
+  'Dostala jsi odkaz e-mailem': 'You received a link by email',
+  'Po zpracování fotografií ti pošlu e-mail se soukromým odkazem ke stažení. Odkaz je platný po dobu 30 dní.':
+    'Once the photos are processed I\'ll send you an email with a private download link. The link is valid for 30 days.',
+  'Stáhni si svoji galerii': 'Download your gallery',
+  'Klikni na odkaz v e-mailu a stáhni si fotografie v plné kvalitě. Doporučuji stáhnout vše najednou jako ZIP archiv.':
+    'Click the link in the email and download the photos in full quality. I recommend downloading everything at once as a ZIP archive.',
+  'Odkaz ti nepřišel nebo expiroval?': 'Didn\'t get the link or it expired?',
+  'Ozvi se mi e-mailem nebo přes kontaktní formulář a domluvíme se na novém odkazu.':
+    'Reach out by email or via the contact form and we\'ll arrange a new link.',
+  'Napsat Majdě': 'Write to Majda',
+
+  // ── ART PAGE ──
+  'Art': 'Art',
+  'Umělecké a experimentální fotografie': 'Art and experimental photography',
+  'Galerie se připravuje…': 'Gallery is being prepared…',
+  'Brzy zde přibudou umělecké fotografie.': 'Art photographs will be added here soon.',
+
+  // ── NAV (additional) ──
+  'Pick up photos': 'Pick up photos',
+
+  // ── ADMIN PAGE (visible to user when redirected) ──
+  'Admin přístup': 'Admin access',
+  'Přesměrovávám…': 'Redirecting…',
+  'Otevírám přihlašovací dialog…': 'Opening login dialog…',
+
+  // ── CONTACT FORM (status messages) ──
+  'Něco se pokazilo. Zkuste to prosím znovu.': 'Something went wrong. Please try again.',
+  'Síťová chyba. Zkontrolujte připojení a zkuste to znovu.': 'Network error. Check your connection and try again.',
+  'Děkuji! Vaše zpráva byla odeslána, ozvu se co nejdříve.': 'Thank you! Your message has been sent, I\'ll get back to you as soon as possible.',
+  'Odesílám…': 'Sending…',
 };
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
