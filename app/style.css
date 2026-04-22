@@ -5490,3 +5490,306 @@ body:has(.cms-toolbar) .page-hero {
         max-height: 92vh;
     }
 }
+
+/* ============================================================
+   BLOG CANVAS EDITOR (Word/Canva-like)
+   ============================================================ */
+
+.canvas-editor {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid #ede4d8;
+}
+
+.canvas-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.canvas-editor-header h2 {
+    margin: 0;
+    font-size: 1.4rem;
+    color: #3d2b1f;
+}
+
+.canvas-meta {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.25rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px dashed #e0d6cc;
+}
+
+@media (max-width: 800px) {
+    .canvas-meta { grid-template-columns: 1fr; }
+}
+
+.canvas-workspace {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+@media (max-width: 1100px) {
+    .canvas-workspace { grid-template-columns: 1fr; }
+}
+
+/* ---- Sidebar ---- */
+.canvas-sidebar {
+    background: #faf6f1;
+    border: 1px solid #e0d6cc;
+    border-radius: 10px;
+    padding: 1rem;
+    max-height: 80vh;
+    overflow-y: auto;
+    align-self: start;
+    position: sticky;
+    top: 1rem;
+}
+
+.canvas-sidebar-title {
+    margin: 0 0 0.75rem;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #6b5a45;
+}
+
+.canvas-add-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    border: 1.5px solid #c5a47e;
+    border-radius: 8px;
+    color: #3d2b1f;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    transition: all 0.15s;
+}
+.canvas-add-btn:hover:not(:disabled) {
+    background: #c5a47e;
+    color: #fff;
+    transform: translateY(-1px);
+}
+.canvas-add-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.canvas-add-icon { font-size: 1.2rem; }
+
+.canvas-sidebar-divider {
+    height: 1px;
+    background: #e0d6cc;
+    margin: 1rem 0;
+}
+
+.canvas-sidebar-info {
+    font-size: 0.82rem;
+    color: #6b5a45;
+    line-height: 1.5;
+}
+.canvas-sidebar-info ul { padding-left: 1.1rem; margin: 0.4rem 0; }
+.canvas-sidebar-info li { margin-bottom: 0.3rem; }
+.canvas-sidebar-info kbd {
+    background: #fff;
+    border: 1px solid #c5a47e;
+    border-radius: 3px;
+    padding: 0 0.3rem;
+    font-size: 0.78rem;
+    font-family: monospace;
+}
+
+/* ---- Properties ---- */
+.canvas-props { font-size: 0.85rem; }
+.canvas-props-section {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #b8956a;
+    margin: 0.85rem 0 0.4rem;
+    font-weight: 600;
+}
+.canvas-props-row {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+}
+.canvas-props-row label {
+    font-size: 0.78rem;
+    color: #6b5a45;
+    min-width: 28px;
+}
+.canvas-props-row input[type="number"],
+.canvas-props-row input[type="text"],
+.canvas-props-row select {
+    flex: 1;
+    min-width: 60px;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #d4c4ad;
+    border-radius: 5px;
+    background: #fff;
+    font-size: 0.85rem;
+    color: #3d2b1f;
+}
+.canvas-props-row input[type="color"] {
+    width: 40px;
+    height: 32px;
+    border: 1px solid #d4c4ad;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 2px;
+    background: #fff;
+}
+
+.canvas-btn-group {
+    display: flex;
+    gap: 0.25rem;
+    flex: 1;
+}
+.canvas-btn-group button {
+    flex: 1;
+    padding: 0.35rem 0.5rem;
+    border: 1px solid #d4c4ad;
+    background: #fff;
+    color: #3d2b1f;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.12s;
+}
+.canvas-btn-group button:hover { background: #faf0e0; }
+.canvas-btn-group button.is-active {
+    background: #c5a47e;
+    color: #fff;
+    border-color: #b8956a;
+}
+
+.canvas-color-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    flex: 1;
+}
+.canvas-swatch {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: 0 0 0 1px #d4c4ad;
+    cursor: pointer;
+    padding: 0;
+}
+.canvas-swatch.is-active {
+    box-shadow: 0 0 0 2px #c5a47e;
+}
+
+.canvas-mini-btn {
+    padding: 0.3rem 0.6rem;
+    border: 1px solid #d4c4ad;
+    background: #fff;
+    color: #3d2b1f;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.78rem;
+}
+.canvas-mini-btn:hover { background: #faf0e0; }
+
+.canvas-delete-btn {
+    width: 100%;
+    padding: 0.55rem;
+    background: #fff;
+    border: 1.5px solid #dc2626;
+    color: #dc2626;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 0.5rem;
+}
+.canvas-delete-btn:hover {
+    background: #dc2626;
+    color: #fff;
+}
+
+/* ---- Canvas stage ---- */
+.canvas-scroll {
+    overflow: auto;
+    background: #ede4d8;
+    border-radius: 10px;
+    padding: 1.5rem;
+    max-height: 80vh;
+}
+
+.canvas-stage {
+    position: relative;
+    margin: 0 auto;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    border-radius: 4px;
+    overflow: hidden;
+    user-select: none;
+}
+
+.canvas-grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.canvas-block {
+    position: absolute;
+    cursor: move;
+    box-sizing: border-box;
+    /* Show subtle outline on hover */
+    outline: 1px dashed transparent;
+    outline-offset: 2px;
+    transition: outline-color 0.12s;
+}
+.canvas-block:hover {
+    outline-color: rgba(197, 164, 126, 0.6);
+}
+.canvas-block.is-selected {
+    outline: 2px solid #c5a47e;
+}
+.canvas-block.is-editing {
+    outline: 2px solid #2563eb;
+    cursor: text;
+}
+
+.canvas-text-content:focus {
+    outline: none;
+}
+
+/* Resize handles */
+.canvas-handle {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background: #fff;
+    border: 2px solid #c5a47e;
+    border-radius: 50%;
+    z-index: 10;
+}
+.canvas-handle-n  { top: -7px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.canvas-handle-s  { bottom: -7px; left: 50%; transform: translateX(-50%); cursor: ns-resize; }
+.canvas-handle-e  { top: 50%; right: -7px; transform: translateY(-50%); cursor: ew-resize; }
+.canvas-handle-w  { top: 50%; left: -7px; transform: translateY(-50%); cursor: ew-resize; }
+.canvas-handle-ne { top: -7px; right: -7px; cursor: nesw-resize; }
+.canvas-handle-nw { top: -7px; left: -7px; cursor: nwse-resize; }
+.canvas-handle-se { bottom: -7px; right: -7px; cursor: nwse-resize; }
+.canvas-handle-sw { bottom: -7px; left: -7px; cursor: nesw-resize; }
+
+/* ---- Public canvas view ---- */
+.canvas-view-wrap {
+    margin: 2rem 0;
+}
+

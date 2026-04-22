@@ -1,13 +1,16 @@
 'use client';
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { BlogCanvasEditor } from '@/components/BlogCanvasEditor';
 import { BlogEditor } from '@/components/BlogEditor';
 import type { BlogPost } from '@/app/actions/blog';
+import { CANVAS_MARKER } from '@/lib/canvas';
 
 // ============================================================
-// BLOG ADMIN — seznam článků + editor
-// Přístupné jen admina (heslo majda2026)
+// BLOG ADMIN — seznam článků + spuštění editoru
+// Nové články → BlogCanvasEditor (prázdná stránka, drag & drop bloky)
+// Staré HTML články → BlogEditor (TipTap, zpětná kompatibilita)
 // ============================================================
 
 type View = 'list' | 'new' | 'edit';
@@ -18,16 +21,12 @@ export function BlogAdmin() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [editingPost, setEditingPost] = useState<BlogPost | null>(null);
   const [loading, setLoading] = useState(true);
-  const [reordering, setReordering] = useState(false);
-  const [reorderMsg, setReorderMsg] = useState<string | null>(null);
-  const dragIndex = useRef<number | null>(null);
-  const [overIndex, setOverIndex] = useState<number | null>(null);
 
   const loadPosts = useCallback(async () => {
     setLoading(true);
     try {
       const { getBlogPosts } = await import('@/app/actions/blog');
-      const data = await getBlogPosts(false); // all posts including drafts
+      const data = await getBlogPosts(false);
       setPosts(data);
     } catch (err) {
       console.error('Failed to load blog posts:', err);
@@ -76,75 +75,30 @@ export function BlogAdmin() {
     setEditingPost(null);
   };
 
-  // ---------- Drag & drop ----------
-  const persistOrder = async (ordered: BlogPost[]) => {
-    setReordering(true);
-    setReorderMsg(null);
-    try {
-      const { reorderBlogPosts } = await import('@/app/actions/blog');
-      const result = await reorderBlogPosts(ordered.map((p) => p.id));
-      if (result.success) {
-        setReorderMsg('✅ Pořadí uloženo');
-        setTimeout(() => setReorderMsg(null), 2000);
-      } else {
-        setReorderMsg('❌ ' + (result.error || 'Chyba'));
-      }
-    } catch {
-      setReorderMsg('❌ Chyba při ukládání');
-    } finally {
-      setReordering(false);
-    }
-  };
-
-  const onDragStart = (index: number) => (e: React.DragEvent) => {
-    dragIndex.current = index;
-    e.dataTransfer.effectAllowed = 'move';
-    // Safari potřebuje, aby data byla nastavena
-    try { e.dataTransfer.setData('text/plain', String(index)); } catch {}
-  };
-
-  const onDragOver = (index: number) => (e: React.DragEvent) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    if (overIndex !== index) setOverIndex(index);
-  };
-
-  const onDragLeave = () => setOverIndex(null);
-
-  const onDrop = (dropIndex: number) => (e: React.DragEvent) => {
-    e.preventDefault();
-    const from = dragIndex.current;
-    dragIndex.current = null;
-    setOverIndex(null);
-    if (from === null || from === dropIndex) return;
-
-    const next = [...posts];
-    const [moved] = next.splice(from, 1);
-    next.splice(dropIndex, 0, moved);
-    setPosts(next);
-    persistOrder(next);
-  };
-
-  const moveItem = (from: number, dir: -1 | 1) => {
-    const to = from + dir;
-    if (to < 0 || to >= posts.length) return;
-    const next = [...posts];
-    const [m] = next.splice(from, 1);
-    next.splice(to, 0, m);
-    setPosts(next);
-    persistOrder(next);
-  };
+  const isCanvasPost = (p: BlogPost | null) =>
+    !!p?.content && p.content.startsWith(CANVAS_MARKER);
 
   // --- Editor view ---
   if (view === 'new') {
+    // Nové články = vždy canvas (Word-like)
     return (
-      <BlogEditor
+      <BlogCanvasEditor
         onSaved={handleSaved}
         onCancel={() => setView('list')}
       />
     );
   }
   if (view === 'edit' && editingPost) {
+    // Editace: podle typu obsahu zvol editor
+    if (isCanvasPost(editingPost)) {
+      return (
+        <BlogCanvasEditor
+          post={editingPost}
+          onSaved={handleSaved}
+          onCancel={() => { setView('list'); setEditingPost(null); }}
+        />
+      );
+    }
     return (
       <BlogEditor
         post={editingPost}
@@ -159,47 +113,23 @@ export function BlogAdmin() {
     <div className="blog-admin">
       <div className="blog-admin-header">
         <h2>Správa článků</h2>
-        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
-          {reorderMsg && (
-            <span style={{ fontSize: '0.85rem', opacity: 0.85 }}>{reorderMsg}</span>
-          )}
-          <button
-            type="button"
-            className="blog-btn blog-btn-primary"
-            onClick={() => setView('new')}
-          >
-            + Nový článek
-          </button>
-        </div>
+        <button
+          type="button"
+          className="blog-btn blog-btn-primary"
+          onClick={() => setView('new')}
+        >
+          + Nový článek
+        </button>
       </div>
-
-      {posts.length > 1 && !loading && (
-        <p className="blog-admin-hint">
-          💡 Tip: Karty můžeš <strong>přetáhnout</strong> myší (chyť za ⋮⋮ vlevo) nebo posunout šipkami ↑ ↓ pro změnu pořadí na webu.
-        </p>
-      )}
 
       {loading ? (
         <p className="blog-admin-loading">Načítám…</p>
       ) : posts.length === 0 ? (
         <p className="blog-admin-empty">Zatím žádné články. Vytvořte první!</p>
       ) : (
-        <div className={`blog-admin-list ${reordering ? 'is-saving' : ''}`}>
-          {posts.map((post, index) => (
-            <div
-              key={post.id}
-              className={`blog-admin-card ${overIndex === index ? 'is-drag-over' : ''}`}
-              draggable
-              onDragStart={onDragStart(index)}
-              onDragOver={onDragOver(index)}
-              onDragLeave={onDragLeave}
-              onDrop={onDrop(index)}
-              onDragEnd={() => { dragIndex.current = null; setOverIndex(null); }}
-            >
-              <div className="blog-admin-card-drag" title="Přetáhni pro změnu pořadí" aria-hidden>
-                ⋮⋮
-              </div>
-
+        <div className="blog-admin-list">
+          {posts.map((post) => (
+            <div key={post.id} className="blog-admin-card">
               {post.cover_image && (
                 <div className="blog-admin-card-img">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -216,24 +146,6 @@ export function BlogAdmin() {
                 <p className="blog-admin-card-slug">/blog/{post.slug}</p>
                 {post.excerpt && <p className="blog-admin-card-excerpt">{post.excerpt}</p>}
                 <div className="blog-admin-card-actions">
-                  <button
-                    type="button"
-                    className="blog-btn blog-btn-sm"
-                    onClick={() => moveItem(index, -1)}
-                    disabled={index === 0 || reordering}
-                    title="Posunout nahoru"
-                  >
-                    ↑
-                  </button>
-                  <button
-                    type="button"
-                    className="blog-btn blog-btn-sm"
-                    onClick={() => moveItem(index, 1)}
-                    disabled={index === posts.length - 1 || reordering}
-                    title="Posunout dolů"
-                  >
-                    ↓
-                  </button>
                   <button type="button" className="blog-btn blog-btn-sm" onClick={() => handleEdit(post)}>
                     ✏️ Upravit
                   </button>

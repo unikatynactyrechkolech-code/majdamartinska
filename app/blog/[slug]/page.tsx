@@ -1,6 +1,8 @@
 import { getBlogPostBySlug } from '@/app/actions/blog';
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
+import { parseCanvas } from '@/lib/canvas';
+import { BlogCanvasView } from '@/components/BlogCanvasView';
 
 // ============================================================
 // /blog/[slug] — veřejná stránka jednoho článku
@@ -67,12 +69,16 @@ export default async function BlogPostPage({ params }: Props) {
             {post.excerpt && <p className="blog-post-excerpt">{post.excerpt}</p>}
           </header>
 
-          {post.content && (
-            <div
-              className="blog-post-body"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
-          )}
+          {post.content && (() => {
+            const canvas = parseCanvas(post.content);
+            if (canvas) return <BlogCanvasView doc={canvas} />;
+            return (
+              <div
+                className="blog-post-body"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            );
+          })()}
 
           <footer className="blog-post-footer">
             <a href="/blog" className="blog-post-back">← Zpět na blog</a>
