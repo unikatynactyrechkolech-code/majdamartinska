@@ -115,6 +115,29 @@ export default function SluzbyPage() {
 
       <h2 className="seo-heading">Služby a ceník focení Praha — rodinné focení, svatební fotograf, newborn focení, portréty, těhotenské a focení psů</h2>
 
+      {/* INTRO SEKCE — vita klienta a vysvetluje filozofii cen */}
+      <section className="section" data-animate>
+        <div className="container" style={{ maxWidth: '780px' }}>
+          <EditableText
+            sectionId="sluzby.intro.location"
+            defaultValue="A kde tedy budeme fotit? Venku je škaredě? Pojď se zavřít do ateliéru a dát si teplý čaj nebo kafe. Nebo chceš fotit venku? No problemo. No zkrátka, jak chceš. Osobně mám raději focení venku. Přeci jen je to krapet přirozenější :). No ale víš, co? Ono není moc důležité, kde budeme fotit, ale aby u toho byla dobrá nálada. Abys domů odcházel/a nadšený/á a to dokonce bez toho, aniž bys nějakou fotku viděl/a :). A co teprve až je uvidíš :). Pro mě je důležité, aby si na fotkách působil/a spokojeně a aby ses tak hlavně cítil/a."
+            as="p"
+            multiline
+            style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-muted)', marginBottom: '2.5rem' }}
+          />
+          <h2 className="section-title" style={{ textAlign: 'center', marginBottom: '1rem' }}>
+            <EditableText sectionId="sluzby.intro.price.title" defaultValue="A teď k ceně…" as="span" />
+          </h2>
+          <EditableText
+            sectionId="sluzby.intro.price.text"
+            defaultValue="Pojďme na to bez zbytečné omáčky. Na výběr máš možnosti podle času focení. Někdo se cítí na půl hodinky focení a někomu focení nevadí a zvládne levou zadní klidně hodinku a půl :)."
+            as="p"
+            multiline
+            style={{ fontSize: '1.05rem', lineHeight: 1.75, color: 'var(--color-text-muted)', textAlign: 'center' }}
+          />
+        </div>
+      </section>
+
       <ServiceSection
         id="rodinna"
         prefix="sluzby.rodinna"
