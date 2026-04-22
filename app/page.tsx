@@ -27,8 +27,8 @@ export default function HomePage() {
           <Image
             src={LOGO_URL}
             alt="Majda Martinská"
-            width={120}
-            height={120}
+            width={200}
+            height={200}
             className="brand-banner-logo"
             priority
           />

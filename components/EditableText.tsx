@@ -21,6 +21,7 @@ const FONT_FAMILIES = [
   { label: 'Poppins', value: 'Poppins, sans-serif' },
   { label: 'Inter', value: 'Inter, sans-serif' },
   { label: 'Montserrat', value: 'Montserrat, sans-serif' },
+  { label: 'Lato', value: 'Lato, sans-serif' },
   { label: 'Raleway', value: 'Raleway, sans-serif' },
   { label: 'Roboto', value: 'Roboto, sans-serif' },
   { label: 'Open Sans', value: '"Open Sans", sans-serif' },
@@ -40,19 +41,25 @@ const FONT_FAMILIES = [
   { label: 'Courier', value: '"Courier New", monospace' },
 ];
 
+const FONT_WEIGHTS = [
+  { label: 'Thin (100)', value: '100' },
+  { label: 'ExtraLight (200)', value: '200' },
+  { label: 'Light (300)', value: '300' },
+  { label: 'Normální (400)', value: '400' },
+  { label: 'Medium (500)', value: '500' },
+  { label: 'SemiBold (600)', value: '600' },
+  { label: 'Bold (700)', value: '700' },
+  { label: 'Black (900)', value: '900' },
+];
+
 const TEXT_COLORS = [
   { label: 'Výchozí', value: '' },
-  { label: 'Hnědá', value: '#3d2b1f' },
-  { label: 'Zlatá', value: '#c5a47e' },
-  { label: 'Černá', value: '#111' },
-  { label: 'Bílá', value: '#fff' },
-  { label: 'Šedá', value: '#888' },
-  { label: 'Červená', value: '#dc2626' },
-  { label: 'Modrá', value: '#2563eb' },
-  { label: 'Zelená', value: '#16a34a' },
-  { label: 'Fialová', value: '#9333ea' },
-  { label: 'Růžová', value: '#ec4899' },
-  { label: 'Oranžová', value: '#ea580c' },
+  { label: 'Kávová (akcent)', value: '#c5a47e' },
+  { label: 'Tmavě hnědá', value: '#3d2b1f' },
+  { label: 'Krémová', value: '#f8f3ed' },
+  { label: 'Bílá', value: '#ffffff' },
+  { label: 'Černá', value: '#111111' },
+  { label: 'Šedá', value: '#888888' },
 ];
 
 // ---------- Toolbar Dropdown ----------
@@ -223,6 +230,39 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
             }}
           >
             {f.label}
+          </button>
+        ))}
+      </ToolbarDropdown>
+
+      {/* Font weight (Tloušťka) */}
+      <ToolbarDropdown label="Tloušťka">
+        {FONT_WEIGHTS.map((w) => (
+          <button
+            key={w.value}
+            type="button"
+            className="cms-tb-dropdown-item"
+            style={{ fontWeight: Number(w.value) }}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const sel = window.getSelection();
+              if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return;
+              const range = sel.getRangeAt(0);
+              const span = document.createElement('span');
+              span.style.fontWeight = w.value;
+              try {
+                span.appendChild(range.extractContents());
+                range.insertNode(span);
+                // Re-select inserted span content
+                const newRange = document.createRange();
+                newRange.selectNodeContents(span);
+                sel.removeAllRanges();
+                sel.addRange(newRange);
+              } catch {
+                /* noop */
+              }
+            }}
+          >
+            {w.label}
           </button>
         ))}
       </ToolbarDropdown>

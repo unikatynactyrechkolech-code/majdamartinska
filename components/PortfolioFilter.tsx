@@ -24,7 +24,13 @@ interface GalleryItem {
 
 const IMAGES_PER_PAGE = 24;
 
-const filters = [
+export interface PortfolioFilterDef {
+  key: string;
+  sectionId: string;
+  label: string;
+}
+
+const defaultFilters: PortfolioFilterDef[] = [
   { key: 'all', sectionId: 'portfolio.filter.all', label: 'Vše' },
   { key: 'fotokouzla', sectionId: 'portfolio.filter.fotokouzla', label: 'Fotokouzla' },
   { key: 'newborn', sectionId: 'portfolio.filter.newborn', label: 'Newborn' },
@@ -69,7 +75,18 @@ function thumbUrl(src: string): string {
   return src;
 }
 
-export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
+export function PortfolioFilter({
+  images,
+  filters = defaultFilters,
+  sectionPrefix = 'portfolio.gallery',
+  defaultCategory,
+}: {
+  images: PortfolioImage[];
+  filters?: PortfolioFilterDef[];
+  sectionPrefix?: string;
+  /** Fallback category when 'all' is active for the add-image button */
+  defaultCategory?: string;
+}) {
   const { isAdmin, images: dbImages, setImage } = useAdmin();
   const [active, setActive] = useState('all');
   const [visibleCount, setVisibleCount] = useState(IMAGES_PER_PAGE);
@@ -107,7 +124,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
 
     // 1) Static images with sectionIds, applying DB overrides
     images.forEach((img, idx) => {
-      const sectionId = `portfolio.gallery.${img.category}.${idx}`;
+      const sectionId = `${sectionPrefix}.${img.category}.${idx}`;
 
       // Skip if deleted in this session
       if (deletedSectionIds.has(sectionId)) return;
@@ -121,9 +138,9 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
       });
     });
 
-    // 2) Append DB-only images (sectionIds matching portfolio.gallery.*.new.*)
+    // 2) Append DB-only images (sectionIds matching <prefix>.*.new.*)
     const dbOnlyKeys = Object.keys(dbImages).filter(
-      key => key.startsWith('portfolio.gallery.') && key.includes('.new.')
+      key => key.startsWith(`${sectionPrefix}.`) && key.includes('.new.')
         && !deletedSectionIds.has(key)
     );
 
@@ -131,7 +148,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
       const entry = dbImages[key];
       if (!entry?.url) continue;
       const parts = key.split('.');
-      const category = parts[2] || 'rodinna';
+      const category = parts[2] || (defaultCategory || 'rodinna');
       items.push({
         src: entry.url,
         alt: categoryAltMap[category] || 'Portfolio',
@@ -142,7 +159,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
     }
 
     return items;
-  }, [images, dbImages, deletedSectionIds]);
+  }, [images, dbImages, deletedSectionIds, sectionPrefix, defaultCategory]);
 
   const filtered = useMemo(
     () => (active === 'all' ? allItems : allItems.filter(img => img.category === active)),
@@ -305,7 +322,7 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
 
   // Determine new sectionId for adding an image to a category
   const generateNewSectionId = (category: string) => {
-    const id = `portfolio.gallery.${category}.new.${Date.now()}`;
+    const id = `${sectionPrefix}.${category}.new.${Date.now()}`;
     addSectionIdRef.current = id;
     return id;
   };
@@ -317,7 +334,8 @@ export function PortfolioFilter({ images }: { images: PortfolioImage[] }) {
   };
 
   // Determine which category to use for "add" button
-  const addCategory = active === 'all' ? 'rodinna' : active;
+  const firstNonAll = filters.find(f => f.key !== 'all')?.key || 'rodinna';
+  const addCategory = active === 'all' ? (defaultCategory || firstNonAll) : active;
 
   return (
     <>

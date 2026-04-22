@@ -1,9 +1,27 @@
 'use client';
 
 import { PageHero } from '@/components/PageHero';
-import { PortfolioFilter } from '@/components/PortfolioFilter';
+import { PortfolioFilter, type PortfolioFilterDef } from '@/components/PortfolioFilter';
 
-// Art gallery — zatím prázdné, fotky se přidávají přes admin
+// ============================================================
+// /art — galerie umělecké fotografie
+// Stejný systém jako /portfolio: filter podle kategorie,
+// admin může přidávat fotky do každé subsekce.
+// Subkategorie jsou specifické pro art:
+//   Paralela | Samoty | Krajina | Minimalismus | stará skla | ostatní
+// ============================================================
+
+const artFilters: PortfolioFilterDef[] = [
+  { key: 'all',           sectionId: 'art.filter.all',           label: 'Vše' },
+  { key: 'paralela',      sectionId: 'art.filter.paralela',      label: 'Paralela' },
+  { key: 'samoty',        sectionId: 'art.filter.samoty',        label: 'Samoty' },
+  { key: 'krajina',       sectionId: 'art.filter.krajina',       label: 'Krajina' },
+  { key: 'minimalismus',  sectionId: 'art.filter.minimalismus',  label: 'Minimalismus' },
+  { key: 'stara-skla',    sectionId: 'art.filter.stara-skla',    label: 'Stará skla' },
+  { key: 'ostatni',       sectionId: 'art.filter.ostatni',       label: 'Ostatní' },
+];
+
+// Zatím prázdné — fotky se přidávají přes admin (vytvoří se v DB pod sectionId art.gallery.<key>.new.<ts>)
 const artImages: { src: string; alt: string; category: string }[] = [];
 
 export default function ArtPage() {
@@ -15,18 +33,16 @@ export default function ArtPage() {
         sectionPrefix="art.hero"
       />
 
-      <h2 className="seo-heading">Umělecká a fine-art fotografie Praha — kreativní portréty a experimentální focení od Majdy Martinské</h2>
+      <h2 className="seo-heading">Umělecká a fine-art fotografie Praha — Paralela, Samoty, Krajina, Minimalismus, stará skla a další tematické série od Majdy Martinské</h2>
 
       <section className="section" data-animate>
         <div className="container">
-          {artImages.length === 0 ? (
-            <div style={{ textAlign: 'center', padding: '4rem 0', color: 'var(--color-text-muted)' }}>
-              <p style={{ fontSize: '1.1rem', marginBottom: '1rem' }}>Galerie se připravuje…</p>
-              <p style={{ fontSize: '0.9rem' }}>Brzy zde přibudou umělecké fotografie.</p>
-            </div>
-          ) : (
-            <PortfolioFilter images={artImages} />
-          )}
+          <PortfolioFilter
+            images={artImages}
+            filters={artFilters}
+            sectionPrefix="art.gallery"
+            defaultCategory="paralela"
+          />
         </div>
       </section>
     </>
