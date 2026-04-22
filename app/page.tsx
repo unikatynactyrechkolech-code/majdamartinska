@@ -32,32 +32,7 @@ export default function HomePage() {
             className="brand-banner-logo"
             priority
           />
-          {/* SVG text — viewBox + preserveAspectRatio dela ze nazvu responsive
-              "obrazek": vyska se drzi rovna logu, sirka se sama proporcne
-              zmensi pokud neni dost mista (mobil). */}
-          <div className="brand-banner-name-wrap">
-            <svg
-              className="brand-banner-name"
-              viewBox="0 0 1100 200"
-              preserveAspectRatio="xMidYMid meet"
-              role="img"
-              aria-label="Majda Martinská"
-            >
-              <text
-                x="50%"
-                y="50%"
-                dominantBaseline="central"
-                textAnchor="middle"
-                fontFamily="Montserrat, Lato, sans-serif"
-                fontWeight={200}
-                fontSize={170}
-                letterSpacing={4}
-                fill="#c5a47e"
-              >
-                MAJDA MARTINSKÁ
-              </text>
-            </svg>
-          </div>
+          <span className="brand-banner-name">MAJDA MARTINSKÁ</span>
         </div>
       </div>
 

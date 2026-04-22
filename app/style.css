@@ -382,45 +382,37 @@ ul {
 }
 
 .brand-banner-inner {
-    /* Jedina vyska, ridi velikost loga i max-width textu (text ma aspect 5.5:1) */
-    --brand-h: clamp(72px, 10vw, 130px);
     max-width: var(--container);
     margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: clamp(0.75rem, 2vw, 1.5rem);
-    padding: clamp(0.75rem, 2vw, 1.5rem) clamp(1rem, 3vw, 2rem);
+    gap: clamp(0.5rem, 1.5vw, 1.25rem);
+    padding: clamp(0.6rem, 1.5vw, 1.2rem) clamp(0.75rem, 2vw, 1.5rem);
     width: 100%;
     box-sizing: border-box;
 }
 
 .brand-banner-logo {
-    width: var(--brand-h) !important;
-    height: var(--brand-h) !important;
+    width: clamp(48px, 6vw, 80px) !important;
+    height: clamp(48px, 6vw, 80px) !important;
     object-fit: contain;
     flex: 0 0 auto;
 }
 
-/* Wrapper: bere zbyvajici sirku, ale ne vic nez aspect-correct max
-   (5.5x vyska loga). Diky tomu pri sirokem viewportu je text presne
-   stejne vysoky jako logo, pri uzkem se proporcionalne zmensi. */
-.brand-banner-name-wrap {
-    flex: 1 1 0;
-    min-width: 0;
-    max-width: calc(var(--brand-h) * 5.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* SVG text: vyplni sirku wrapperu, vyska se sama dopocita z aspect ratia
-   viewBoxu (5.5:1). Nikdy nepretece, vzdy estetika zachovana. */
+/* Plain text - skaluje se s viewport sirkou, nezalamuje, vzdy cely videt.
+   font-size je odvozena od vw aby na sirokem viewportu byl vetsi a na uzkem
+   automaticky mensi - tim padem se vzdy vejde do viewportu. */
 .brand-banner-name {
-    display: block;
-    width: 100%;
-    height: auto;
-    max-width: 100%;
+    font-family: 'Montserrat', 'Lato', sans-serif;
+    font-weight: 200;
+    font-size: clamp(1.1rem, 3.2vw, 2.6rem);
+    letter-spacing: clamp(2px, 0.4vw, 6px);
+    color: #c5a47e;
+    white-space: nowrap;
+    line-height: 1;
+    flex: 0 1 auto;
+    min-width: 0;
 }
 
 /* ========================================
@@ -2246,11 +2238,10 @@ ul {
     }
 
     .brand-banner-inner {
-        --brand-h: 56px;
-        gap: 0.6rem;
-        padding: 0.7rem 0.8rem;
+        gap: 0.5rem;
+        padding: 0.6rem 0.6rem;
     }
-    /* logo + wrap + svg vse dopocita z --brand-h */
+    /* logo + name vse skaluje pres clamp + vw v desktop pravidlech */
 
     /* Text first, slideshow second on mobile */
     .hero-content {
