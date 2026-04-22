@@ -31,6 +31,7 @@ export interface BlogPost {
   content: string | null;
   excerpt: string | null;
   published: boolean;
+  sort_order?: number;
   created_at: string;
   updated_at: string;
   published_at: string | null;
@@ -143,6 +144,7 @@ export async function getBlogPosts(onlyPublished = false): Promise<BlogPost[]> {
       .from('blog_posts')
       .select('*')
       .eq('project_id', projectId)
+      .order('sort_order', { ascending: true })
       .order('created_at', { ascending: false });
 
     if (onlyPublished) {
@@ -286,6 +288,48 @@ export async function uploadBlogImage(formData: FormData): Promise<{
     return {
       success: false,
       error: err instanceof Error ? err.message : 'Chyba při nahrávání.',
+    };
+  }
+}
+
+// ============================================================
+// REORDER — drag & drop pořadí článků v adminu
+// ============================================================
+
+export async function reorderBlogPosts(
+  orderedIds: string[]
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    if (!isSupabaseConfigured()) {
+      return { success: false, error: 'Supabase není nakonfigurováno.' };
+    }
+    if (!Array.isArray(orderedIds) || orderedIds.length === 0) {
+      return { success: false, error: 'Prázdný seznam.' };
+    }
+
+    const projectId = getProjectId();
+    const { createClient } = await import('@/lib/supabase/server');
+    const supabase = await createClient();
+
+    // Update sort_order pro každý článek (10, 20, 30, ...) — mezery pro budoucí vsouvání
+    const updates = orderedIds.map((id, index) =>
+      supabase
+        .from('blog_posts')
+        .update({ sort_order: (index + 1) * 10 })
+        .eq('id', id)
+        .eq('project_id', projectId)
+    );
+
+    const results = await Promise.all(updates);
+    const firstError = results.find((r) => r.error)?.error;
+    if (firstError) return { success: false, error: firstError.message };
+
+    revalidatePath('/blog');
+    return { success: true };
+  } catch (err) {
+    return {
+      success: false,
+      error: err instanceof Error ? err.message : 'Neznámá chyba.',
     };
   }
 }

@@ -4777,11 +4777,50 @@ body:has(.cms-toolbar) .page-hero {
     border: 1.5px solid #e0d6cc;
     border-radius: 10px;
     overflow: hidden;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.2s, border-color 0.2s, transform 0.15s;
 }
 
 .blog-admin-card:hover {
     box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+}
+
+/* --- Drag & drop --- */
+.blog-admin-card[draggable="true"] {
+    cursor: grab;
+}
+.blog-admin-card[draggable="true"]:active {
+    cursor: grabbing;
+}
+.blog-admin-card.is-drag-over {
+    border-color: #b8956a;
+    border-style: dashed;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(184, 149, 106, 0.25);
+}
+.blog-admin-card-drag {
+    flex: 0 0 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #faf6f1;
+    color: #b8956a;
+    font-size: 1.3rem;
+    letter-spacing: -2px;
+    user-select: none;
+    border-right: 1px solid #ede4d8;
+}
+.blog-admin-list.is-saving {
+    opacity: 0.7;
+    pointer-events: none;
+}
+.blog-admin-hint {
+    background: #faf6f1;
+    border: 1px dashed #d4c4ad;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 0.9rem;
+    color: #6b5a45;
+    margin-bottom: 1rem;
 }
 
 .blog-admin-card-img {
