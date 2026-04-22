@@ -5801,3 +5801,173 @@ body:has(.cms-toolbar) .page-hero {
     margin: 2rem 0;
 }
 
+
+/* ============ Category Admin (admin-only kategorie management) ============ */
+.cat-admin {
+    margin: 0 0 1.25rem;
+    font-family: var(--font-sans, system-ui, sans-serif);
+}
+.cat-admin-toggle {
+    background: #6b4226;
+    color: #fff;
+    border: none;
+    padding: 0.55rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: background 0.15s;
+}
+.cat-admin-toggle:hover { background: #855435; }
+.cat-admin-panel {
+    margin-top: 0.75rem;
+    padding: 1rem 1.1rem 1.1rem;
+    border: 1px solid #e0d4c5;
+    background: #fbf8f3;
+    border-radius: 0.6rem;
+    box-shadow: 0 2px 8px rgba(107,66,38,0.06);
+}
+.cat-admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.7rem;
+    font-size: 0.9rem;
+    color: #4d3320;
+}
+.cat-admin-msg {
+    font-size: 0.78rem;
+    color: #2a6a2a;
+    background: #e8f5e8;
+    padding: 0.18rem 0.5rem;
+    border-radius: 0.3rem;
+}
+.cat-admin-empty {
+    margin: 0.4rem 0 0.8rem;
+    color: #888;
+    font-size: 0.85rem;
+    font-style: italic;
+}
+.cat-admin-list {
+    list-style: none;
+    margin: 0 0 0.8rem;
+    padding: 0;
+}
+.cat-admin-item {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    padding: 0.35rem 0.4rem;
+    margin-bottom: 0.3rem;
+    background: #fff;
+    border: 1px solid #ead9c4;
+    border-radius: 0.4rem;
+    cursor: grab;
+}
+.cat-admin-item:active { cursor: grabbing; }
+.cat-admin-drag {
+    color: #b89a78;
+    font-size: 1rem;
+    user-select: none;
+    padding: 0 0.2rem;
+}
+.cat-admin-input {
+    flex: 1 1 auto;
+    min-width: 60px;
+    padding: 0.32rem 0.5rem;
+    border: 1px solid #d8c8b3;
+    border-radius: 0.3rem;
+    font-size: 0.83rem;
+    background: #fff;
+    color: #3a2818;
+}
+.cat-admin-input:focus {
+    outline: none;
+    border-color: #6b4226;
+    box-shadow: 0 0 0 2px rgba(107,66,38,0.15);
+}
+.cat-admin-input-slug { max-width: 110px; font-family: ui-monospace, monospace; font-size: 0.78rem; }
+.cat-admin-input-en { max-width: 110px; font-style: italic; }
+.cat-admin-vis {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.2rem;
+    font-size: 0.78rem;
+    color: #6b4226;
+    cursor: pointer;
+    user-select: none;
+}
+.cat-admin-arrow,
+.cat-admin-del {
+    background: transparent;
+    border: 1px solid #d8c8b3;
+    border-radius: 0.3rem;
+    padding: 0.2rem 0.45rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    color: #6b4226;
+    transition: background 0.12s;
+}
+.cat-admin-arrow:hover:not(:disabled),
+.cat-admin-del:hover { background: #f0e3d0; }
+.cat-admin-arrow:disabled { opacity: 0.3; cursor: not-allowed; }
+.cat-admin-del:hover { background: #f8d6d0; border-color: #c0392b; color: #c0392b; }
+.cat-admin-add-btn {
+    background: #fff;
+    border: 1.5px dashed #c4a884;
+    color: #6b4226;
+    padding: 0.55rem 1rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 600;
+    width: 100%;
+    transition: background 0.12s, border-color 0.12s;
+}
+.cat-admin-add-btn:hover { background: #fbf3e8; border-color: #6b4226; }
+.cat-admin-add-form {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0.6rem;
+    background: #fff;
+    border: 1px solid #ead9c4;
+    border-radius: 0.4rem;
+}
+.cat-admin-save {
+    background: #6b4226;
+    color: #fff;
+    border: none;
+    padding: 0.4rem 0.9rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 0.83rem;
+    font-weight: 600;
+}
+.cat-admin-save:disabled { opacity: 0.5; cursor: not-allowed; }
+.cat-admin-cancel {
+    background: transparent;
+    color: #6b4226;
+    border: 1px solid #d8c8b3;
+    padding: 0.4rem 0.7rem;
+    border-radius: 0.3rem;
+    cursor: pointer;
+    font-size: 0.82rem;
+}
+.cat-admin-hint {
+    margin: 0.7rem 0 0;
+    font-size: 0.75rem;
+    color: #8a7560;
+    line-height: 1.4;
+}
+.cat-admin-hint code {
+    background: #f0e3d0;
+    padding: 0.05rem 0.3rem;
+    border-radius: 0.2rem;
+    font-size: 0.72rem;
+}
+@media (max-width: 600px) {
+    .cat-admin-item { flex-wrap: wrap; }
+    .cat-admin-input-slug, .cat-admin-input-en { max-width: none; flex-basis: 100%; }
+}

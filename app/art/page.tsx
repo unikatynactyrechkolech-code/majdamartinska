@@ -42,6 +42,7 @@ export default function ArtPage() {
             filters={artFilters}
             sectionPrefix="art.gallery"
             defaultCategory="paralela"
+            page="art"
           />
         </div>
       </section>

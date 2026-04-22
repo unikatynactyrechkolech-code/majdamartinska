@@ -17,7 +17,7 @@ export default function PortfolioPage() {
 
       <section className="section" data-animate>
         <div className="container">
-          <PortfolioFilter images={portfolioImages} />
+          <PortfolioFilter images={portfolioImages} page="portfolio" />
         </div>
       </section>
     </>

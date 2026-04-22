@@ -4,7 +4,9 @@ import { useState, useCallback, useMemo, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { EditableText } from '@/components/EditableText';
 import { ImageUploader } from '@/components/ImageUploader';
+import { CategoryAdmin } from '@/components/CategoryAdmin';
 import { useAdmin } from '@/contexts/AdminContext';
+import type { GalleryCategory } from '@/app/actions/categories';
 
 interface PortfolioImage {
   src: string;
@@ -80,12 +82,16 @@ export function PortfolioFilter({
   filters = defaultFilters,
   sectionPrefix = 'portfolio.gallery',
   defaultCategory,
+  page,
 }: {
   images: PortfolioImage[];
   filters?: PortfolioFilterDef[];
   sectionPrefix?: string;
   /** Fallback category when 'all' is active for the add-image button */
   defaultCategory?: string;
+  /** Pokud je zadáno (např. 'portfolio' / 'art'), filtry se načtou z DB
+   *  tabulky gallery_categories a Majda je může spravovat z UI. */
+  page?: string;
 }) {
   const { isAdmin, images: dbImages, setImage } = useAdmin();
   const [active, setActive] = useState('all');
@@ -96,13 +102,46 @@ export function PortfolioFilter({
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const addSectionIdRef = useRef<string>('');
 
+  // — Dynamicke kategorie z DB (kdyz je `page` zadana) —
+  const [dbCats, setDbCats] = useState<GalleryCategory[]>([]);
+  const reloadCats = useCallback(async () => {
+    if (!page) return;
+    try {
+      const { getCategories } = await import('@/app/actions/categories');
+      const list = await getCategories(page);
+      setDbCats(list);
+    } catch (err) {
+      console.warn('getCategories failed', err);
+    }
+  }, [page]);
+  useEffect(() => { reloadCats(); }, [reloadCats]);
+
+  // Pokud DB kategorie existuji, prepiseme filters: ponechame "Vse" + pridame DB kategorie.
+  // Jinak fallback na hardcoded `filters` prop.
+  const effectiveFilters: PortfolioFilterDef[] = useMemo(() => {
+    if (!page || dbCats.length === 0) return filters;
+    const allBtn = filters.find((f) => f.key === 'all')
+      || { key: 'all', sectionId: `${sectionPrefix}.filter.all`, label: 'Vše' };
+    return [
+      allBtn,
+      ...dbCats
+        .filter((c) => c.visible)
+        .map<PortfolioFilterDef>((c) => ({
+          key: c.key,
+          sectionId: `${sectionPrefix}.filter.${c.key}`,
+          label: c.label,
+        })),
+    ];
+  }, [page, dbCats, filters, sectionPrefix]);
+
   // Read URL hash on mount (e.g. /portfolio#rodinna → auto-select filter)
   useEffect(() => {
     const hash = window.location.hash.replace('#', '');
-    if (hash && filters.some(f => f.key === hash)) {
+    if (hash && effectiveFilters.some(f => f.key === hash)) {
       setActive(hash);
     }
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [effectiveFilters.length]);
 
   // Compute deleted set from dbImages (tombstones persisted in DB)
   const deletedSectionIds = useMemo(() => {
@@ -334,13 +373,16 @@ export function PortfolioFilter({
   };
 
   // Determine which category to use for "add" button
-  const firstNonAll = filters.find(f => f.key !== 'all')?.key || 'rodinna';
+  const firstNonAll = effectiveFilters.find(f => f.key !== 'all')?.key || 'rodinna';
   const addCategory = active === 'all' ? (defaultCategory || firstNonAll) : active;
 
   return (
     <>
+      {isAdmin && page && (
+        <CategoryAdmin page={page} categories={dbCats} onChange={reloadCats} />
+      )}
       <div className="portfolio-filter">
-        {filters.map(f => (
+        {effectiveFilters.map(f => (
           <button
             key={f.key}
             className={active === f.key ? 'active' : ''}
@@ -539,7 +581,7 @@ export function PortfolioFilter({
                   border: '1px solid #ccc', fontSize: '0.9rem',
                 }}
               >
-                {filters.filter(f => f.key !== 'all').map(f => (
+                {effectiveFilters.filter(f => f.key !== 'all').map(f => (
                   <option key={f.key} value={f.key}>{f.label}</option>
                 ))}
               </select>
