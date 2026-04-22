@@ -15,6 +15,8 @@ export default function ArtPage() {
         sectionPrefix="art.hero"
       />
 
+      <h2 className="seo-heading">Umělecká a fine-art fotografie Praha — kreativní portréty a experimentální focení od Majdy Martinské</h2>
+
       <section className="section" data-animate>
         <div className="container">
           {artImages.length === 0 ? (

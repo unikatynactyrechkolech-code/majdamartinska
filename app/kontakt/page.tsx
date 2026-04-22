@@ -14,6 +14,8 @@ export default function KontaktPage() {
         sectionPrefix="kontakt.hero"
       />
 
+      <h2 className="seo-heading">Kontakt na fotografku Praha — objednávka rodinného, svatebního, newborn, portrétního a těhotenského focení v ateliéru Praha Suchdol</h2>
+
       <section className="section contact-section" data-animate>
         <div className="container">
           <div className="contact-grid">

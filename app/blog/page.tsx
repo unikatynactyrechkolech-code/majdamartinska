@@ -40,6 +40,8 @@ export default function BlogPage() {
         sectionPrefix="blog.hero"
       />
 
+      <h2 className="seo-heading">Blog o focení — tipy na rodinné, svatební, newborn, portrétní a těhotenské focení v Praze</h2>
+
       {/* Admin Panel */}
       {isAdmin && (
         <section className="section" data-animate>

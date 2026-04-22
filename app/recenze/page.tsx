@@ -152,6 +152,8 @@ export default function RecenzePage() {
         sectionPrefix="recenze.hero"
       />
 
+      <h2 className="seo-heading">Recenze fotografky Praha — hodnocení rodinného, svatebního, newborn a portrétního focení u Majdy Martinské</h2>
+
       <section className="section" data-animate>
         <div className="container">
           <div className="reviews-grid">

@@ -14,6 +14,8 @@ export default function SluzbyPage() {
         sectionPrefix="sluzby.hero"
       />
 
+      <h2 className="seo-heading">Služby a ceník focení Praha — rodinné focení, svatební fotograf, newborn focení, portréty, těhotenské a focení psů</h2>
+
       {/* RODINNÉ */}
       <section className="section service-detail" id="rodinna" data-animate>
         <div className="container">

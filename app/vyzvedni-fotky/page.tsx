@@ -15,6 +15,8 @@ export default function VyzvedniPage() {
         sectionPrefix="vyzvedni.hero"
       />
 
+      <h2 className="seo-heading">Vyzvednutí hotových fotografií — galerie pro klienty rodinného, svatebního, newborn a portrétního focení</h2>
+
       <section className="section" data-animate>
         <div className="container">
           <div style={{ maxWidth: '720px', margin: '0 auto' }}>

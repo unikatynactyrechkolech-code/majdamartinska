@@ -13,6 +13,8 @@ export default function PortfolioPage() {
         sectionPrefix="portfolio.hero"
       />
 
+      <h2 className="seo-heading">Portfolio fotografky Majdy Martinské — rodinné, svatební, newborn, portrétní a těhotenské focení v Praze</h2>
+
       <section className="section" data-animate>
         <div className="container">
           <PortfolioFilter images={portfolioImages} />

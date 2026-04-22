@@ -36,6 +36,8 @@ export default function HomePage() {
         </div>
       </div>
 
+      <h2 className="seo-heading">Fotografka Praha — rodinné focení, svatební fotograf, newborn focení, portrétní a těhotenské focení v ateliéru Praha Suchdol</h2>
+
       {/* HERO */}
       <section className="hero" id="hero">
         <div className="hero-content">

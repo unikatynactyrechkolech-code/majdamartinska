@@ -14,6 +14,8 @@ export default function OMnePage() {
         sectionPrefix="omne.hero"
       />
 
+      <h2 className="seo-heading">O fotografce Majdě Martinské — profesionální fotograf Praha pro rodinné, svatební, newborn, portrétní a těhotenské focení</h2>
+
       {/* ABOUT INTRO */}
       <section className="section about-intro" data-animate>
         <div className="container">
