@@ -84,13 +84,12 @@ export async function POST(request: Request) {
   const toEmail = process.env.CONTACT_TO_EMAIL || 'martinskafoto@gmail.com';
   const fromEmail = process.env.CONTACT_FROM_EMAIL || 'onboarding@resend.dev';
 
-  // Bez API klíče → frontend dostane 503 a použije mailto: fallback
+  // Bez API klice -> jasna chyba (drive zde byl mailto: fallback)
   if (!apiKey) {
     return NextResponse.json(
       {
         error:
-          'Odesílání e-mailů zatím není nakonfigurováno. Použijte prosím přímý e-mail nebo nás kontaktujte jinak.',
-        fallback: true,
+          'Odesilani e-mailu zatim neni nastavene. Napiste prosim primo na martinskafoto@gmail.com.',
       },
       { status: 503 }
     );

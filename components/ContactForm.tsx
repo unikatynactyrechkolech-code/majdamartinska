@@ -6,8 +6,6 @@ import { useLang } from '@/contexts/LanguageContext';
 
 type Status = 'idle' | 'sending' | 'success' | 'error';
 
-const FALLBACK_EMAIL = 'martinskafoto@gmail.com';
-
 export function ContactForm() {
   const { t } = useLang();
   const [status, setStatus] = useState<Status>('idle');
@@ -46,30 +44,16 @@ export function ContactForm() {
           return;
         }
 
-        // 503 = Resend není nakonfigurovaný → fallback na mailto:
+        // Chyba — zobraz uzivateli jasnou hlasku (zadny mailto: fallback)
         const errBody = (await res.json().catch(() => ({}))) as {
           error?: string;
-          fallback?: boolean;
         };
 
-        if (res.status === 503 || errBody.fallback) {
-          // Otevři uživateli mailto: jako záložní řešení
-          const subject = encodeURIComponent(t('Poptávka focení'));
-          const body = encodeURIComponent(
-            `${t('Jméno')}: ${payload.name}\n` +
-              `Email: ${payload.email}\n` +
-              `${t('Telefon')}: ${payload.phone}\n` +
-              `${t('Datum focení')}: ${payload.date}\n` +
-              `${t('Zvolený balíček')}: ${payload.package}\n` +
-              `${t('Další podrobnosti')}: ${payload.details}`
-          );
-          window.location.href = `mailto:${FALLBACK_EMAIL}?subject=${subject}&body=${body}`;
-          setStatus('idle');
-          return;
-        }
-
         setStatus('error');
-        setErrorMsg(errBody.error || t('Něco se pokazilo. Zkuste to prosím znovu.'));
+        setErrorMsg(
+          errBody.error ||
+            t('E-mail se nepodařilo odeslat. Zkuste to prosím za chvíli, nebo napište přímo na martinskafoto@gmail.com.')
+        );
       } catch {
         setStatus('error');
         setErrorMsg(t('Síťová chyba. Zkontrolujte připojení a zkuste to znovu.'));
