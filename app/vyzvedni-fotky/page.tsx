@@ -4,9 +4,22 @@ import Link from 'next/link';
 import { PageHero } from '@/components/PageHero';
 import { EditableText } from '@/components/EditableText';
 import { useLang } from '@/contexts/LanguageContext';
+import { useAdmin } from '@/contexts/AdminContext';
+import { useState, useEffect } from 'react';
+
+const PIXIESET_DEFAULT = 'https://majdamartinska.pixieset.com/';
 
 export default function VyzvedniPage() {
   const { t } = useLang();
+  const { isAdmin, drafts, setDraft } = useAdmin();
+  const [pixiesetUrl, setPixiesetUrl] = useState<string>(PIXIESET_DEFAULT);
+
+  // Nacti URL z draftu (publikovana hodnota se loaduje pres AdminContext)
+  useEffect(() => {
+    const draft = drafts['vyzvedni.pixieset.url'];
+    if (draft && draft.value) setPixiesetUrl(draft.value);
+  }, [drafts]);
+
   return (
     <>
       <PageHero
@@ -34,6 +47,50 @@ export default function VyzvedniPage() {
                 as="span"
               />
             </h2>
+
+            {/* PIXIESET CTA — primarni tlacitko, otevre se v nove zalozce */}
+            <div style={{ margin: '2rem 0', padding: '1.5rem', background: 'var(--color-bg-card)', borderRadius: '0.75rem', textAlign: 'center' }}>
+              <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
+                <EditableText
+                  sectionId="vyzvedni.pixieset.intro"
+                  defaultValue="Galerie tvých fotografií je v Pixieset. Klikni níže a otevři ji."
+                  as="span"
+                />
+              </p>
+              <a
+                href={pixiesetUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-primary"
+                style={{ minWidth: '260px' }}
+              >
+                <EditableText
+                  sectionId="vyzvedni.pixieset.btn"
+                  defaultValue="Otevřít galerii v Pixieset →"
+                  as="span"
+                />
+              </a>
+              {isAdmin && (
+                <div style={{ marginTop: '1rem', textAlign: 'left' }}>
+                  <label style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)', display: 'block', marginBottom: '0.25rem' }}>
+                    🔧 Pixieset URL (vidíš jen ty jako admin):
+                  </label>
+                  <input
+                    type="url"
+                    value={pixiesetUrl}
+                    onChange={(e) => {
+                      setPixiesetUrl(e.target.value);
+                      setDraft('vyzvedni.pixieset.url', e.target.value);
+                    }}
+                    placeholder="https://majdamartinska.pixieset.com/"
+                    style={{ width: '100%', padding: '0.5rem 0.75rem', border: '1px solid var(--color-border)', borderRadius: '0.4rem', fontSize: '0.9rem' }}
+                  />
+                  <p style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)', marginTop: '0.4rem' }}>
+                    💡 Po změně klikni v horní liště „Publikovat změny" — odkaz se uloží.
+                  </p>
+                </div>
+              )}
+            </div>
 
             <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2rem' }}>
               <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
@@ -86,7 +143,7 @@ export default function VyzvedniPage() {
             </div>
 
             <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/kontakt" className="btn btn-primary">
+              <Link href="/kontakt" className="btn btn-outline-dark">
                 {t('Napsat Majdě')}
               </Link>
               <a href="mailto:martinskafoto@gmail.com" className="btn btn-outline-dark">

@@ -2032,6 +2032,72 @@ ul {
 }
 
 /* ========================================
+   SERVICE PACKAGES — 3 sloupce volneho textu pod kazdou sluzbou
+   ======================================== */
+
+.service-packages {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.service-package-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 0.75rem;
+    padding: 1.75rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: transform 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out);
+}
+
+.section-brown .service-package-card {
+    background: rgba(255,255,255,0.6);
+    border-color: rgba(26,26,26,0.06);
+}
+
+.service-package-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.service-package-title {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+}
+
+.service-package-price {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--color-accent);
+}
+
+.service-package-desc {
+    color: var(--color-text-muted);
+    font-size: 0.95rem;
+    line-height: 1.65;
+    white-space: pre-wrap;
+}
+
+.service-package-desc p {
+    margin: 0;
+}
+
+@media (max-width: 900px) {
+    .service-packages {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+}
+
+/* ========================================
    PAGE TRANSITION OVERLAY
    ======================================== */
 
