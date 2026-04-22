@@ -48,15 +48,24 @@ export default function VyzvedniPage() {
               />
             </h2>
 
+            {/* INTRO TEXT — vita klienta nad CTA tlacitkem */}
+            <p style={{
+              textAlign: 'center',
+              fontSize: '1.05rem',
+              lineHeight: 1.7,
+              color: 'var(--color-text-muted)',
+              margin: '1.5rem 0 1.5rem',
+            }}>
+              <EditableText
+                sectionId="vyzvedni.intro"
+                defaultValue="Ahoj ahoj, tak tvoje fotky jsou připravené k výběru nebo hotové. Ať tak či onak, zadej svůj kód a můžeš se začít kochat :)))"
+                as="span"
+                multiline
+              />
+            </p>
+
             {/* PIXIESET CTA — primarni tlacitko, otevre se v nove zalozce */}
-            <div style={{ margin: '2rem 0', padding: '1.5rem', background: 'var(--color-bg-card)', borderRadius: '0.75rem', textAlign: 'center' }}>
-              <p style={{ marginBottom: '1rem', color: 'var(--color-text-muted)' }}>
-                <EditableText
-                  sectionId="vyzvedni.pixieset.intro"
-                  defaultValue="Galerie tvých fotografií je v Pixieset. Klikni níže a otevři ji."
-                  as="span"
-                />
-              </p>
+            <div style={{ margin: '1rem 0 2rem', padding: '1.5rem', background: 'var(--color-bg-card)', borderRadius: '0.75rem', textAlign: 'center' }}>
               <a
                 href={pixiesetUrl}
                 target="_blank"
@@ -92,57 +101,7 @@ export default function VyzvedniPage() {
               )}
             </div>
 
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem', marginTop: '2rem' }}>
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '2rem', flexShrink: 0 }}>📬</span>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', marginBottom: '0.4rem' }}>
-                    <EditableText sectionId="vyzvedni.step1.title" defaultValue="Dostala jsi odkaz e-mailem" as="span" />
-                  </h3>
-                  <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.7' }}>
-                    <EditableText
-                      sectionId="vyzvedni.step1.text"
-                      defaultValue="Po zpracování fotografií ti pošlu e-mail se soukromým odkazem ke stažení. Odkaz je platný po dobu 30 dní."
-                      as="span"
-                    />
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '2rem', flexShrink: 0 }}>⬇️</span>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', marginBottom: '0.4rem' }}>
-                    <EditableText sectionId="vyzvedni.step2.title" defaultValue="Stáhni si svoji galerii" as="span" />
-                  </h3>
-                  <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.7' }}>
-                    <EditableText
-                      sectionId="vyzvedni.step2.text"
-                      defaultValue="Klikni na odkaz v e-mailu a stáhni si fotografie v plné kvalitě. Doporučuji stáhnout vše najednou jako ZIP archiv."
-                      as="span"
-                    />
-                  </p>
-                </div>
-              </div>
-
-              <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'flex-start' }}>
-                <span style={{ fontSize: '2rem', flexShrink: 0 }}>❓</span>
-                <div>
-                  <h3 style={{ fontFamily: 'var(--font-heading)', fontSize: '1.1rem', marginBottom: '0.4rem' }}>
-                    <EditableText sectionId="vyzvedni.step3.title" defaultValue="Odkaz ti nepřišel nebo expiroval?" as="span" />
-                  </h3>
-                  <p style={{ color: 'var(--color-text-muted)', lineHeight: '1.7' }}>
-                    <EditableText
-                      sectionId="vyzvedni.step3.text"
-                      defaultValue="Ozvi se mi e-mailem nebo přes kontaktní formulář a domluvíme se na novém odkazu."
-                      as="span"
-                    />
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div style={{ marginTop: '3rem', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+            <div style={{ marginTop: '2rem', display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center' }}>
               <Link href="/kontakt" className="btn btn-outline-dark">
                 {t('Napsat Majdě')}
               </Link>

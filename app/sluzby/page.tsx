@@ -125,9 +125,9 @@ export default function SluzbyPage() {
           title: 'Rodinné a <em>párové focení</em> v Praze',
           text: 'Vyber si ateliér nebo les a louku, záleží na tobě. To hlavní ale je, aby byla pohoda a bylo to celé o příjemném zážitku, ze kterého si odneseš na památku fotografie. Nechci abys focení odbil/a v křeči, ale abys ho užil/a :)',
           pkg: [
-            { title: 'Mini balíček',  price: 'od 2 900 Kč', desc: 'Tady napiš, co je v základním balíčku — délka focení, počet fotek, lokace…' },
-            { title: 'Standard balíček', price: 'od 3 900 Kč', desc: 'Tady napiš detaily středního balíčku.' },
-            { title: 'Premium balíček', price: 'od 5 900 Kč', desc: 'Tady napiš detaily plného balíčku — víc lokací, víc fotek, video, atd.' },
+            { title: '30 minut',  price: '2 100 Kč', desc: '• 10 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• každá další fotografie 140 Kč' },
+            { title: '1 hodina',  price: '3 500 Kč', desc: '• 20 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• každá další fotografie 120 Kč' },
+            { title: '1,5 hodiny', price: '4 700 Kč', desc: '• 30 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• leporelo s výběrem fotografií<br>• každá další fotografie 100 Kč' },
           ],
         }}
       />
@@ -144,9 +144,9 @@ export default function SluzbyPage() {
           title: 'Newborn focení <em>miminek</em> v ateliéru',
           text: 'Focení mrňousků do 14 dnů života... to mě moc baví. Vím, že to bývá pro rodiče náročné a tak se snažím o maximální pohodlí všech. Rodiče dostanou kafíčko a dětičky mají zase zajištěnou tu nejlepší péči. Hoďte si nohy nahoru a nechte svého prťouska rozmazlovat.',
           pkg: [
-            { title: 'Mini balíček',  price: 'od 3 900 Kč', desc: 'Stručný popis…' },
-            { title: 'Standard',      price: 'od 4 900 Kč', desc: 'Popiš co je obvyklé…' },
-            { title: 'Premium',       price: 'od 6 900 Kč', desc: 'Plný balíček s fotokouzly…' },
+            { title: 'Newborn focení',  price: 'po domluvě', desc: '• focení miminka v ateliéru<br>• ideální do 14 dnů života<br>• rekvizity, oblečky a koruny v ceně<br>• napiš mi a domluvíme se na termínu i ceně' },
+            { title: 'Mimišky — 3 měs.',      price: 'po domluvě', desc: '• focení větších mimiček (3–6 měs.)<br>• ateliér Praha-Suchdol<br>• individuální nacenění dle přání' },
+            { title: 'Rodina + miminko',       price: 'po domluvě', desc: '• něžné společné fotky celé rodiny<br>• v ateliéru i venku<br>• ozvi se a vymýšlíme to spolu' },
           ],
         }}
       />
@@ -161,9 +161,9 @@ export default function SluzbyPage() {
           title: 'Svatební <em>fotografie</em> plné emocí',
           text: 'Ahoj budoucí novomanželé. Bojíte se abyste měli na fotkách všechno? Bojíte se, aby fotograf nenarušoval váš krásný den? Bojíte se, že bude fotograf protiva? Tak se nebojte :). Právě jste našli, to co hledáte :)))',
           pkg: [
-            { title: 'Obřad',         price: 'od 9 900 Kč',  desc: 'Jen samotný obřad a první focení páru…' },
-            { title: 'Půl dne',       price: 'od 15 000 Kč', desc: 'Přípravy + obřad + portréty…' },
-            { title: 'Celý den',      price: 'od 22 000 Kč', desc: 'Od příprav až po večerní hostinu, video, druhý fotograf…' },
+            { title: 'Obřad',         price: 'po domluvě',  desc: '• samotný obřad<br>• první společné portréty<br>• gratulování hostů<br>• napiš mi a domluvíme se' },
+            { title: 'Půl dne',       price: 'po domluvě', desc: '• přípravy nevěsty<br>• obřad<br>• portréty páru<br>• cena dle konkrétního přání' },
+            { title: 'Celý den',      price: 'po domluvě', desc: '• od příprav po hostinu<br>• všechny okamžiky<br>• individuální nacenění' },
           ],
         }}
       />
@@ -180,9 +180,9 @@ export default function SluzbyPage() {
           title: 'Focení <em>psů</em> a mazlíčků',
           text: 'Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice, nebo trhá pošťákovi kalhoty? Chceš ho mít na očích stále a dívat se na něj na fotkách nebo obraze? Tož to tady jsi správně.',
           pkg: [
-            { title: 'Mini',          price: 'od 2 500 Kč', desc: '30 min v přírodě…' },
-            { title: 'Standard',      price: 'od 3 500 Kč', desc: '1 hodina + 40 fotek…' },
-            { title: 'Premium',       price: 'od 5 000 Kč', desc: '2 hodiny, 2 lokace, video…' },
+            { title: '30 minut',          price: 'po domluvě', desc: '• focení v přírodě nebo ateliéru<br>• výběr z fotografií<br>• napiš mi a dohodneme detaily' },
+            { title: '1 hodina',      price: 'po domluvě', desc: '• delší pohodové focení<br>• více poloh i lokací<br>• individuální nacenění' },
+            { title: 'Tvůj nápad',       price: 'po domluvě', desc: '• máš kreativní nápad?<br>• ozvi se a vymýšlíme to spolu' },
           ],
         }}
       />
@@ -197,9 +197,9 @@ export default function SluzbyPage() {
           title: 'Těhotenské focení — <em>krásné vzpomínky</em>',
           text: 'Krásné období, které si zaslouží zachytit na fotografiích. Těhotenské focení je nejkrásnější kolem 30.–36. týdne těhotenství. Focení probíhá v ateliéru nebo v přírodě.',
           pkg: [
-            { title: 'Mini',          price: 'od 2 500 Kč', desc: '30 min v ateliéru…' },
-            { title: 'Standard',      price: 'od 3 500 Kč', desc: '1 hodina + 30 fotek…' },
-            { title: 'Premium',       price: 'od 5 500 Kč', desc: '2 lokace, šaty na výběr…' },
+            { title: '30 minut',          price: 'po domluvě', desc: '• něžné portréty pupínku<br>• v ateliéru nebo venku<br>• napiš mi a domluvíme termín' },
+            { title: '1 hodina',      price: 'po domluvě', desc: '• více stylizací<br>• společně s partnerem<br>• individuální nacenění' },
+            { title: 'Premium',       price: 'po domluvě', desc: '• dvě lokace<br>• šaty na výběr<br>• možnost vizážistky' },
           ],
         }}
       />
@@ -216,9 +216,9 @@ export default function SluzbyPage() {
           title: 'Profesionální <em>portrétní</em> fotografie',
           text: 'Profesionální portrétní fotografie pro vaši osobní prezentaci, LinkedIn, nebo prostě jen proto, že chcete krásné fotky sebe. Focení probíhá v ateliéru i venku.',
           pkg: [
-            { title: 'LinkedIn',      price: 'od 2 500 Kč', desc: '45 min, 1 lokace, 10 fotek…' },
-            { title: 'Standard',      price: 'od 3 500 Kč', desc: '1 hodina, 2 lokace, 20 fotek…' },
-            { title: 'Premium',       price: 'od 5 500 Kč', desc: '2 hodiny, vizážistka, 40 fotek…' },
+            { title: '30 minut',      price: '2 100 Kč', desc: '• 10 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• každá další fotografie 140 Kč' },
+            { title: '1 hodina',      price: '3 500 Kč', desc: '• 20 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• každá další fotografie 120 Kč' },
+            { title: '1,5 hodiny',    price: '4 700 Kč', desc: '• 30 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů<br>• leporelo s výběrem fotografií<br>• každá další fotografie 100 Kč' },
           ],
         }}
       />

@@ -62,9 +62,96 @@ const TEXT_COLORS = [
   { label: 'Šedá', value: '#888888' },
 ];
 
+// ---------- Selection helpers ----------
+
+/** Pomocna funkce: ulozi aktualni Range (pokud je v elRef) do refu.
+ *  Volame to PRED kliknutim na trigger dropdownu, aby pak slo selection
+ *  obnovit i kdyby behem otvirani menu doslo k re-renderu. */
+function saveSelectionToRef(elRef: React.RefObject<HTMLElement | null>, ref: React.MutableRefObject<Range | null>) {
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return;
+  const range = sel.getRangeAt(0);
+  if (!elRef.current) return;
+  // Pouze pokud je selection uvnitr editovaneho elementu
+  if (!elRef.current.contains(range.commonAncestorContainer)) return;
+  ref.current = range.cloneRange();
+}
+
+/** Obnovi ulozenou selection do dokumentu. Vraci range nebo null. */
+function restoreSelectionFromRef(ref: React.MutableRefObject<Range | null>): Range | null {
+  if (!ref.current) return null;
+  const sel = window.getSelection();
+  if (!sel) return null;
+  sel.removeAllRanges();
+  sel.addRange(ref.current);
+  return ref.current;
+}
+
+/** Zabali aktualni selection (z refu) do <span> s danym inline stylem.
+ *  Po dokonceni re-selectne obsah spanu, aby se daly aplikovat dalsi styly. */
+function wrapSelectionWithStyle(
+  elRef: React.RefObject<HTMLElement | null>,
+  savedRangeRef: React.MutableRefObject<Range | null>,
+  styleProp: string,
+  styleValue: string
+): boolean {
+  const range = restoreSelectionFromRef(savedRangeRef);
+  if (!range || range.collapsed) return false;
+  if (!elRef.current?.contains(range.commonAncestorContainer)) return false;
+
+  const span = document.createElement('span');
+  // styleProp je CSS property v camelCase (fontFamily, fontSize, color, fontWeight)
+  // ale `style[prop] = value` funguje pro oboji
+  (span.style as unknown as Record<string, string>)[styleProp] = styleValue;
+  try {
+    span.appendChild(range.extractContents());
+    range.insertNode(span);
+    // Re-select obsah noveho spanu
+    const newRange = document.createRange();
+    newRange.selectNodeContents(span);
+    const sel = window.getSelection();
+    sel?.removeAllRanges();
+    sel?.addRange(newRange);
+    savedRangeRef.current = newRange.cloneRange();
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/** Smaze inline formatovani z aktualni selection (rozbali spany). */
+function clearSelectionFormat(elRef: React.RefObject<HTMLElement | null>, savedRangeRef: React.MutableRefObject<Range | null>) {
+  restoreSelectionFromRef(savedRangeRef);
+  document.execCommand('removeFormat');
+  // execCommand removeFormat nesmaze vlastni inline styles na spanech, tak je
+  // explicitne odstranime ze vsech spanu uvnitr selection.
+  const sel = window.getSelection();
+  if (!sel || sel.rangeCount === 0) return;
+  const range = sel.getRangeAt(0);
+  const root = elRef.current;
+  if (!root) return;
+  root.querySelectorAll('span[style], font[face], font[color], font[size]').forEach((node) => {
+    if (range.intersectsNode(node)) {
+      const parent = node.parentNode;
+      if (!parent) return;
+      while (node.firstChild) parent.insertBefore(node.firstChild, node);
+      parent.removeChild(node);
+    }
+  });
+}
+
 // ---------- Toolbar Dropdown ----------
 
-function ToolbarDropdown({ label, children }: { label: string; children: React.ReactNode }) {
+function ToolbarDropdown({
+  label,
+  children,
+  onOpen,
+}: {
+  label: string;
+  children: React.ReactNode;
+  /** Zavolano pri otevreni dropdownu — typicky pro ulozeni selection. */
+  onOpen?: () => void;
+}) {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -81,13 +168,22 @@ function ToolbarDropdown({ label, children }: { label: string; children: React.R
       <button
         type="button"
         className="cms-tb-btn cms-tb-dropdown-trigger"
-        onMouseDown={(e) => { e.preventDefault(); setOpen(!open); }}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          // ULOZ selection PRED tim nez se cokoliv re-renderuje
+          if (!open) onOpen?.();
+          setOpen(!open);
+        }}
         title={label}
       >
         {label} <span className="cms-tb-arrow">▾</span>
       </button>
       {open && (
-        <div className="cms-tb-dropdown-menu" onMouseDown={(e) => e.preventDefault()} onClick={() => setOpen(false)}>
+        <div
+          className="cms-tb-dropdown-menu"
+          onMouseDown={(e) => e.preventDefault()}
+          onClick={() => setOpen(false)}
+        >
           {children}
         </div>
       )}
@@ -116,22 +212,44 @@ function ColorSwatch({ color, active, onClick, label }: { color: string; active:
 function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> }) {
   const [, forceUpdate] = useState(0);
   const toolbarRef = useRef<HTMLDivElement>(null);
+  /** Posledni Range uvnitr editovaneho elementu — drzime ji pres re-rendery,
+   *  aby kliknuti na dropdown nezpusobilo ztratu selection pri aplikaci stylu. */
+  const savedRangeRef = useRef<Range | null>(null);
 
-  // Refresh toolbar state on selection change
+  // Sledujeme zmeny selection a kdyz je selection uvnitr editovaneho elementu,
+  // ulozime si ji do refu. Diky tomu pri pristim kliknuti na format-button mame
+  // vzdy aktualni range i kdyby react re-renderoval mezi tim.
   useEffect(() => {
-    const refresh = () => forceUpdate((n) => n + 1);
-    document.addEventListener('selectionchange', refresh);
-    return () => document.removeEventListener('selectionchange', refresh);
-  }, []);
+    const handler = () => {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const range = sel.getRangeAt(0);
+      if (elRef.current?.contains(range.commonAncestorContainer)) {
+        savedRangeRef.current = range.cloneRange();
+        // Re-render kvuli active stavum b/i/u
+        forceUpdate((n) => n + 1);
+      }
+    };
+    document.addEventListener('selectionchange', handler);
+    return () => document.removeEventListener('selectionchange', handler);
+  }, [elRef]);
 
-  const exec = useCallback((cmd: string, val?: string) => {
-    document.execCommand(cmd, false, val);
+  // Helper pro b/i/u — pouziva execCommand (browser native, funguje spolehlive)
+  const execInline = useCallback((cmd: string) => {
+    restoreSelectionFromRef(savedRangeRef);
+    document.execCommand(cmd, false);
+    // Po execCommand muze byt selection v jinem range — ulozime aktualni
+    saveSelectionToRef(elRef, savedRangeRef);
     forceUpdate((n) => n + 1);
-  }, []);
+  }, [elRef]);
 
-  const isBold = document.queryCommandState('bold');
-  const isItalic = document.queryCommandState('italic');
-  const isUnderline = document.queryCommandState('underline');
+  // Stavy b/i/u pro vyznaceni active tlacitek
+  let isBold = false, isItalic = false, isUnderline = false;
+  try {
+    isBold = document.queryCommandState('bold');
+    isItalic = document.queryCommandState('italic');
+    isUnderline = document.queryCommandState('underline');
+  } catch { /* noop */ }
 
   // Position the toolbar above the editable element
   const pos = useMemo(() => {
@@ -145,6 +263,17 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [elRef.current]);
 
+  // Helper pro jednotne wrap-with-style
+  const applyStyle = useCallback((prop: string, value: string) => {
+    const ok = wrapSelectionWithStyle(elRef, savedRangeRef, prop, value);
+    if (!ok) {
+      // Pokud nebyla selection, neudelame nic — vizualne to user pozna podle
+      // toho ze nic nezmizelo. Nedavame alert aby to nerusilo.
+      return;
+    }
+    forceUpdate((n) => n + 1);
+  }, [elRef]);
+
   return createPortal(
     <div
       ref={toolbarRef}
@@ -156,7 +285,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
       <button
         type="button"
         className={`cms-tb-btn ${isBold ? 'active' : ''}`}
-        onMouseDown={(e) => { e.preventDefault(); exec('bold'); }}
+        onMouseDown={(e) => { e.preventDefault(); execInline('bold'); }}
         title="Tučné"
       >
         <b>B</b>
@@ -164,7 +293,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
       <button
         type="button"
         className={`cms-tb-btn ${isItalic ? 'active' : ''}`}
-        onMouseDown={(e) => { e.preventDefault(); exec('italic'); }}
+        onMouseDown={(e) => { e.preventDefault(); execInline('italic'); }}
         title="Kurzíva"
       >
         <i>I</i>
@@ -172,7 +301,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
       <button
         type="button"
         className={`cms-tb-btn ${isUnderline ? 'active' : ''}`}
-        onMouseDown={(e) => { e.preventDefault(); exec('underline'); }}
+        onMouseDown={(e) => { e.preventDefault(); execInline('underline'); }}
         title="Podtržené"
       >
         <u>U</u>
@@ -180,31 +309,18 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
 
       <span className="cms-tb-sep" />
 
-      {/* Font size */}
-      <ToolbarDropdown label="Velikost">
+      {/* Font size — manualni span wrapping, polozky maji LIVE PREVIEW */}
+      <ToolbarDropdown label="Velikost" onOpen={() => saveSelectionToRef(elRef, savedRangeRef)}>
         {FONT_SIZES.map((s) => (
           <button
             key={s.label}
             type="button"
             className="cms-tb-dropdown-item"
+            style={{ fontSize: s.value || '0.95rem' }}
             onMouseDown={(e) => {
               e.preventDefault();
-              if (s.value) {
-                exec('fontSize', '7');
-                // Replace font size=7 with custom size via span
-                requestAnimationFrame(() => {
-                  const el = elRef.current;
-                  if (!el) return;
-                  el.querySelectorAll('font[size="7"]').forEach((font) => {
-                    const span = document.createElement('span');
-                    span.style.fontSize = s.value;
-                    span.innerHTML = font.innerHTML;
-                    font.replaceWith(span);
-                  });
-                });
-              } else {
-                exec('removeFormat');
-              }
+              if (s.value) applyStyle('fontSize', s.value);
+              else clearSelectionFormat(elRef, savedRangeRef);
             }}
           >
             {s.label}
@@ -212,8 +328,8 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
         ))}
       </ToolbarDropdown>
 
-      {/* Font family */}
-      <ToolbarDropdown label="Font">
+      {/* Font family — manualni span wrapping */}
+      <ToolbarDropdown label="Font" onOpen={() => saveSelectionToRef(elRef, savedRangeRef)}>
         {FONT_FAMILIES.map((f) => (
           <button
             key={f.label}
@@ -222,11 +338,8 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
             style={{ fontFamily: f.value || 'inherit' }}
             onMouseDown={(e) => {
               e.preventDefault();
-              if (f.value) {
-                exec('fontName', f.value);
-              } else {
-                exec('removeFormat');
-              }
+              if (f.value) applyStyle('fontFamily', f.value);
+              else clearSelectionFormat(elRef, savedRangeRef);
             }}
           >
             {f.label}
@@ -235,7 +348,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
       </ToolbarDropdown>
 
       {/* Font weight (Tloušťka) */}
-      <ToolbarDropdown label="Tloušťka">
+      <ToolbarDropdown label="Tloušťka" onOpen={() => saveSelectionToRef(elRef, savedRangeRef)}>
         {FONT_WEIGHTS.map((w) => (
           <button
             key={w.value}
@@ -244,22 +357,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
             style={{ fontWeight: Number(w.value) }}
             onMouseDown={(e) => {
               e.preventDefault();
-              const sel = window.getSelection();
-              if (!sel || sel.rangeCount === 0 || sel.isCollapsed) return;
-              const range = sel.getRangeAt(0);
-              const span = document.createElement('span');
-              span.style.fontWeight = w.value;
-              try {
-                span.appendChild(range.extractContents());
-                range.insertNode(span);
-                // Re-select inserted span content
-                const newRange = document.createRange();
-                newRange.selectNodeContents(span);
-                sel.removeAllRanges();
-                sel.addRange(newRange);
-              } catch {
-                /* noop */
-              }
+              applyStyle('fontWeight', w.value);
             }}
           >
             {w.label}
@@ -270,7 +368,7 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
       <span className="cms-tb-sep" />
 
       {/* Text color */}
-      <ToolbarDropdown label="🎨">
+      <ToolbarDropdown label="🎨" onOpen={() => saveSelectionToRef(elRef, savedRangeRef)}>
         <div className="cms-tb-color-grid">
           {TEXT_COLORS.map((c) => (
             <ColorSwatch
@@ -278,11 +376,8 @@ function EditingToolbar({ elRef }: { elRef: React.RefObject<HTMLElement | null> 
               color={c.value}
               active={false}
               onClick={() => {
-                if (c.value) {
-                  exec('foreColor', c.value);
-                } else {
-                  exec('removeFormat');
-                }
+                if (c.value) applyStyle('color', c.value);
+                else clearSelectionFormat(elRef, savedRangeRef);
               }}
               label={c.label}
             />
