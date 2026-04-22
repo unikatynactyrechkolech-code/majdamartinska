@@ -382,6 +382,8 @@ ul {
 }
 
 .brand-banner-inner {
+    /* Jedina vyska, ridi velikost loga i max-width textu (text ma aspect 5.5:1) */
+    --brand-h: clamp(72px, 10vw, 130px);
     max-width: var(--container);
     margin: 0 auto;
     display: flex;
@@ -394,30 +396,30 @@ ul {
 }
 
 .brand-banner-logo {
-    width: clamp(80px, 12vw, 160px) !important;
-    height: clamp(80px, 12vw, 160px) !important;
+    width: var(--brand-h) !important;
+    height: var(--brand-h) !important;
     object-fit: contain;
     flex: 0 0 auto;
 }
 
-/* Wrapper: drzi vysku rovnu logu, povoluje shrink kdyz neni dost mista */
+/* Wrapper: bere zbyvajici sirku, ale ne vic nez aspect-correct max
+   (5.5x vyska loga). Diky tomu pri sirokem viewportu je text presne
+   stejne vysoky jako logo, pri uzkem se proporcionalne zmensi. */
 .brand-banner-name-wrap {
-    flex: 0 1 auto;
+    flex: 1 1 0;
     min-width: 0;
-    max-width: 100%;
-    height: clamp(80px, 12vw, 160px);
+    max-width: calc(var(--brand-h) * 5.5);
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
-/* SVG text: vyska 100% wrapperu, sirka auto podle viewBoxu;
-   preserveAspectRatio meet zaridi proporcni zmenseni kdyz max-width zasahne. */
+/* SVG text: vyplni sirku wrapperu, vyska se sama dopocita z aspect ratia
+   viewBoxu (5.5:1). Nikdy nepretece, vzdy estetika zachovana. */
 .brand-banner-name {
     display: block;
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
     max-width: 100%;
 }
 
@@ -2244,20 +2246,11 @@ ul {
     }
 
     .brand-banner-inner {
+        --brand-h: 56px;
         gap: 0.6rem;
         padding: 0.7rem 0.8rem;
     }
-
-    .brand-banner-logo {
-        width: 64px !important;
-        height: 64px !important;
-    }
-
-    .brand-banner-name-wrap {
-        height: 64px;
-    }
-
-    /* SVG sam zmensi obsah pokud se nevejde, vyska 64px */
+    /* logo + wrap + svg vse dopocita z --brand-h */
 
     /* Text first, slideshow second on mobile */
     .hero-content {
