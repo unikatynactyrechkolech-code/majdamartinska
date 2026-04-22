@@ -116,22 +116,20 @@ export function PortfolioFilter({
   }, [page]);
   useEffect(() => { reloadCats(); }, [reloadCats]);
 
-  // Pokud DB kategorie existuji, prepiseme filters: ponechame "Vse" + pridame DB kategorie.
-  // Jinak fallback na hardcoded `filters` prop.
+  // Merge: ZACHOVAME vsechny hardcoded `filters` (Vse + puvodni kategorie)
+  // a pripojime DB kategorie ktere jeste neexistuji (podle key).
+  // Diky tomu pridani nove DB kategorie nikdy nesmaze stavajici filtry.
   const effectiveFilters: PortfolioFilterDef[] = useMemo(() => {
     if (!page || dbCats.length === 0) return filters;
-    const allBtn = filters.find((f) => f.key === 'all')
-      || { key: 'all', sectionId: `${sectionPrefix}.filter.all`, label: 'Vše' };
-    return [
-      allBtn,
-      ...dbCats
-        .filter((c) => c.visible)
-        .map<PortfolioFilterDef>((c) => ({
-          key: c.key,
-          sectionId: `${sectionPrefix}.filter.${c.key}`,
-          label: c.label,
-        })),
-    ];
+    const existingKeys = new Set(filters.map((f) => f.key));
+    const extras: PortfolioFilterDef[] = dbCats
+      .filter((c) => c.visible && !existingKeys.has(c.key))
+      .map((c) => ({
+        key: c.key,
+        sectionId: `${sectionPrefix}.filter.${c.key}`,
+        label: c.label,
+      }));
+    return [...filters, ...extras];
   }, [page, dbCats, filters, sectionPrefix]);
 
   // Read URL hash on mount (e.g. /portfolio#rodinna → auto-select filter)
