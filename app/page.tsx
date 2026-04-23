@@ -6,6 +6,7 @@ import { HorizontalScroll } from '@/components/HorizontalScroll';
 import { HeroSlideshow } from '@/components/HeroSlideshow';
 import { EditableText } from '@/components/EditableText';
 import { EditableImage } from '@/components/EditableImage';
+import { DynamicCircleScroll } from '@/components/DynamicCircleScroll';
 
 const LOGO_URL = 'https://res.cloudinary.com/dh8ts5fpa/image/upload/v1774978116/Sni%CC%81mek_obrazovky_2026-03-31_v_19.27.39_tonhmp.png';
 
@@ -143,6 +144,14 @@ export default function HomePage() {
         </div>
         <HorizontalScroll items={hScrollItems} />
       </section>
+
+      {/* DYNAMIC CIRCLE GALLERY — admin může přidávat / odebírat položky */}
+      <DynamicCircleScroll
+        sectionPrefix="home.circles"
+        defaultIds={['1', '2', '3', '4']}
+        titleSectionId="home.circles.title"
+        defaultTitle="Z mého <em>fotoalba</em>"
+      />
 
       {/* SERVICES */}
       <section className="section services section-brown" data-animate>

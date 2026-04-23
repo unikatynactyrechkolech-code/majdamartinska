@@ -155,6 +155,78 @@ export default function SluzbyPage() {
         }}
       />
 
+      <ServiceSection
+        id="newborn"
+        prefix="sluzby.newborn"
+        number="02"
+        reverse
+        brown
+        defaults={{
+          img: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1000,2500,1000/0-0-0/414592d6-abb7-466c-9710-505675263187/1/1/_FFF1107.jpg?fjkss=exp=2090606351~hmac=fe1b9542344fd40fe07c14beff71fca72fd81d22b04270126fa38a8516f7a424',
+          imgAlt: 'Newborn focení miminek',
+          title: 'Newborn — <em>focení miminek</em>',
+          text: 'Focení mrňousků do 14 dnů života... to mě moc baví. Vím, že to bývá pro rodiče náročné, a tak se snažím o maximální pohodlí všech. Rodiče dostanou kafíčko a dětičky mají zajištěnou tu nejlepší péči. Hoďte si nohy nahoru a nechte svého prťouska rozmazlovat.',
+          pkg: [
+            { title: 'Mini newborn',     price: '3 500 Kč', desc: '• focení v ateliéru (cca 1,5 hod)<br>• 10 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů' },
+            { title: 'Klasické newborn', price: '5 500 Kč', desc: '• focení v ateliéru (cca 2–3 hod)<br>• 20 ks upravených fotografií<br>• webová galerie<br>• rekvizity, kostýmky a doplňky v ceně<br>• dodání do 21 dnů' },
+            { title: 'Newborn Premium',  price: '7 200 Kč', desc: '• focení v ateliéru (cca 3 hod)<br>• 30 ks upravených fotografií<br>• webová galerie<br>• rekvizity, kostýmky, doplňky<br>• malé leporelo s výběrem fotek<br>• dodání do 21 dnů' },
+          ],
+        }}
+      />
+
+      <ServiceSection
+        id="svatba"
+        prefix="sluzby.svatba"
+        number="03"
+        defaults={{
+          img: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,899,899,2500,899/0-0-0/42ba55b7-dfe7-4ea0-b535-908073c37184/1/1/svatba87.jpg?fjkss=exp=2090606430~hmac=c09d5d25a88523d8a5480ba831b1b62f93ad5af43d9cf9e34583b70346b25f45',
+          imgAlt: 'Svatební focení',
+          title: 'Svatební <em>focení</em>',
+          text: 'Ahoj budoucí novomanželé. Bojíte se, abyste měli na fotkách všechno? Bojíte se, aby fotograf nenarušoval váš krásný den? Bojíte se, že bude fotograf protiva? Tak se nebojte :). Právě jste našli to, co hledáte :)))',
+          pkg: [
+            { title: 'Krátká reportáž',   price: '12 000 Kč', desc: '• cca 4 hodiny focení<br>• přípravy + obřad + skupinky<br>• 150+ upravených fotografií<br>• webová galerie<br>• dodání do 6 týdnů' },
+            { title: 'Celý den',           price: '19 000 Kč', desc: '• cca 8 hodin focení<br>• přípravy, obřad, focení páru, hostina<br>• 300+ upravených fotografií<br>• webová galerie<br>• dodání do 6 týdnů' },
+            { title: 'Svatba bez limitu',  price: '25 000 Kč', desc: '• focení od příprav až po večerní zábavu<br>• 500+ upravených fotografií<br>• webová galerie<br>• malá tištěná fotokniha v ceně<br>• dodání do 8 týdnů' },
+          ],
+        }}
+      />
+
+      <ServiceSection
+        id="psi"
+        prefix="sluzby.psi"
+        number="04"
+        reverse
+        brown
+        defaults={{
+          img: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,1000,1500,2500,1500/0-0-0/77a14f0b-d0aa-426b-9aa6-13318fb554aa/1/1/_FFF4817.jpg?fjkss=exp=2090606586~hmac=6d18ef0957232c473f0b7f06217a567cebd6320d8a1ad99e71700cb7762b65b1',
+          imgAlt: 'Focení psů a mazlíčků',
+          title: 'Psí <em>kamarádi</em>',
+          text: 'Máš doma mazlíka, který se rád válí na gauči, nebo honí sousedovi slepice, nebo trhá pošťákovi kalhoty? Chceš ho mít na očích stále a dívat se na něj na fotkách nebo obraze? Tož to tady jsi správně.',
+          pkg: [
+            { title: 'Pejsek na otočku', price: '1 900 Kč', desc: '• cca 45 min focení v přírodě<br>• 10 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů' },
+            { title: 'Standard',         price: '2 900 Kč', desc: '• cca 1 hod focení (venku nebo v ateliéru)<br>• 20 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů' },
+            { title: 'Pes & páníček',    price: '3 800 Kč', desc: '• cca 1,5 hod focení (vy + váš pes)<br>• 30 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů' },
+          ],
+        }}
+      />
+
+      <ServiceSection
+        id="tehotenske"
+        prefix="sluzby.tehotenske"
+        number="05"
+        defaults={{
+          img: 'https://format.creatorcdn.com/2ed32043-b515-4455-bb49-399bc9dcb3bf/0/0/0/0,0,2424,3650,1600,3650/0-0-0/72605f59-07d5-4cf7-a4dc-1102fb905c51/1/1/_DSC0107cb.jpg?fjkss=exp=2088681074~hmac=7ad23ece9e93b148e5817708a8f579689fc67819a6dd60cb67bdbc90bd35b52c',
+          imgAlt: 'Těhotenské focení',
+          title: 'Těhotenské <em>focení</em>',
+          text: 'Krásné období, které si zaslouží zachytit na fotografiích. Těhotenské focení je nejhezčí kolem 30.–36. týdne. Focení probíhá v ateliéru nebo v přírodě — podle toho, jak se cítíš a co máš ráda.',
+          pkg: [
+            { title: 'Krátké focení',     price: '2 500 Kč', desc: '• cca 45 min focení<br>• 10 ks upravených fotografií<br>• webová galerie<br>• dodání do 21 dnů' },
+            { title: 'Klasické focení',   price: '3 500 Kč', desc: '• cca 1 hod focení<br>• 20 ks upravených fotografií<br>• webová galerie<br>• možnost focení s partnerem<br>• dodání do 21 dnů' },
+            { title: 'Těhotenské Premium', price: '4 800 Kč', desc: '• cca 1,5 hod focení<br>• 30 ks upravených fotografií<br>• webová galerie<br>• ateliér i exteriér v jednom termínu<br>• dodání do 21 dnů' },
+          ],
+        }}
+      />
+
       {/* CO BY SE JESTE HODILO VEDET */}
       <section className="section section-brown" data-animate>
         <div className="container" style={{ maxWidth: '780px' }}>

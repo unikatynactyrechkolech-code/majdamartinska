@@ -62,6 +62,58 @@ const TEXT_COLORS = [
   { label: 'Šedá', value: '#888888' },
 ];
 
+// ---------- Cross-language style preservation ----------
+
+/**
+ * Extract the outer wrapper style from a piece of edited HTML.
+ *
+ * Our toolbar applies styling by wrapping the selection in
+ * `<span style="…">…</span>`. When the user selects ALL text and applies a
+ * font / color / weight / size, the stored Czech HTML therefore typically has
+ * the form `<span style="…">content</span>`. We grab that style attribute so
+ * we can re-apply the same visual to the English translation.
+ *
+ * Returns an empty string if the HTML doesn't have a single root wrapper
+ * (e.g. when only part of the text was styled). In that case we leave the
+ * English text untouched — partial styling is too fragile to mirror across
+ * different translations.
+ */
+function getOuterWrapperStyle(html: string): string {
+  if (!html) return '';
+  const match = html.match(/^\s*<span\b([^>]*)>([\s\S]*)<\/span>\s*$/i);
+  if (!match) return '';
+  // Make sure there is no second top-level span (i.e. a single root wrapper).
+  // A naive but cheap heuristic: the inner content shouldn't contain a
+  // matching `</span>` followed by more content.
+  const inner = match[2];
+  // If inner contains an unmatched closing </span> at top level, it's not a
+  // single wrapper — bail out.
+  let depth = 0;
+  const tagRe = /<\/?span\b[^>]*>/gi;
+  let m: RegExpExecArray | null;
+  while ((m = tagRe.exec(inner)) !== null) {
+    if (m[0].startsWith('</')) depth--; else depth++;
+    if (depth < 0) return '';
+  }
+  if (depth !== 0) return '';
+
+  const styleMatch = match[1].match(/style\s*=\s*"([^"]*)"/i);
+  return styleMatch ? styleMatch[1] : '';
+}
+
+/**
+ * Apply the Czech wrapper style to the English value when the English value
+ * doesn't already define its own wrapper. This keeps the visual consistent
+ * when the user switches languages — only the WORDING changes.
+ */
+function ensureWrapperStyle(en: string, cs: string): string {
+  const csStyle = getOuterWrapperStyle(cs);
+  if (!csStyle) return en;
+  // If the EN value already has its own outer wrapper style, respect it.
+  if (getOuterWrapperStyle(en)) return en;
+  return `<span style="${csStyle}">${en}</span>`;
+}
+
 // ---------- Selection helpers ----------
 
 /** Pomocna funkce: ulozi aktualni Range (pokud je v elRef) do refu.
@@ -432,8 +484,19 @@ export function EditableText({
   // In CS mode: use DB value or default
   const csValue = drafts[sectionId]?.value ?? defaultValue;
   const enDbValue = drafts[enSectionId]?.value;
+
+  // ── Style preservation across languages ─────────────────────────────────
+  // The user requested that visual styling (font, colour, weight, size…) which
+  // is applied to the Czech text should automatically apply to the English
+  // version too — without overwriting the actual translated wording.
+  //
+  // Our toolbar wraps a selection with <span style="…">. When the user wraps
+  // the WHOLE text, the resulting CS HTML looks like  `<span style="…">text</span>`.
+  // We extract that outer style and re-apply it around the English text so the
+  // visual stays consistent when the language is switched.
+  const enRawValue = enDbValue || t(defaultValue);
   const currentValue = lang === 'en'
-    ? (enDbValue || t(defaultValue))
+    ? ensureWrapperStyle(enRawValue, csValue)
     : csValue;
 
   // Sync innerHTML when value changes externally (e.g. DB load)
