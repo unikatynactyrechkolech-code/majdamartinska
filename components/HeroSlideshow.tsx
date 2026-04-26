@@ -4,25 +4,28 @@ import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 
 // Hero slideshow — fotky dodané klientkou (vyzvednifotky.majdamartinska.com)
+// Server poskytuje 2 velikosti: 800 px (náhled) a 2048 px (vysoká kvalita).
+// Pro hero používáme 2048 — Next.js Image to dál sám zmenší pro každý
+// device (sizes="50vw"), takže mobil nestáhne plnou velikost zbytečně.
 const slides = [
   {
-    src: 'https://vyzvednifotky.majdamartinska.com/image/800/upload/2101/album/261632/343172/2.jpg',
+    src: 'https://vyzvednifotky.majdamartinska.com/image/2048/upload/2101/album/261632/343172/2.jpg',
     alt: 'Focení Majda Martinská',
   },
   {
-    src: 'https://vyzvednifotky.majdamartinska.com/image/800/upload/2101/album/261632/343172/5.jpg',
+    src: 'https://vyzvednifotky.majdamartinska.com/image/2048/upload/2101/album/261632/343172/5.jpg',
     alt: 'Focení Majda Martinská',
   },
   {
-    src: 'https://vyzvednifotky.majdamartinska.com/image/800/upload/2101/album/261632/343172/6.jpg',
+    src: 'https://vyzvednifotky.majdamartinska.com/image/2048/upload/2101/album/261632/343172/6.jpg',
     alt: 'Focení Majda Martinská',
   },
   {
-    src: 'https://vyzvednifotky.majdamartinska.com/image/800/upload/2101/album/261632/343172/10.jpg',
+    src: 'https://vyzvednifotky.majdamartinska.com/image/2048/upload/2101/album/261632/343172/10.jpg',
     alt: 'Focení Majda Martinská',
   },
   {
-    src: 'https://vyzvednifotky.majdamartinska.com/image/800/upload/2101/album/261632/343172/7.jpg',
+    src: 'https://vyzvednifotky.majdamartinska.com/image/2048/upload/2101/album/261632/343172/7.jpg',
     alt: 'Focení Majda Martinská',
   },
 ];
@@ -59,7 +62,8 @@ export function HeroSlideshow() {
             src={slide.src}
             alt={slide.alt}
             fill
-            sizes="50vw"
+            sizes="(max-width: 768px) 100vw, 50vw"
+            quality={80}
             style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
             priority={index === 0}
           />
