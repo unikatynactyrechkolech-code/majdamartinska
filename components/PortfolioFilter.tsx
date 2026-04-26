@@ -102,6 +102,19 @@ export function PortfolioFilter({
   const [uploadSuccess, setUploadSuccess] = useState(false);
   const addSectionIdRef = useRef<string>('');
 
+  // — Drag & Drop reorder (admin) —
+  // Custom order is stored in admin drafts under `${sectionPrefix}.order` as a
+  // comma-separated list of sectionIds. Items not present in the list keep
+  // their original order at the END (so newly uploaded photos appear last).
+  const orderKey = `${sectionPrefix}.order`;
+  const { drafts: contentDrafts, setDraft: setContentDraft } = useAdmin();
+  const customOrder = useMemo<string[]>(() => {
+    const raw = contentDrafts[orderKey]?.value || '';
+    return raw.split(',').map((s) => s.trim()).filter(Boolean);
+  }, [contentDrafts, orderKey]);
+  const [draggingId, setDraggingId] = useState<string | null>(null);
+  const [dragOverId, setDragOverId] = useState<string | null>(null);
+
   // — Dynamicke kategorie z DB (kdyz je `page` zadana) —
   const [dbCats, setDbCats] = useState<GalleryCategory[]>([]);
   const reloadCats = useCallback(async () => {
@@ -198,9 +211,24 @@ export function PortfolioFilter({
     return items;
   }, [images, dbImages, deletedSectionIds, sectionPrefix, defaultCategory]);
 
+  const orderedItems = useMemo<GalleryItem[]>(() => {
+    if (customOrder.length === 0) return allItems;
+    const byId = new Map(allItems.map((it) => [it.sectionId, it]));
+    const out: GalleryItem[] = [];
+    const used = new Set<string>();
+    for (const id of customOrder) {
+      const it = byId.get(id);
+      if (it) { out.push(it); used.add(id); }
+    }
+    for (const it of allItems) {
+      if (!used.has(it.sectionId)) out.push(it);
+    }
+    return out;
+  }, [allItems, customOrder]);
+
   const filtered = useMemo(
-    () => (active === 'all' ? allItems : allItems.filter(img => img.category === active)),
-    [active, allItems]
+    () => (active === 'all' ? orderedItems : orderedItems.filter(img => img.category === active)),
+    [active, orderedItems]
   );
 
   const visible = filtered.slice(0, visibleCount);
@@ -374,6 +402,57 @@ export function PortfolioFilter({
   const firstNonAll = effectiveFilters.find(f => f.key !== 'all')?.key || 'rodinna';
   const addCategory = active === 'all' ? (defaultCategory || firstNonAll) : active;
 
+  // \u2014 Drag & drop reorder helpers (admin only) \u2014
+  // Strategy: when dragging item A over item B, we move A to B's index in the
+  // current `orderedItems` (NOT just within the filtered view) so reordering
+  // works the same way no matter which filter is active. Persist to DB on drop.
+  const persistOrder = useCallback(async (next: GalleryItem[]) => {
+    const ids = next.map((it) => it.sectionId);
+    const value = ids.join(',');
+    setContentDraft(orderKey, value);
+    try {
+      const { saveDrafts, publishChanges } = await import('@/app/actions/content');
+      await saveDrafts([{ section_id: orderKey, draft_text: value }]);
+      await publishChanges([orderKey]);
+    } catch (err) {
+      console.error('persistOrder failed', err);
+    }
+  }, [orderKey, setContentDraft]);
+
+  const handleDragStart = (id: string) => (e: React.DragEvent) => {
+    if (!isAdmin) return;
+    setDraggingId(id);
+    e.dataTransfer.effectAllowed = 'move';
+    try { e.dataTransfer.setData('text/plain', id); } catch {}
+  };
+  const handleDragOver = (id: string) => (e: React.DragEvent) => {
+    if (!isAdmin || !draggingId) return;
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'move';
+    if (id !== dragOverId) setDragOverId(id);
+  };
+  const handleDragLeave = (id: string) => () => {
+    if (dragOverId === id) setDragOverId(null);
+  };
+  const handleDrop = (targetId: string) => (e: React.DragEvent) => {
+    if (!isAdmin || !draggingId) return;
+    e.preventDefault();
+    if (draggingId === targetId) {
+      setDraggingId(null); setDragOverId(null); return;
+    }
+    const next = [...orderedItems];
+    const fromIdx = next.findIndex((it) => it.sectionId === draggingId);
+    const toIdx   = next.findIndex((it) => it.sectionId === targetId);
+    if (fromIdx === -1 || toIdx === -1) {
+      setDraggingId(null); setDragOverId(null); return;
+    }
+    const [moved] = next.splice(fromIdx, 1);
+    next.splice(toIdx, 0, moved);
+    setDraggingId(null); setDragOverId(null);
+    persistOrder(next);
+  };
+  const handleDragEnd = () => { setDraggingId(null); setDragOverId(null); };
+
   return (
     <>
       {isAdmin && page && (
@@ -399,10 +478,16 @@ export function PortfolioFilter({
       <div className="portfolio-masonry">
         {visible.map((img, i) => (
           <div
-            className={`portfolio-item ${isAdmin ? 'portfolio-item-admin' : ''}`}
+            className={`portfolio-item ${isAdmin ? 'portfolio-item-admin' : ''} ${draggingId === img.sectionId ? 'is-dragging' : ''} ${dragOverId === img.sectionId && draggingId && draggingId !== img.sectionId ? 'is-drag-over' : ''}`}
             key={img.sectionId}
             onClick={() => handleItemClick(i)}
             onContextMenu={(e) => handleItemContextMenu(i, e)}
+            draggable={isAdmin}
+            onDragStart={handleDragStart(img.sectionId)}
+            onDragOver={handleDragOver(img.sectionId)}
+            onDragLeave={handleDragLeave(img.sectionId)}
+            onDrop={handleDrop(img.sectionId)}
+            onDragEnd={handleDragEnd}
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -410,12 +495,16 @@ export function PortfolioFilter({
               alt={img.alt}
               loading="lazy"
               decoding="async"
-              style={{ width: '100%', height: 'auto', display: 'block', cursor: 'pointer' }}
+              draggable={false}
+              style={{ width: '100%', height: 'auto', display: 'block', cursor: isAdmin ? 'grab' : 'pointer' }}
             />
             {isAdmin && (
-              <div className="portfolio-item-overlay">
-                <span>📷 Pravý klik</span>
-              </div>
+              <>
+                <div className="portfolio-item-overlay">
+                  <span>📷 Pravý klik · ✋ Táhni</span>
+                </div>
+                <div className="portfolio-item-drag-handle" title="Přetáhni pro změnu pořadí">⋮⋮</div>
+              </>
             )}
           </div>
         ))}

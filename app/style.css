@@ -6109,3 +6109,62 @@ body:has(.cms-toolbar) .page-hero {
     .circle-scroll-add  { width: 140px; }
     .circle-scroll-caption { font-size: 0.95rem; }
 }
+
+/* ========================================
+   PORTFOLIO — DRAG & DROP REORDER (admin)
+   ======================================== */
+
+/* Plynulý ("magnetický") přechod položek mezi pozicemi */
+.portfolio-item {
+    transition: transform 0.28s cubic-bezier(0.2, 0.9, 0.2, 1),
+                box-shadow 0.28s ease,
+                opacity 0.2s ease;
+}
+
+/* Aktuálně tažená položka — poloprůhledná a mírně zvětšená */
+.portfolio-item.is-dragging {
+    opacity: 0.45;
+    transform: scale(0.96);
+    cursor: grabbing !important;
+    z-index: 5;
+}
+
+/* Cíl, na který položku přetahujeme — uskočí stranou ("magnet") */
+.portfolio-item.is-drag-over {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(60, 40, 20, 0.25),
+                0 0 0 3px #c5a47e;
+}
+
+/* Drag handle viditelný jen pro admina v rohu */
+.portfolio-item-drag-handle {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.55);
+    color: #fff;
+    font-size: 0.95rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: grab;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    z-index: 4;
+    pointer-events: none; /* drag se děje na celé položce, handle je jen vizuál */
+    user-select: none;
+}
+.portfolio-item-admin:hover .portfolio-item-drag-handle {
+    opacity: 1;
+}
+.portfolio-item-admin {
+    cursor: grab;
+}
+.portfolio-item-admin.is-dragging,
+.portfolio-item-admin:active {
+    cursor: grabbing;
+}

@@ -13,6 +13,11 @@ const nextConfig = {
         hostname: 'res.cloudinary.com',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'vyzvednifotky.majdamartinska.com',
+        pathname: '/**',
+      },
     ],
   },
   // Allow larger payloads for image uploads via Server Actions
