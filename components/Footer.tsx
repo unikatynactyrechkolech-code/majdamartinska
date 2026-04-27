@@ -39,7 +39,7 @@ export function Footer() {
               <li><Link href="/o-mne"><EditableText sectionId="footer.nav.omne" defaultValue="Kdo jsem" as="span" /></Link></li>
               <li><Link href="/recenze"><EditableText sectionId="footer.nav.recenze" defaultValue="Recenze" as="span" /></Link></li>
               <li><Link href="/blog"><EditableText sectionId="footer.nav.blog" defaultValue="Blog" as="span" /></Link></li>
-              <li><Link href="/vyzvedni-fotky"><EditableText sectionId="footer.nav.vyzvedni" defaultValue="Vyzvedni fotky" as="span" /></Link></li>
+              <li><a href="https://vyzvednifotky.majdamartinska.com/" target="_blank" rel="noopener noreferrer"><EditableText sectionId="footer.nav.vyzvedni" defaultValue="Vyzvedni fotky" as="span" /></a></li>
               <li><Link href="/kontakt"><EditableText sectionId="footer.nav.kontakt" defaultValue="Kontakt" as="span" /></Link></li>
             </ul>
           </div>

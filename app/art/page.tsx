@@ -43,6 +43,7 @@ export default function ArtPage() {
             sectionPrefix="art.gallery"
             defaultCategory="paralela"
             page="art"
+            showTitles
           />
         </div>
       </section>

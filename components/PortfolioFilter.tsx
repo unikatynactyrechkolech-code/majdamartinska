@@ -42,7 +42,6 @@ const defaultFilters: PortfolioFilterDef[] = [
   { key: 'portret', sectionId: 'portfolio.filter.portret', label: 'Portréty' },
   { key: 'tehotenske', sectionId: 'portfolio.filter.tehotenske', label: 'Těhotenské' },
   { key: 'barevne', sectionId: 'portfolio.filter.barevne', label: 'Barevné focení' },
-  { key: 'art', sectionId: 'portfolio.filter.art', label: 'Art' },
 ];
 
 const categoryAltMap: Record<string, string> = {
@@ -83,6 +82,7 @@ export function PortfolioFilter({
   sectionPrefix = 'portfolio.gallery',
   defaultCategory,
   page,
+  showTitles = false,
 }: {
   images: PortfolioImage[];
   filters?: PortfolioFilterDef[];
@@ -92,6 +92,9 @@ export function PortfolioFilter({
   /** Pokud je zadáno (např. 'portfolio' / 'art'), filtry se načtou z DB
    *  tabulky gallery_categories a Majda je může spravovat z UI. */
   page?: string;
+  /** Pokud true, u každé fotky se zobrazí editovatelný název (admin) /
+   *  popisek (veřejně). Použito např. pro /art kde jsou názvy podstatné. */
+  showTitles?: boolean;
 }) {
   const { isAdmin, images: dbImages, setImage } = useAdmin();
   const [active, setActive] = useState('all');
@@ -506,6 +509,15 @@ export function PortfolioFilter({
                 <div className="portfolio-item-drag-handle" title="Přetáhni pro změnu pořadí">⋮⋮</div>
               </>
             )}
+            {showTitles && (
+              <div className="portfolio-item-title" onClick={(e) => e.stopPropagation()}>
+                <EditableText
+                  sectionId={`${img.sectionId}.title`}
+                  defaultValue={isAdmin ? '✎ Klikni a napiš název' : ''}
+                  as="span"
+                />
+              </div>
+            )}
           </div>
         ))}
 
@@ -581,6 +593,15 @@ export function PortfolioFilter({
           <div className="lightbox-counter">
             {lightbox + 1} / {filtered.length}
           </div>
+          {showTitles && (
+            <div className="lightbox-title" onClick={(e) => e.stopPropagation()}>
+              <EditableText
+                sectionId={`${filtered[lightbox].sectionId}.title`}
+                defaultValue={isAdmin ? '✎ Klikni a napiš název' : ''}
+                as="span"
+              />
+            </div>
+          )}
         </div>,
         document.body
       )}

@@ -6,7 +6,13 @@ import Link from 'next/link';
 import { EditableText } from '@/components/EditableText';
 import { useLang } from '@/contexts/LanguageContext';
 
-const navItems = [
+const navItems: Array<{
+  href: string;
+  sectionId: string;
+  label: string;
+  labelEn: string;
+  external?: boolean;
+}> = [
   { href: '/', sectionId: 'nav.item.uvod', label: 'Úvod', labelEn: 'Home' },
   { href: '/portfolio', sectionId: 'nav.item.portfolio', label: 'Portfolio', labelEn: 'Portfolio' },
   { href: '/art', sectionId: 'nav.item.art', label: 'Art', labelEn: 'Art' },
@@ -14,7 +20,7 @@ const navItems = [
   { href: '/o-mne', sectionId: 'nav.item.omne', label: 'Kdo jsem', labelEn: 'About' },
   { href: '/recenze', sectionId: 'nav.item.recenze', label: 'Recenze', labelEn: 'Reviews' },
   { href: '/blog', sectionId: 'nav.item.blog', label: 'Blog', labelEn: 'Blog' },
-  { href: '/vyzvedni-fotky', sectionId: 'nav.item.vyzvedni', label: 'Vyzvedni fotky', labelEn: 'Pick up photos' },
+  { href: 'https://vyzvednifotky.majdamartinska.com/', sectionId: 'nav.item.vyzvedni', label: 'Vyzvedni fotky', labelEn: 'Pick up photos', external: true },
   { href: '/kontakt', sectionId: 'nav.item.kontakt', label: 'Kontakt', labelEn: 'Contact' },
 ];
 
@@ -65,16 +71,30 @@ export function Navigation() {
       <ul className={`nav-menu ${menuOpen ? 'open' : ''}`}>
         {navItems.map(item => (
           <li key={item.href}>
-            <Link
-              href={item.href}
-              className={pathname === item.href ? 'active' : ''}
-              onClick={() => {
-                setMenuOpen(false);
-                document.body.style.overflow = '';
-              }}
-            >
-              <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
-            </Link>
+            {item.external ? (
+              <a
+                href={item.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => {
+                  setMenuOpen(false);
+                  document.body.style.overflow = '';
+                }}
+              >
+                <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
+              </a>
+            ) : (
+              <Link
+                href={item.href}
+                className={pathname === item.href ? 'active' : ''}
+                onClick={() => {
+                  setMenuOpen(false);
+                  document.body.style.overflow = '';
+                }}
+              >
+                <EditableText sectionId={item.sectionId} defaultValue={item.label} as="span" />
+              </Link>
+            )}
           </li>
         ))}
         <li className="nav-lang-item">

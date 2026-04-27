@@ -4,6 +4,17 @@ import type { Metadata } from 'next';
 import { parseCanvas } from '@/lib/canvas';
 import { BlogCanvasView } from '@/components/BlogCanvasView';
 
+/** Cloudinary cover — dodáme transformaci `f_auto,q_auto:best,w_2400,c_limit`
+ *  aby hero obrázek byl ostrý i na velkých monitorech bez upscalu. */
+function coverUrl(src: string): string {
+  if (!src) return src;
+  if (src.includes('res.cloudinary.com') && src.includes('/upload/')) {
+    if (/\/upload\/[^/]*[wq]_[^/]*\//.test(src)) return src;
+    return src.replace('/upload/', '/upload/f_auto,q_auto:best,w_2400,c_limit/');
+  }
+  return src;
+}
+
 // ============================================================
 // /blog/[slug] — veřejná stránka jednoho článku
 // Dynamická stránka — nově publikované články fungují ihned
@@ -56,7 +67,7 @@ export default async function BlogPostPage({ params }: Props) {
       {post.cover_image && (
         <div className="blog-post-hero">
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img src={post.cover_image} alt={post.title} />
+          <img src={coverUrl(post.cover_image)} alt={post.title} />
           <div className="blog-post-hero-overlay" />
         </div>
       )}

@@ -58,12 +58,15 @@ export function HeroSlideshow() {
             isTransitioning && index === (current + 1) % slides.length ? 'fading-in' : ''
           }`}
         >
+          {/* `unoptimized` — Next.js by jinak fotku znovu zakomprimoval na quality 75
+               a kvalita znatelně klesla. Server poskytuje hotový 2048×1366 JPEG (~270 kB),
+               který už je ostrý a slušně komprimovaný — pouštíme ho do prohlížeče přímo. */}
           <Image
             src={slide.src}
             alt={slide.alt}
             fill
-            sizes="(max-width: 768px) 100vw, 50vw"
-            quality={80}
+            sizes="(max-width: 768px) 100vw, 70vw"
+            unoptimized
             style={{ objectFit: 'cover', objectPosition: 'center 30%' }}
             priority={index === 0}
           />

@@ -8,6 +8,19 @@ import { useAdmin } from '@/contexts/AdminContext';
 import { useLang } from '@/contexts/LanguageContext';
 import type { BlogPost } from '@/app/actions/blog';
 
+/** Pro Cloudinary obrázky vložíme transformaci `f_auto,q_auto:best`,
+ *  aby se cover fotky nedoručovaly v originální kvalitě (= zbytečně velké)
+ *  ani v default eco komprimaci (= rozpixelované), ale v ostré kvalitě
+ *  s nejlepším formátem (AVIF/WebP) podle prohlížeče. */
+function coverUrl(src: string): string {
+  if (!src) return src;
+  if (src.includes('res.cloudinary.com') && src.includes('/upload/')) {
+    if (/\/upload\/[^/]*[wq]_[^/]*\//.test(src)) return src;
+    return src.replace('/upload/', '/upload/f_auto,q_auto:best,w_1600,c_limit/');
+  }
+  return src;
+}
+
 export default function BlogPage() {
   const { isAdmin } = useAdmin();
   const { t, lang } = useLang();
@@ -80,7 +93,7 @@ export default function BlogPage() {
                   {post.cover_image && (
                     <div className="blog-card-img">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={post.cover_image} alt={post.title} loading="lazy" />
+                      <img src={coverUrl(post.cover_image)} alt={post.title} loading="lazy" />
                     </div>
                   )}
                   <div className="blog-card-body">
