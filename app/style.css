@@ -6207,3 +6207,67 @@ body:has(.cms-toolbar) .page-hero {
 .lightbox-title:empty {
     display: none;
 }
+
+/* ========================================
+   Portfolio / Art — admin: skrýt kategorii (✕) + restore strip
+   ======================================== */
+.portfolio-filter button {
+    position: relative;
+}
+.portfolio-filter-remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    margin-left: 0.4rem;
+    border-radius: 50%;
+    background: rgba(192, 57, 43, 0.15);
+    color: #c0392b;
+    font-size: 0.75rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: background 0.18s, transform 0.18s;
+    opacity: 0;
+}
+.portfolio-filter button:hover .portfolio-filter-remove,
+.portfolio-filter button.active .portfolio-filter-remove {
+    opacity: 1;
+}
+.portfolio-filter-remove:hover {
+    background: #c0392b;
+    color: #fff;
+    transform: scale(1.15);
+}
+
+.portfolio-filter-hidden {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 1rem;
+    padding: 0.6rem 0.8rem;
+    background: rgba(197, 164, 126, 0.08);
+    border: 1px dashed #c5a47e;
+    border-radius: 0.5rem;
+    font-size: 0.85rem;
+}
+.portfolio-filter-hidden-label {
+    color: #5a4a3a;
+    font-weight: 500;
+    margin-right: 0.3rem;
+}
+.portfolio-filter-hidden-btn {
+    background: #fff;
+    border: 1px solid #c5a47e;
+    color: #5a4a3a;
+    padding: 0.3rem 0.7rem;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: background 0.18s, color 0.18s;
+}
+.portfolio-filter-hidden-btn:hover {
+    background: #c5a47e;
+    color: #fff;
+}

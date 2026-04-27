@@ -110,11 +110,16 @@ export function PortfolioFilter({
   // comma-separated list of sectionIds. Items not present in the list keep
   // their original order at the END (so newly uploaded photos appear last).
   const orderKey = `${sectionPrefix}.order`;
+  const hiddenKey = `${sectionPrefix}.hiddenFilters`;
   const { drafts: contentDrafts, setDraft: setContentDraft } = useAdmin();
   const customOrder = useMemo<string[]>(() => {
     const raw = contentDrafts[orderKey]?.value || '';
     return raw.split(',').map((s) => s.trim()).filter(Boolean);
   }, [contentDrafts, orderKey]);
+  const hiddenFilterKeys = useMemo<Set<string>>(() => {
+    const raw = contentDrafts[hiddenKey]?.value || '';
+    return new Set(raw.split(',').map((s) => s.trim()).filter(Boolean));
+  }, [contentDrafts, hiddenKey]);
   const [draggingId, setDraggingId] = useState<string | null>(null);
   const [dragOverId, setDragOverId] = useState<string | null>(null);
 
@@ -135,7 +140,7 @@ export function PortfolioFilter({
   // Merge: ZACHOVAME vsechny hardcoded `filters` (Vse + puvodni kategorie)
   // a pripojime DB kategorie ktere jeste neexistuji (podle key).
   // Diky tomu pridani nove DB kategorie nikdy nesmaze stavajici filtry.
-  const effectiveFilters: PortfolioFilterDef[] = useMemo(() => {
+  const allFiltersUnfiltered: PortfolioFilterDef[] = useMemo(() => {
     if (!page || dbCats.length === 0) return filters;
     const existingKeys = new Set(filters.map((f) => f.key));
     const extras: PortfolioFilterDef[] = dbCats
@@ -147,6 +152,17 @@ export function PortfolioFilter({
       }));
     return [...filters, ...extras];
   }, [page, dbCats, filters, sectionPrefix]);
+
+  // Po skrytí adminátorem (klik na ✕ u tlačítka filtru) se kategorie nezobrazí.
+  // Skryté kategorie může admin obnovit ze sekce "Skryté kategorie" pod filtrem.
+  const effectiveFilters: PortfolioFilterDef[] = useMemo(
+    () => allFiltersUnfiltered.filter((f) => f.key === 'all' || !hiddenFilterKeys.has(f.key)),
+    [allFiltersUnfiltered, hiddenFilterKeys]
+  );
+  const hiddenFiltersList: PortfolioFilterDef[] = useMemo(
+    () => allFiltersUnfiltered.filter((f) => f.key !== 'all' && hiddenFilterKeys.has(f.key)),
+    [allFiltersUnfiltered, hiddenFilterKeys]
+  );
 
   // Read URL hash on mount (e.g. /portfolio#rodinna → auto-select filter)
   useEffect(() => {
@@ -456,6 +472,31 @@ export function PortfolioFilter({
   };
   const handleDragEnd = () => { setDraggingId(null); setDragOverId(null); };
 
+  // — Skrývání / obnova kategorií (admin) —
+  const persistHiddenFilters = useCallback(async (next: Set<string>) => {
+    const value = Array.from(next).join(',');
+    setContentDraft(hiddenKey, value);
+    try {
+      const { saveDrafts, publishChanges } = await import('@/app/actions/content');
+      await saveDrafts([{ section_id: hiddenKey, draft_text: value }]);
+      await publishChanges([hiddenKey]);
+    } catch (err) {
+      console.error('persistHiddenFilters failed', err);
+    }
+  }, [hiddenKey, setContentDraft]);
+  const hideFilter = (key: string) => {
+    if (key === 'all') return;
+    const next = new Set(hiddenFilterKeys);
+    next.add(key);
+    if (active === key) setActive('all');
+    persistHiddenFilters(next);
+  };
+  const restoreFilter = (key: string) => {
+    const next = new Set(hiddenFilterKeys);
+    next.delete(key);
+    persistHiddenFilters(next);
+  };
+
   return (
     <>
       {isAdmin && page && (
@@ -474,9 +515,40 @@ export function PortfolioFilter({
                 {getCategoryCount(f.key)}
               </span>
             )}
+            {isAdmin && f.key !== 'all' && (
+              <span
+                className="portfolio-filter-remove"
+                title={`Skrýt kategorii „${f.label}“ (můžeš ji pak obnovit)`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (window.confirm(`Skrýt kategorii „${f.label}“ z filtru?\n\nFotky v ní se nesmažou — jen zmizí tlačítko. Můžeš ji kdykoli obnovit ze sekce „Skryté kategorie“ pod filtrem.`)) {
+                    hideFilter(f.key);
+                  }
+                }}
+              >
+                ✕
+              </span>
+            )}
           </button>
         ))}
       </div>
+
+      {isAdmin && hiddenFiltersList.length > 0 && (
+        <div className="portfolio-filter-hidden">
+          <span className="portfolio-filter-hidden-label">👁 Skryté kategorie (klikni pro obnovení):</span>
+          {hiddenFiltersList.map((f) => (
+            <button
+              key={f.key}
+              type="button"
+              className="portfolio-filter-hidden-btn"
+              onClick={() => restoreFilter(f.key)}
+              title="Obnovit"
+            >
+              ↩ {f.label}
+            </button>
+          ))}
+        </div>
+      )}
 
       <div className="portfolio-masonry">
         {visible.map((img, i) => (
